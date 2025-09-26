@@ -20,6 +20,7 @@ import { Category } from '@pages/Category';
 import { NowPlaying } from '@pages/NowPlaying';
 // Other pages
 import { ShowToastAlert } from '@components/UI/ToastAlerts';
+import { PWAInstallPrompt } from '@components/UI/PWAInstallPrompt';
 import { NotFound } from '@pages/_404';
 import { TestPage } from '@/pages/TestPage';
 // Default style sheet
@@ -68,21 +69,22 @@ export function App() {
 
   // Render the app when not switching playlists
   return (
-      <main>
-        <Router>
-          {/* Front-end */}
-          <Route path="/" component={HomeRoute} exact />
-          <Route path="/recent" component={RecentRoute} />
-          <Route path="/category/:name" component={CategoryRoute} />
-          <Route path="/search" component={SearchRoute} />
-          <Route path="/favorites" component={FavoritesRoute} />
-          <Route path="/help" component={HelpRoute} />
-          <Route path="/nowplaying" component={NowPlayingRoute} />
-          {/* Other routes */}
-          <Route path="/test" component={TestPageRoute} />
-          <Route default component={NotFoundRoute} />
-        </Router>
-        <ShowToastAlert />
-      </main>
+    <main>
+      <PWAInstallPrompt />
+      <Router>
+        {/* Front-end */}
+        <Route path="/" component={HomeRoute} exact />
+        <Route path="/recent" component={RecentRoute} />
+        <Route path="/category/:name" component={CategoryRoute} />
+        <Route path="/search" component={SearchRoute} />
+        <Route path="/favorites" component={FavoritesRoute} />
+        <Route path="/help" component={HelpRoute} />
+        <Route path="/nowplaying" component={NowPlayingRoute} />
+        {/* Other routes */}
+        <Route path="/test" component={TestPageRoute} />
+        <Route default component={NotFoundRoute} />
+      </Router>
+      <ShowToastAlert />
+    </main>
   );
 }

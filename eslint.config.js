@@ -42,4 +42,20 @@ export default [
       },
     },
   },
+  // Service worker override for ESLint
+  {
+    files: ['public/service-worker.js'],
+    languageOptions: {
+      globals: {
+        self: 'readonly',
+        caches: 'readonly',
+        clients: 'readonly',
+        fetch: 'readonly',
+        // Add more service worker globals if needed
+      },
+    },
+    env: {
+      serviceworker: true,
+    },
+  },
 ];

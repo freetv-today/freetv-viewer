@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'preact/hooks';
 import { useLocation } from 'preact-iso';
+import { triggerToast } from '@/signals/toastSignal';
 import { ConfigProvider } from '@/context/ConfigContext';
 import { PlaylistProvider } from '@/context/PlaylistContext';
 import { VisitDataProvider } from '@/context/VisitDataContext';
@@ -14,7 +15,6 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 export function AppLoader() {
 
     const url = 'https://freetv.today';
-
     const infoFile = `${url}/assets/app.nfo`;
     const configFile = `${url}/config.json`;
     const minLoadingTime = 1200;  // show spinner for 1.2 seconds (minimum)
@@ -23,6 +23,25 @@ export function AppLoader() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        // Listen for service worker update messages
+        if ('serviceWorker' in navigator && navigator.serviceWorker) {
+            navigator.serviceWorker.addEventListener('message', event => {
+                if (event.data && event.data.type === 'DATA_UPDATE_AVAILABLE') {
+                    console.log('[AppLoader] Received DATA_UPDATE_AVAILABLE from service worker', { loading, pathname: window.location.pathname });
+                }
+                if (
+                    event.data &&
+                    event.data.type === 'DATA_UPDATE_AVAILABLE' &&
+                    !loading // Only show toast after initial load
+                ) {
+                    if (window.location.pathname !== '/nowplaying') {
+                        triggerToast('New data is available! The playlist or settings have changed.', 'info');
+                        // Optionally, reload or trigger update logic here
+                        // window.location.reload();
+                    }
+                }
+            });
+        }
         async function loadConfig() {
 
             // Storage check
