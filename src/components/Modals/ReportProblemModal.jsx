@@ -18,6 +18,8 @@ import { capitalizeFirstLetter } from '@/utils';
  */
 
 export function ReportProblemModal({ show, onClose, title, category, identifier, desc, start, end, imdb, playlist }) {
+  
+  const url = 'https://freetv.today';
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
@@ -27,7 +29,7 @@ export function ReportProblemModal({ show, onClose, title, category, identifier,
   useEffect(() => {
     if (imdb) {
       const img = new window.Image();
-      img.src = `/thumbs/${imdb}.jpg`;
+      img.src = `${url}/thumbs/${imdb}.jpg`;
       img.onload = () => setThumbnailSrc(img.src);
       img.onerror = () => setThumbnailSrc('/assets/vintage-tv.png');
     } else {
@@ -51,7 +53,7 @@ export function ReportProblemModal({ show, onClose, title, category, identifier,
     setSubmitting(true);
     setError(null);
     try {
-      const response = await fetch('/api/report-problem.php', {
+      const response = await fetch(`${url}/api/report-problem.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, category, identifier, desc, start, end, imdb, playlist })
@@ -60,7 +62,7 @@ export function ReportProblemModal({ show, onClose, title, category, identifier,
       try {
         data = await response.json();
       } catch (err) {
-        // fallback: generic error
+        console.error(`There was a problem: ${err.message}`);
       }
       if (response.status === 429) {
         setError(data && data.message ? data.message : 'You are submitting problem reports too quickly. Please wait awhile before attempting to report another show title.');

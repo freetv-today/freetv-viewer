@@ -13,17 +13,16 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 // Loads config and show data from JSON then loads App and shows default page
 export function AppLoader() {
 
-    const infoFile = '/assets/app.nfo';
-    const configFile = '/config.json';
-    const minLoadingTime = 1200;  // show spinner for 1.2 seconds (minimum)
+    const url = 'https://freetv.today';
 
+    const infoFile = `${url}/assets/app.nfo`;
+    const configFile = `${url}/config.json`;
+    const minLoadingTime = 1200;  // show spinner for 1.2 seconds (minimum)
     const [config, setConfig] = useLocalStorage('configData', null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const location = useLocation();
 
     useEffect(() => {
-
         async function loadConfig() {
 
             // Storage check
@@ -107,15 +106,9 @@ export function AppLoader() {
         loadConfig();
     }, []);
 
-    // Only show OfflinePage if not on admin/dashboard routes
-    const isAdminRoute = location && (
-        location.url.startsWith('/admin') ||
-        location.url.startsWith('/dashboard')
-    );
-
     if (loading) return <SpinnerLoadingAppData />;
     if (error) return <ErrorPage type={error.type} message={error.message} />;
-    if (config && config.offline && !isAdminRoute) return <OfflinePage />;
+    if (config && config.offline) return <OfflinePage />;
 
     return (
         <ConfigProvider config={config}>
