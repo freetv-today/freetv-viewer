@@ -7,7 +7,6 @@ import { handleKeyPress } from '@/utils';
 import { LayoutDefault } from '@components/Layouts/LayoutDefault';
 import { LayoutSubnav } from '@components/Layouts/LayoutSubnav';
 import { LayoutFullpage } from '@components/Layouts/LayoutFullpage';
-import { LayoutFullpageBlank } from '@components/Layouts/LayoutFullpageBlank';
 import { LayoutSearch } from '@components/Layouts/LayoutSearch';
 import { LayoutVidviewer } from '@components/Layouts/LayoutVidviewer';
 // Front-end pages
@@ -22,7 +21,6 @@ import { NowPlaying } from '@pages/NowPlaying';
 import { ShowToastAlert } from '@components/UI/ToastAlerts';
 import { PWAInstallPrompt } from '@components/UI/PWAInstallPrompt';
 import { NotFound } from '@pages/_404';
-import { TestPage } from '@/pages/TestPage';
 // Default style sheet
 import '@/style.css';
 
@@ -36,8 +34,6 @@ const SearchRoute = () => <LayoutSearch><Search /></LayoutSearch>;
 const FavoritesRoute = () => <LayoutSubnav><Favorites /></LayoutSubnav>;
 const HelpRoute = () => <LayoutFullpage><Help /></LayoutFullpage>;
 const NowPlayingRoute = () => <LayoutVidviewer><NowPlaying /></LayoutVidviewer>;
-// Other routes
-const TestPageRoute = () => <LayoutFullpageBlank><TestPage /></LayoutFullpageBlank>;
 const NotFoundRoute = () => <LayoutFullpage><NotFound /></LayoutFullpage>;
 
 export function App() {
@@ -81,7 +77,6 @@ export function App() {
         <Route path="/help" component={HelpRoute} />
         <Route path="/nowplaying" component={NowPlayingRoute} />
         {/* Other routes */}
-        <Route path="/test" component={TestPageRoute} />
         <Route default component={NotFoundRoute} />
       </Router>
       <ShowToastAlert />

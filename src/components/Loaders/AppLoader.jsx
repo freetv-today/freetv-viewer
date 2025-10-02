@@ -65,15 +65,38 @@ export function AppLoader() {
             try {
 
                 // Fetch config data
+                console.log('[AppLoader] Fetching config file:', configFile);
                 const response = await fetch(configFile);
-                if (!response.ok) throw new Error('Failed to fetch config file');
-                fetchedConfig = await response.json();
+                if (!response.ok) {
+                    console.error('[AppLoader] Config fetch failed:', response.status, response.statusText);
+                    throw new Error(`Failed to fetch config file: ${response.status} ${response.statusText}`);
+                }
+                
+                try {
+                    fetchedConfig = await response.json();
+                    console.log('[AppLoader] Config file loaded successfully');
+                } catch (jsonError) {
+                    console.error('[AppLoader] Config JSON parse error:', jsonError);
+                    throw new Error('Config file contains invalid JSON');
+                }
                 
                 // Fetch app info data
                 let fetchedInfo = null
+                console.log('[AppLoader] Fetching app info file:', infoFile);
                 const appinfo = await fetch(infoFile);
-                if (!appinfo.ok) throw new Error('Failed to fetch app info');
-                fetchedInfo = await appinfo.json();
+                if (!appinfo.ok) {
+                    console.error('[AppLoader] App info fetch failed:', appinfo.status, appinfo.statusText);
+                    throw new Error(`Failed to fetch app info file: ${appinfo.status} ${appinfo.statusText}`);
+                }
+                
+                try {
+                    fetchedInfo = await appinfo.json();
+                    console.log('[AppLoader] App info file loaded successfully');
+                } catch (jsonError) {
+                    console.error('[AppLoader] App info JSON parse error:', jsonError);
+                    throw new Error('App info file contains invalid JSON');
+                }
+                
                 localStorage.setItem('appInfo', JSON.stringify(fetchedInfo));  
 
                 // If no config in storage or config is outdated, update it
@@ -103,13 +126,18 @@ export function AppLoader() {
                         }
                     }
                 }
-            } catch {
+            } catch (error) {
+                // Log the specific error for developers
+                console.error('[AppLoader] Configuration loading failed:', error.message);
+                console.error('[AppLoader] Full error details:', error);
+                
+                // User-friendly message (same as before)
                 let msg = 'Unable to load configuration file. Please try again. If the problem persists, contact: support@freetv.today.';
                 setError({
                     type: 'Configuration Error',
                     message: msg,
                 });
-                console.error(msg);
+                console.error('[AppLoader] User shown error:', msg);
                 setLoading(false);
                 return;
             }
