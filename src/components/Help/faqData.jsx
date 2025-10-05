@@ -91,7 +91,7 @@ export const faqItems = [
     title: 'How can I contact you about Free TV?',
     content: (
       <>
-        <p>If you are trying to contact me about removing shows from the list, please note that I do not host any of this content. I can prevent a show from appearing in the Free TV list but, since I don't host the files, I cannot remove them from the server. If you're trying to make a DMCA or copyright claim about a TV show, please direct it to the <a href="https://archive.org/about/terms.php" target="_blank">Internet Archive</a>:</p>
+        <p>If you are trying to contact us about removing shows from the list, please note that we do not host this content. We can prevent a show from appearing in the Free TV list but, since we don't host the files, we can't remove them from the server. If you're trying to make a DMCA or copyright claim about a TV show, please direct it to the <a href="https://archive.org/about/terms.php" target="_blank">Internet Archive</a>:</p>
         <p class="my-4 font-monospace">
           Internet Archive<br/>
           300 Funston Ave.<br/>
@@ -99,8 +99,8 @@ export const faqItems = [
           Phone: 415-561-6767<br/>
           Email: info@archive.org<br/>
         </p>
-        <p>Otherwise, if you want to request new features or shows, or tell us about typos, or bugs, or ask questions, you can send us an email:</p>
-        <p><a href="mailto:support@freetv.today" className="font-monospace fw-bold">support@freetv.today</a></p>
+        <p>Otherwise, if you want to request new features or shows, or tell us about typos, or bugs, or ask questions, you can send us email:</p>
+        <p><a href="mailto:support@freetv.today?subject=Free TV Feedback" className="font-monospace fw-bold">support@freetv.today</a></p>
       </>
     )
   }        
