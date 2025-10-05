@@ -9,6 +9,7 @@ import { useCategories } from '@/hooks/useCategories';
 import { NotFound } from '@pages/_404';
 
 export function Category() {
+
   const { params } = useRoute(); // useRoute for dynamic route params
   const category = params.name;
   const log = useDebugLog();
@@ -35,13 +36,13 @@ export function Category() {
           <ShowListSidebar context="category" category={category} />
         </section>
         <section className="flex-fill bg-white p-2 border rounded text-center order-1 order-lg-2">
-          <AdBar />
           <HeaderBlock
             img="/assets/freetv.png"
             heading={category}
             desc="Click on a show title button to watch some Free TV."
             alt="Free TV"
           />
+          <AdBar />
         </section>
       </div>
     </div>

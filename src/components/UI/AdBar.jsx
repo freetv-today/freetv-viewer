@@ -44,7 +44,7 @@ export function AdBar() {
     const adClass = isMobile ? 'smallAd' : 'largeAd';
 
     return (
-        <div className="container-fluid text-center mt-2">
+        <div className="container-fluid text-center mt-2 mb-3">
             <div className="row">
                 <div className="col d-flex justify-content-center">
                     <iframe

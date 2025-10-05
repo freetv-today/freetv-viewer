@@ -1,6 +1,7 @@
 import { Link } from '@components/Navigation/Link';
 import freetvLogo from '/assets/freetv.png';
 
+
 export function ImageLargeLogo() {
   return (
     <div className="text-center mt-4">

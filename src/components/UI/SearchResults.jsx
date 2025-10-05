@@ -4,8 +4,10 @@ import { useQueueVideo } from '@hooks/useQueueVideo';
 import { DescriptionModal } from '@components/Modals/DescriptionModal';
 import { useDebugLog } from '@/hooks/useDebugLog';
 import { Link } from '@components/Navigation/Link';
+import { AdBar } from '@/components/UI/AdBar';
 
 export function SearchResults({ results }) {
+
   const log = useDebugLog();
   const { queueVideo } = useQueueVideo();
   const [showModal, setShowModal] = useState(false);
@@ -42,6 +44,7 @@ export function SearchResults({ results }) {
 
   return (
     <div className="container-fluid my-4">
+      <AdBar />
       <h2 className="fs-2 fw-bold mb-5 text-center">Search Results:</h2>
       <div className="table-responsive">
         <table className="table align-middle">

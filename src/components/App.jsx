@@ -1,15 +1,13 @@
-import { Router, Route, useLocation } from 'preact-iso';
+import { Router, Route } from 'preact-iso';
 import { useContext, useEffect } from 'preact/hooks';
 import { PlaylistContext } from '@/context/PlaylistContext';
 import { SpinnerLoadingAppData } from '@components/Loaders/SpinnerLoadingAppData';
 import { handleKeyPress } from '@/utils';
-// Layout templates 
 import { LayoutDefault } from '@components/Layouts/LayoutDefault';
 import { LayoutSubnav } from '@components/Layouts/LayoutSubnav';
 import { LayoutFullpage } from '@components/Layouts/LayoutFullpage';
 import { LayoutSearch } from '@components/Layouts/LayoutSearch';
 import { LayoutVidviewer } from '@components/Layouts/LayoutVidviewer';
-// Front-end pages
 import { Home } from '@pages/Home';
 import { Recent } from '@pages/Recent';
 import { Search } from '@pages/Search';
@@ -17,16 +15,12 @@ import { Favorites } from '@pages/Favorites';
 import { Help } from '@pages/Help';
 import { Category } from '@pages/Category';
 import { NowPlaying } from '@pages/NowPlaying';
-// Other pages
 import { ShowToastAlert } from '@components/UI/ToastAlerts';
 import { PWAInstallPrompt } from '@components/UI/PWAInstallPrompt';
 import { NotFound } from '@pages/_404';
-// Default style sheet
 import '@/style.css';
 
 // Predefined route components:
-
-// Front-end routes
 const HomeRoute = () => <LayoutDefault><Home /></LayoutDefault>;
 const RecentRoute = () => <LayoutSubnav><Recent /></LayoutSubnav>;
 const CategoryRoute = () => <LayoutSubnav><Category /></LayoutSubnav>;
@@ -54,7 +48,6 @@ export function App() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, []);
 
-  const { url } = useLocation();
   const ctx = useContext(PlaylistContext);
   const { playlistSwitching } = ctx;
 
@@ -68,7 +61,6 @@ export function App() {
     <main>
       <PWAInstallPrompt />
       <Router>
-        {/* Front-end */}
         <Route path="/" component={HomeRoute} exact />
         <Route path="/recent" component={RecentRoute} />
         <Route path="/category/:name" component={CategoryRoute} />
@@ -76,7 +68,6 @@ export function App() {
         <Route path="/favorites" component={FavoritesRoute} />
         <Route path="/help" component={HelpRoute} />
         <Route path="/nowplaying" component={NowPlayingRoute} />
-        {/* Other routes */}
         <Route default component={NotFoundRoute} />
       </Router>
       <ShowToastAlert />

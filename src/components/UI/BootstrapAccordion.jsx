@@ -6,7 +6,7 @@ export function BootstrapAccordion({ items, idPrefix }) {
       {items.map((item, idx) => (
         <div className="accordion-item" key={idx}>
           <h2 className="accordion-header">
-            <button className="accordion-button collapsed" type="button"
+            <button className="accordion-button collapsed fw-bold" type="button"
               data-bs-toggle="collapse"
               data-bs-target={`#${idPrefix}-collapse${idx}`}
               aria-expanded="false"

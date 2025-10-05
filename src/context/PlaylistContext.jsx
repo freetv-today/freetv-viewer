@@ -120,6 +120,9 @@ export function PlaylistProvider({ children }) {
    */
 
   function changePlaylist(filename, showSpinner = true, isInitial = false, suppressRoute = false) {
+    // Reset toast signal to prevent old messages from re-appearing
+    toastSignal.value = { ...toastSignal.value, show: false };
+    
     if (isInitial) {
       setInitializing(true);
       log('Loading default playlist data');

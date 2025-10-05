@@ -9,7 +9,7 @@ export function CategoriesMenuNav() {
   const { url } = useLocation();
 
   return (
-    <div id="mainnav" className="border-bottom border-2 border-dark w-100 p-2 btn-scroll-container text-center">
+    <div id="mainnav" className="border-bottom border-2 border-dark w-100 p-2 pb-3 pb-md-2 btn-scroll-container text-center">
       {categories.map((category) => (
         <ButtonCategoryNav
           key={category}

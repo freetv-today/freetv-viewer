@@ -2,6 +2,8 @@ import { ImageLargeLogo } from '@components/UI/ImageLargeLogo';
 import { useEffect } from 'preact/hooks';
 import { useDebugLog } from '@/hooks/useDebugLog';
 import { AdBar } from '@/components/UI/AdBar';
+import { StarterHint } from '@components/UI/StarterHint';
+
 
 export function Home() {
 
@@ -14,8 +16,10 @@ export function Home() {
 
 	return (
 		<>
-			<AdBar />
+			<StarterHint />
 			<ImageLargeLogo />
+			<AdBar />
+			
 		</>
 	);
 }

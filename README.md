@@ -4,7 +4,7 @@
 
 See it online at: https://freetv.today
 
-**Version 1.0.0 - Beta**
+**Version 2.1.2 - Beta**
 
 Free TV Viewer 
 ---

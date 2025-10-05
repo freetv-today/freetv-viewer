@@ -9,6 +9,7 @@ import { useDebugLog } from '@/hooks/useDebugLog';
 import { AdBar } from '@/components/UI/AdBar';
 
 export function Search() {
+
   const log = useDebugLog();
   const { showData } = useContext(PlaylistContext);
 
@@ -55,8 +56,8 @@ export function Search() {
       <SearchQueryComponent onSearch={handleSearch} />
       {(!query || !results) ? (
         <>
-          <AdBar/>
           <ImageLargeLogo />
+          <AdBar/>
         </>
       ) : (
         <SearchResults results={results} />

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'preact/hooks';
-import { useLocation } from 'preact-iso';
 import { triggerToast } from '@/signals/toastSignal';
 import { ConfigProvider } from '@/context/ConfigContext';
 import { PlaylistProvider } from '@/context/PlaylistContext';
@@ -27,7 +26,7 @@ export function AppLoader() {
         if ('serviceWorker' in navigator && navigator.serviceWorker) {
             navigator.serviceWorker.addEventListener('message', event => {
                 if (event.data && event.data.type === 'DATA_UPDATE_AVAILABLE') {
-                    console.log('[AppLoader] Received DATA_UPDATE_AVAILABLE from service worker', { loading, pathname: window.location.pathname });
+                    console.error('[AppLoader] Received DATA_UPDATE_AVAILABLE from service worker', { loading, pathname: window.location.pathname });
                 }
                 if (
                     event.data &&

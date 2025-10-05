@@ -183,6 +183,18 @@ body {
     margin-right: 0.5rem;
 }
 
+/* Starter hint on home page animation */
+@keyframes finger-point-up {
+  0%   { transform: translateY(0); }
+  20%  { transform: translateY(-40px); }
+  40%  { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+.finger-animate {
+    animation: finger-point-up 2s cubic-bezier(0.42,0,0.58,1) 3s 4;
+}
+
 /* Show Title buttons (used by ShowListSidebar) */
 .dropdown-item {
    color: black;
