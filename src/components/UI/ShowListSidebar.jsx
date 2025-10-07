@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'preact/hooks';
 import { PlaylistContext } from '@/context/PlaylistContext';
 import { ButtonShowTitleNav } from '@components/Navigation/ButtonShowTitleNav';
+import { AccordionGroupButtons } from '@components/UI/AccordionGroupButtons';
 import { useLocalStorage } from '@hooks/useLocalStorage';
 import { useSignalEffect } from '@preact/signals';
 import { favoritesSignal } from '@hooks/useFavoritesList';
@@ -27,7 +28,6 @@ export function ShowListSidebar({ context, category }) {
 
   let shows = [];
 
-
   // Force rerender and sync favoritesList from localStorage when favoritesSignal changes (only for favorites context)
   useSignalEffect(() => {
     if (context === 'favorites') {
@@ -44,12 +44,7 @@ export function ShowListSidebar({ context, category }) {
 
   if (context === 'category' && category) {
     // Filter shows by category, sort alphabetically (ignoring "The")
-    shows = showData?.filter(item => item.category.toLowerCase() === category.toLowerCase() && item.status === 'active')
-      .sort((a, b) => {
-        const titleA = a.title.replace(/^The\s+/i, '');
-        const titleB = b.title.replace(/^The\s+/i, '');
-        return titleA.localeCompare(titleB);
-      }) || [];
+    shows = showData?.filter(item => item.category.toLowerCase() === category.toLowerCase() && item.status === 'active') || [];
   } else if (context === 'recent') {
     shows = recentTitles.title
       .map(title => showData?.find(show => show.title === title))
@@ -59,26 +54,105 @@ export function ShowListSidebar({ context, category }) {
       .map(title => showData?.find(show => show.title === title))
       .filter(Boolean); // Remove any not found
   }
+
+  // Group shows by their "group" field and separate individual shows
+  const groupedShows = {};
+  const individualShows = [];
+
+  shows.forEach(show => {
+    if (show.group) {
+      if (!groupedShows[show.group]) {
+        groupedShows[show.group] = [];
+      }
+      groupedShows[show.group].push(show);
+    } else {
+      individualShows.push(show);
+    }
+  });
+
+  // Filter out groups with only 1 show (move them to individual shows)
+  const validGroups = {};
+  Object.keys(groupedShows).forEach(groupName => {
+    if (groupedShows[groupName].length >= 2) {
+      validGroups[groupName] = groupedShows[groupName];
+    } else {
+      // Move single-show groups to individual shows
+      individualShows.push(...groupedShows[groupName]);
+    }
+  });
+
+  // Sort individual shows alphabetically (ignoring "The")
+  const sortedIndividualShows = individualShows.sort((a, b) => {
+    const titleA = a.title.replace(/^The\s+/i, '');
+    const titleB = b.title.replace(/^The\s+/i, '');
+    return titleA.localeCompare(titleB);
+  });
+
+  // Create sorted group entries for display (sort by group name, ignoring "The")
+  const sortedGroups = Object.keys(validGroups).sort((a, b) => {
+    const groupA = a.replace(/^The\s+/i, '');
+    const groupB = b.replace(/^The\s+/i, '');
+    return groupA.localeCompare(groupB);
+  });
+
+  // Combine and sort all items (groups and individual shows) for final display order
+  const allItems = [];
+  
+  // Add group entries
+  sortedGroups.forEach(groupName => {
+    allItems.push({
+      type: 'group',
+      name: groupName,
+      shows: validGroups[groupName],
+      sortKey: groupName.replace(/^The\s+/i, '')
+    });
+  });
+
+  // Add individual show entries
+  sortedIndividualShows.forEach(show => {
+    allItems.push({
+      type: 'show',
+      show: show,
+      sortKey: show.title.replace(/^The\s+/i, '')
+    });
+  });
+
+  // Final sort of all items
+  allItems.sort((a, b) => a.sortKey.localeCompare(b.sortKey));
   if (category) {
     log(`Selected category: ${capitalizeFirstLetter(category)}`);
     log(`There are ${shows.length} titles in this category`);
+    log(`Groups found: ${sortedGroups.length}, Individual shows: ${sortedIndividualShows.length}`);
   }
   
   return (
     <aside className="sidebar-fixed-width p-1 mb-1 mb-lg-0">
-      {shows.length > 0 ? (
-        shows.map(show => (
-          <ButtonShowTitleNav
-            key={show.identifier}
-            title={show.title}
-            category={show.category}
-            identifier={show.identifier}
-            desc={show.desc}
-            start={show.start}
-            end={show.end}
-            imdb={show.imdb}
-          />
-        ))
+      {allItems.length > 0 ? (
+        allItems.map((item, index) => {
+          if (item.type === 'group') {
+            return (
+              <AccordionGroupButtons
+                key={`group-${item.name}`}
+                groupName={item.name}
+                shows={item.shows}
+                accordionId={`accordion-${item.name.replace(/\s+/g, '-').toLowerCase()}-${index}`}
+              />
+            );
+          } else {
+            return (
+              <ButtonShowTitleNav
+                key={item.show.identifier}
+                title={item.show.title}
+                category={item.show.category}
+                identifier={item.show.identifier}
+                desc={item.show.desc}
+                start={item.show.start}
+                end={item.show.end}
+                imdb={item.show.imdb}
+              />
+            );
+          }
+        })
       ) : (
         <>
           <p className="text-center mt-3 text-danger fw-bold">

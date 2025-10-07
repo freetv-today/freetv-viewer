@@ -205,6 +205,76 @@ body {
     display: none;
 }
 
+/* Sidebar Accordion Styling */
+.sidebar-accordion {
+    width: 98%;
+    margin-bottom: 0.25rem;
+}
+
+.sidebar-accordion .accordion-item {
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    margin-bottom: 0;
+}
+
+.sidebar-accordion-button {
+    padding: 8px 12px !important;
+    font-size: 0.875rem;
+    background-color: transparent;
+    border: 1px solid #212529 !important; /* Black border to match btn-outline-dark */
+    color: #212529 !important; /* Always black text */
+    font-weight: normal;
+    display: block !important; /* Use block instead of flex */
+    text-align: center !important; /* Center the text */
+    position: relative; /* For absolute positioning of chevron */
+}
+
+/* Position the chevron arrow */
+.sidebar-accordion-button::after {
+    position: absolute !important;
+    z-index: 100;
+    right: 16px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important; /* Center vertically */
+}
+
+.sidebar-accordion-button:not(.collapsed) {
+    background-color: rgba(13, 110, 253, 0.1) !important; /* Light blue background when expanded */
+    color: #212529 !important; /* Keep text black even when expanded */
+    border-color: #212529 !important; /* Keep border black */
+}
+
+.sidebar-accordion-button:focus {
+    border-color: #212529 !important; /* Black border on focus */
+    box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.25) !important; /* Dark shadow to match */
+}
+
+.sidebar-accordion-button:hover {
+    background-color: rgba(33, 37, 41, 0.1) !important; /* Light dark background on hover */
+    border-color: #212529 !important;
+    color: #212529 !important;
+}
+
+.sidebar-accordion .accordion-body {
+    padding: 0 !important; /* Remove all padding */
+    background-color: white !important; /* White background instead of light blue */
+    border-top: 1px solid #dee2e6; /* Add subtle top border */
+}
+
+.sidebar-accordion .accordion-body .btn-group {
+    width: 100% !important; /* Full width */
+    margin: 0.25rem 0 !important; /* Only top/bottom margin */
+    padding: 0 0.5rem !important; /* Add small left/right padding to the container */
+}
+
+.sidebar-accordion .accordion-body .btn-group .btn {
+    font-size: 0.875rem; /* Match the accordion button font size */
+}
+
+.sidebar-accordion .accordion-body .btn-group .btn:first-child {
+    width: calc(100% - 3rem) !important; /* Adjust for dropdown button */
+}
+
 /* Video Player */
 .vidViewWrapper {
     position: fixed;
