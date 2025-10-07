@@ -1,6 +1,8 @@
 html {
+    width: 100%;
     min-width: 400px;
-    max-width: 100vw;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -10,8 +12,8 @@ body {
     margin: 0;
     padding: 0;
     padding-top: 60px;
+    width: 100%;
     min-width: 400px;
-    max-width: 100vw;
 }
 
 /* Fonts */
@@ -32,22 +34,9 @@ body {
   user-select: none;    
 }
 
-.nowplaying-bg {
-  background: #000;
-  min-height: 90vh;
-}
-
-.timeoutMsg {
-    background: #FFF;
-    width: 100%;
-    min-height: 90vh;
-}
-
 /* ==============  Top navbar ============== */
 #navbar {
     height: 60px;
-    min-width: 400px;
-    max-width: 100vw;
     white-space: nowrap;
 }
 
@@ -186,13 +175,13 @@ body {
 /* Starter hint on home page animation */
 @keyframes finger-point-up {
   0%   { transform: translateY(0); }
-  20%  { transform: translateY(-40px); }
+  20%  { transform: translateY(-30px); }
   40%  { transform: translateY(0); }
   100% { transform: translateY(0); }
 }
 
 .finger-animate {
-    animation: finger-point-up 2s cubic-bezier(0.42,0,0.58,1) 3s 4;
+    animation: finger-point-up 1s cubic-bezier(0.42,0,0.58,1) 3s 3;
 }
 
 /* Show Title buttons (used by ShowListSidebar) */
@@ -217,21 +206,52 @@ body {
 }
 
 /* Video Player */
-.vidViewWrapper{
+.vidViewWrapper {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+/* SpinnerLoadingVideo */
+#vidspin {
+    background-color: white;
+    border-radius: 24px;
+    padding: 10px;
+    width: 90%;
+    height: 80vh;
 }
 
 #vidviewer {
-  width: 100%;
-  height: 100vh;
-  min-height: 500px;
-  background-color: #000;
+    height: 100%;
+    width: 95%;
+    min-width: 400px;
+    max-width: 1200px;
+    background-color: #000;
 }
 
-/* Navbar Video Player */
+/* Navbar buttons in video player */
 #vidNavBtns {
   display: flex;
   align-items: center;
+}
+
+/* Timeout error message */
+.timeouterr {
+    width: 100%;
+    max-width: 650px;
+    height: 100%;
+    background-color: white;
+    border-radius: 24px;
 }
 
 /* Add to Favorites (NavbarVideoPlayback) */
@@ -288,7 +308,7 @@ body {
 
 /* Medium Screen */
 @media (max-width: 767.98px) {
-    /* Toast alert sizing */
+    /* toast alert sizing */
     #app-toast {
         left: 50% !important;
         right: auto !important;
@@ -301,7 +321,7 @@ body {
 
 /* Medium + Screens  */
 @media (min-width: 768px) {
-  /* Toast alert sizing */  
+  /* toast alert sizing */  
   #app-toast {
     left: auto !important;
     right: 1rem !important;
@@ -311,16 +331,29 @@ body {
   }
 }
 
-/* Between Medium & Large */
+/* Between Medium & Large 
 @media ((min-width: 768px) and (max-width: 991.98px)) { 
-    /* Nothing here yet */
+
 }
+*/
 
 /* Large + Screens */
 @media (min-width: 992px) {
-    /* Subnav template: responsive sidebar menu */
+    /* subnav template: responsive sidebar menu */
     .sidebar-fixed-width {
         width: 300px;
         flex: 0 0 300px;
     }
 }
+
+/* Small to Medium Screens - Mobile Video Player 
+@media (max-width: 991.98px) {
+
+}
+*/
+
+/* Extra Small Screens 
+@media (max-width: 576px) {
+
+}
+*/

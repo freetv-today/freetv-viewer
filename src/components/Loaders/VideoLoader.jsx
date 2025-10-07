@@ -7,7 +7,6 @@ import { Link } from '@components/Navigation/Link';
  * Props:
  *   src: string (iframe src)
  *   title: string (video title)
- *   showHelpLink: boolean (show help link on timeout)
  *   onLoad: function (optional, called when iframe loads)
  *   iframeProps: object (optional, extra props for iframe)
  *   timeoutMs: number (timeout in ms, default 90000)
@@ -16,11 +15,11 @@ import { Link } from '@components/Navigation/Link';
 export function VideoLoader({
   src,
   title,
-  showHelpLink = false,
   onLoad: onLoadProp,
   iframeProps = {},
-  timeoutMs = 90000,
+  timeoutMs = 90000,  // 90 seconds
 }) {
+
   const [loading, setLoading] = useState(true);
   const [timeoutError, setTimeoutError] = useState(false);
   const timeoutRef = useRef(null);
@@ -46,30 +45,28 @@ export function VideoLoader({
 
   if (timeoutError) {
     return (
-      <div className="container text-center my-5">
-        <h2 className="text-danger mb-4">Timeout: the video failed to load</h2>
-        <p>
-          The Internet Archive server did not respond within {timeoutMs / 1000} seconds.<br />
-          Please check your internet connection and/or reload to try again.
+      <div className="container text-center my-5 p-4 timeouterr">
+        <h2 className="text-danger mb-4">Timeout Error: video failed to load!</h2>
+        <p className="text-danger">
+          The Internet Archive server did not respond within {timeoutMs / 1000} seconds. Please <b>check your internet connection</b> and reload the page to try again. If you keep having problems, check out the <Link href="/help" className="primary-link">Help</Link> page for more troubleshooting tips.
         </p>
-        {showHelpLink && (
-          <p>
-            If you keep having trouble, check out the <Link href="/help" className="primary-link">Help</Link> page for troubleshooting tips.
-          </p>
-        )}
-        <p><img src="/assets/sadface.svg" width="80" /></p>
+        <p className="my-4 opacity-75"><img src="/assets/clock.svg" width="65" alt="clock" title="Timeout Error!" /></p>
       </div>
     );
   }
+
+  console.log(`Archive URL is: ${src}`);
 
   return (
     <>
       {loading && <SpinnerLoadingVideo title={title.replace(/_/g, ' ')} />}
       <iframe
         src={src}
-        frameBorder="0"
-        allowFullScreen
-        style={{ display: loading ? 'none' : 'block'}}
+        width="640"
+        height="480"
+        style={{ 
+          display: loading ? 'none' : 'block'
+        }}
         onLoad={handleIframeLoad}
         title={title}
         {...iframeProps}

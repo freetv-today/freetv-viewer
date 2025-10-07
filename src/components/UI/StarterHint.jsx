@@ -8,7 +8,8 @@ export function StarterHint() {
 
   useEffect(() => {
     if (!showStartHint) {
-      const timer = setTimeout(() => setShowStartHint(1), 15000); // Show for 15 seconds
+      // show the hint for 20 seconds, then set a flag
+      const timer = setTimeout(() => setShowStartHint(1), 20000); 
       return () => clearTimeout(timer);
     }
   }, [showStartHint]);
@@ -16,11 +17,9 @@ export function StarterHint() {
   return (
     <div id="starterhint" className={`mt-5 text-center${showStartHint ? ' d-none' : ''}`}>
       <p>
-        <img src={fingerPoint} className="finger-animate" height="80" title="" alt="" />
+        <img src={fingerPoint} className="finger-animate" height="75" title="Look!" alt="finger pointing image" />
       </p>
-      <p className="text-secondary opacity-50">
-        Click a Category button above to get started.<br/>
-      </p>
+      <p className="text-secondary opacity-75">Click a Category button above to get started</p>
     </div>
   );
 }
