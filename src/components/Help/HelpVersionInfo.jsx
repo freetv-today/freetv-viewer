@@ -7,8 +7,8 @@ export function HelpVersionInfo() {
   const appInfo = getAppInfo();
   
   return (
-    <section id="version" className="mb-5">
-      <h2 className="fs-3 my-5 fw-bold">Version Information</h2>
+    <section id="version" className="mb-5 w-100">
+      <h2 className="fs-3 my-5 fw-bold text-start">Version Information</h2>
       <p>
         App Name: {appInfo.name}<br/>
         Version: {appInfo.version}<br/>

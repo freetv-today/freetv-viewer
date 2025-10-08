@@ -99,8 +99,8 @@ export const faqItems = [
           Phone: 415-561-6767<br/>
           Email: info@archive.org<br/>
         </p>
-        <p>Otherwise, if you want to request new features or shows, or tell us about typos, or bugs, or ask questions, you can send us email:</p>
-        <p><a href="mailto:support@freetv.today?subject=Free TV Feedback" className="font-monospace fw-bold">support@freetv.today</a></p>
+        <p>Otherwise, if you want to request new features or shows, or tell us about typos, or bugs, or ask questions, you can open a support ticket:</p>
+        <p><a href="https://freetv.today/support/index.php?a=add" target="_blank" className="font-monospace fw-bold">https://freetv.today/support/</a></p>
       </>
     )
   }        

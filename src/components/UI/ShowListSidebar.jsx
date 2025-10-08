@@ -11,7 +11,6 @@ import { useModalManager } from '@/hooks/useModalManager';
 import { capitalizeFirstLetter, getRandomCategory } from '@/utils';
 import { useCategories } from '@/hooks/useCategories';
 
-
 /**
  * ShowListSidebar - Main sidebar component displaying shows with grouping and modal support
  * @param {Object} props
@@ -139,7 +138,7 @@ export function ShowListSidebar({ context, category }) {
                 key={`group-${item.name}`}
                 groupName={item.name}
                 shows={item.shows}
-                accordionId={`accordion-${item.name.replace(/\s+/g, '-').toLowerCase()}-${index}`}
+                accordionId={`accordion-${item.name.replace(/[^\w\s]/g, '').replace(/\s+/g, '-').toLowerCase()}-${index}`}
                 onShowModal={showModal}
               />
             );
