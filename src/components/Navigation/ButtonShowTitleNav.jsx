@@ -1,38 +1,49 @@
-import { useState } from 'preact/hooks';
-import { DescriptionModal } from '@components/Modals/DescriptionModal';
-import { ReportProblemModal } from '@components/Modals/ReportProblemModal';
 import { useConfig } from '@/context/ConfigContext';
 import { useQueueVideo } from '@hooks/useQueueVideo';
 import { useFavoritesList } from '@hooks/useFavoritesList';
 import { triggerToast } from '@/signals/toastSignal';
 
 /**
+ * ButtonShowTitleNav - Split button component for show titles with dropdown actions
  * @param {Object} props
- * @param {string} props.title
- * @param {string} props.category
- * @param {string} props.identifier
- * @param {string} props.desc
- * @param {string} props.start
- * @param {string} props.end
- * @param {string} props.imdb
+ * @param {string} props.title - Show title
+ * @param {string} props.category - Show category
+ * @param {string} props.identifier - Unique show identifier
+ * @param {string} props.desc - Show description
+ * @param {string} props.start - Start time/date
+ * @param {string} props.end - End time/date
+ * @param {string} props.imdb - IMDB ID
+ * @param {function(string, Object): void} [props.onShowModal] - Callback to show modal (type, data)
  * @returns {import('preact').JSX.Element}
  */
 
-export function ButtonShowTitleNav({ title, category, identifier, desc, start, end, imdb }) {
+export function ButtonShowTitleNav({ title, category, identifier, desc, start, end, imdb, onShowModal }) {
   
   const { modules } = useConfig();
-  const [showModal, setShowModal] = useState(false);
-  const [showReportModal, setShowReportModal] = useState(false);
   const { queueVideo } = useQueueVideo();
   const { favorites, addToFavorites, removeFromFavorites } = useFavoritesList();
-
-  // Use global toast signal for feedback
 
   const isFavorite = Array.isArray(favorites?.title) && favorites.title.includes(title);
 
   // Main function to queue video and save to recent
   const handleMainClick = () => {
     queueVideo({ imdb, category, identifier, title });
+  };
+
+  // Handler to show description modal
+  const handleShowInfo = () => {
+    if (onShowModal) {
+      onShowModal('description', { title, category, identifier, desc, start, end, imdb });
+    }
+  };
+
+  // Handler to show report problem modal
+  const handleReportProblem = () => {
+    if (onShowModal) {
+      const playlist = typeof window !== 'undefined' ? 
+        JSON.parse(localStorage.getItem('playlist')) : '';
+      onShowModal('report', { title, category, identifier, desc, start, end, imdb, playlist });
+    }
   };
 
   return (
@@ -62,7 +73,7 @@ export function ButtonShowTitleNav({ title, category, identifier, desc, start, e
               className="dropdown-item moreoptions"
               href="#"
               title={`About ${title}`}
-              onClick={e => { e.preventDefault(); setShowModal(true); }}
+              onClick={e => { e.preventDefault(); handleShowInfo(); }}
             >
               About this show
             </a>
@@ -104,7 +115,7 @@ export function ButtonShowTitleNav({ title, category, identifier, desc, start, e
                   className="dropdown-item moreoptions text-danger"
                   href="#"
                   title={`Report a problem with ${title}`}
-                  onClick={e => { e.preventDefault(); setShowReportModal(true); }}
+                  onClick={e => { e.preventDefault(); handleReportProblem(); }}
                 >
                   Report a problem
                 </a>
@@ -124,31 +135,6 @@ export function ButtonShowTitleNav({ title, category, identifier, desc, start, e
           )}
         </ul>
       </div>
-      <DescriptionModal
-        show={showModal}
-        onClose={() => setShowModal(false)}
-        title={title}
-        category={category}
-        identifier={identifier}
-        desc={desc}
-        start={start}
-        end={end}
-        imdb={imdb}
-      />
-      {showReportModal && (
-        <ReportProblemModal
-          show={showReportModal}
-          onClose={() => setShowReportModal(false)}
-          title={title}
-          category={category}
-          identifier={identifier}
-          desc={desc}
-          start={start}
-          end={end}
-          imdb={imdb}
-          playlist={typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('playlist')) : ''}
-        />
-      )}
     </>
   );
 }

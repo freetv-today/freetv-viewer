@@ -1,6 +1,10 @@
 import { Link } from '@components/Navigation/Link';
 import freetvLogo from '/assets/freetv-small.png';
 
+/**
+ * ImageSmallLogo - Small Free TV logo component for navbar
+ * @returns {import('preact').JSX.Element}
+ */
 export function ImageSmallLogo() {
   return (
     <Link href="/" title="Free TV" className="navbar-brand d-flex align-items-center">

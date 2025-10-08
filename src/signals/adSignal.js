@@ -1,9 +1,14 @@
 import { signal } from '@preact/signals';
 
-// Signal to trigger ad reloads
+/**
+ * adReloadSignal - Global signal to trigger ad reloads
+ * @type {import('@preact/signals').Signal<number>}
+ */
 export const adReloadSignal = signal(0);
 
-// Function to trigger ad reload
+/**
+ * triggerAdReload - Function to trigger ad reload by updating signal with timestamp
+ */
 export function triggerAdReload() {
     adReloadSignal.value = Date.now();
 }

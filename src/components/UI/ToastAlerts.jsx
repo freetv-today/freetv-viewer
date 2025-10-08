@@ -1,6 +1,10 @@
 import { toastSignal } from '@/signals/toastSignal';
 import { useEffect } from 'preact/hooks';
 
+/**
+ * ShowToastAlert - Component that displays Bootstrap toast notifications
+ * @returns {import('preact').JSX.Element}
+ */
 export function ShowToastAlert() {
     const { color, msg, show } = toastSignal.value;
 
@@ -30,12 +34,7 @@ export function ShowToastAlert() {
 
     return (
         <div
-            className={`
-                toast align-items-center text-bg-${color} border-0 position-fixed bottom-0
-                w-100 start-50 translate-middle-x
-                w-md-auto end-md-0 start-md-auto translate-middle-x-md-none
-                m-0 m-md-3
-            `}
+            className={`toast align-items-center text-bg-${color} border-0 position-fixed bottom-0 w-100 start-50 translate-middle-x w-md-auto end-md-0 start-md-auto translate-middle-x-md-none m-0 m-md-3`}
             id="app-toast"
             role="alert"
             aria-live="assertive"

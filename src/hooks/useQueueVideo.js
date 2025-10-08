@@ -4,8 +4,9 @@ import { useLocation } from 'preact-iso';
 import { useDebugLog } from '@hooks/useDebugLog';
 
 /**
- * useQueueVideo - Custom hook to queue a video and add it to recently watched.
- * @returns {{ queueVideo: Function }} - Function to queue a video.
+ * useQueueVideo - Custom hook to queue a video and add it to recently watched
+ * @returns {Object} Queue management object
+ * @property {function(Object): void} queueVideo - Function to queue a video with {imdb, category, identifier, title}
  */
 
 export function useQueueVideo() {

@@ -1,3 +1,4 @@
+import watchingTV from '/assets/watchingtv.jpg';
 
 export function SpinnerLoadingVideo({ title }) {
   return (
@@ -9,7 +10,7 @@ export function SpinnerLoadingVideo({ title }) {
               <h4 className="text-success fw-bold mb-2">{title}</h4>
               <h5 className="mb-2 fst-italic text-danger">Please be patient</h5>
               <p className="text-secondary opacity-75 mb-2">(Large archives take awhile to load)</p>
-              <img src="/public/assets/watchingtv.jpg" />
+              <img src={watchingTV } />
           </div>
       </div>
     </div>

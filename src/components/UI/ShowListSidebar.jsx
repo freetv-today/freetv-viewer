@@ -2,18 +2,21 @@ import { useContext, useEffect } from 'preact/hooks';
 import { PlaylistContext } from '@/context/PlaylistContext';
 import { ButtonShowTitleNav } from '@components/Navigation/ButtonShowTitleNav';
 import { AccordionGroupButtons } from '@components/UI/AccordionGroupButtons';
+import { GlobalModalManager } from '@components/UI/GlobalModalManager';
 import { useLocalStorage } from '@hooks/useLocalStorage';
 import { useSignalEffect } from '@preact/signals';
 import { favoritesSignal } from '@hooks/useFavoritesList';
 import { useDebugLog } from '@/hooks/useDebugLog';
+import { useModalManager } from '@/hooks/useModalManager';
 import { capitalizeFirstLetter, getRandomCategory } from '@/utils';
 import { useCategories } from '@/hooks/useCategories';
 
 
 /**
+ * ShowListSidebar - Main sidebar component displaying shows with grouping and modal support
  * @param {Object} props
- * @param {'category' | 'recent' | 'favorites'} props.context
- * @param {string} [props.category]
+ * @param {'category' | 'recent' | 'favorites'} props.context - Type of content to display
+ * @param {string} [props.category] - Category name when context is 'category'
  * @returns {import('preact').JSX.Element}
  */
 
@@ -25,6 +28,7 @@ export function ShowListSidebar({ context, category }) {
   const [favoritesList, setFavoritesList] = useLocalStorage('favoritesList', { title: [] });
   const categories = useCategories();
   const randomCategory = getRandomCategory(categories);
+  const { activeModal, modalData, showModal, hideModal } = useModalManager();
 
   let shows = [];
 
@@ -136,6 +140,7 @@ export function ShowListSidebar({ context, category }) {
                 groupName={item.name}
                 shows={item.shows}
                 accordionId={`accordion-${item.name.replace(/\s+/g, '-').toLowerCase()}-${index}`}
+                onShowModal={showModal}
               />
             );
           } else {
@@ -149,6 +154,7 @@ export function ShowListSidebar({ context, category }) {
                 start={item.show.start}
                 end={item.show.end}
                 imdb={item.show.imdb}
+                onShowModal={showModal}
               />
             );
           }
@@ -181,6 +187,13 @@ export function ShowListSidebar({ context, category }) {
 
         
       )}
+      
+      {/* Global Modal Manager */}
+      <GlobalModalManager 
+        activeModal={activeModal} 
+        modalData={modalData} 
+        onClose={hideModal} 
+      />
     </aside>
   );
 }

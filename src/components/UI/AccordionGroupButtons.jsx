@@ -6,10 +6,11 @@ import { ButtonShowTitleNav } from '@components/Navigation/ButtonShowTitleNav';
  * @param {string} props.groupName - The name of the group (accordion title)
  * @param {Array} props.shows - Array of show objects in this group
  * @param {string} props.accordionId - Unique ID for this accordion
+ * @param {function(string, any): void} [props.onShowModal] - Callback to show modal (type, data)
  * @returns {import('preact').JSX.Element}
  */
 
-export function AccordionGroupButtons({ groupName, shows, accordionId }) {
+export function AccordionGroupButtons({ groupName, shows, accordionId, onShowModal }) {
   
   if (!shows || shows.length < 2) {
     return null; // Don't render accordion for less than 2 shows
@@ -55,6 +56,7 @@ export function AccordionGroupButtons({ groupName, shows, accordionId }) {
                   start={show.start}
                   end={show.end}
                   imdb={show.imdb}
+                  onShowModal={onShowModal}
                 />
               </div>
             ))}

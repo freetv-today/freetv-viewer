@@ -2,8 +2,11 @@ import { useLocalStorage } from '@hooks/useLocalStorage';
 import { signal } from '@preact/signals';
 
 /**
- * useFavoritesList - Custom hook for managing a list of favorite titles in localStorage.
- * @returns {{ favorites: Object, addToFavorites: Function, removeFromFavorites: Function }}
+ * useFavoritesList - Custom hook for managing a list of favorite titles in localStorage
+ * @returns {Object} Favorites management object
+ * @property {Object} favorites - Current favorites object with title array
+ * @property {function(string): void} addToFavorites - Add a title to favorites
+ * @property {function(string): void} removeFromFavorites - Remove a title from favorites
  */
 
 // Signal to force update components using favorites

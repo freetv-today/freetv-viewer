@@ -2,6 +2,10 @@ import freetvLogo from '/assets/freetv.png';
 import { useCategories } from '@/hooks/useCategories';
 import { getRandomCategory } from '@/utils';
 
+/**
+ * ImageLargeLogo - Large Free TV logo component for main pages
+ * @returns {import('preact').JSX.Element}
+ */
 export function ImageLargeLogo() {
   
   // get the list of categories and select a random one

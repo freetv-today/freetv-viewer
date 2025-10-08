@@ -1,17 +1,22 @@
-import { useState } from 'preact/hooks';
 import { capitalizeFirstLetter } from '@/utils';
 import { useQueueVideo } from '@hooks/useQueueVideo';
-import { DescriptionModal } from '@components/Modals/DescriptionModal';
+import { GlobalModalManager } from '@components/UI/GlobalModalManager';
+import { useModalManager } from '@/hooks/useModalManager';
 import { useDebugLog } from '@/hooks/useDebugLog';
 import { Link } from '@components/Navigation/Link';
 import { AdBar } from '@/components/UI/AdBar';
 
+/**
+ * SearchResults - Displays search results with play buttons and modal support
+ * @param {Object} props
+ * @param {Array<Object>} props.results - Array of show objects from search
+ * @returns {import('preact').JSX.Element}
+ */
 export function SearchResults({ results }) {
 
   const log = useDebugLog();
   const { queueVideo } = useQueueVideo();
-  const [showModal, setShowModal] = useState(false);
-  const [selectedShow, setSelectedShow] = useState(null);
+  const { activeModal, modalData, showModal, hideModal } = useModalManager();
 
   // Only include shows with status 'active'
   const activeResults = Array.isArray(results)
@@ -28,8 +33,15 @@ export function SearchResults({ results }) {
   }
 
   const handleShowInfo = (show) => {
-    setSelectedShow(show);
-    setShowModal(true);
+    showModal('description', {
+      title: show.title,
+      category: show.category,
+      identifier: show.identifier,
+      desc: show.desc,
+      start: show.start,
+      end: show.end,
+      imdb: show.imdb
+    });
   };
 
   // Sort results by year (start) ascending
@@ -99,19 +111,13 @@ export function SearchResults({ results }) {
           </tbody>
         </table>
       </div>
-      {selectedShow && (
-        <DescriptionModal
-          show={showModal}
-          onClose={() => setShowModal(false)}
-          title={selectedShow.title}
-          category={selectedShow.category}
-          identifier={selectedShow.identifier}
-          desc={selectedShow.desc}
-          start={selectedShow.start}
-          end={selectedShow.end}
-          imdb={selectedShow.imdb}
-        />
-      )}
+      
+      {/* Global Modal Manager */}
+      <GlobalModalManager 
+        activeModal={activeModal} 
+        modalData={modalData} 
+        onClose={hideModal} 
+      />
     </div>
   );
 }
