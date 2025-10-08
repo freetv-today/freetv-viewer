@@ -23,6 +23,14 @@ export function NowPlaying() {
     };
   }, []);
 
+  useEffect(() => {
+    return () => {
+      /** @type {HTMLElement|null} */
+      const wrapper = document.querySelector('.vidViewWrapper');
+      if (wrapper) wrapper.style.backgroundColor = '#FFF';
+    };
+  }, []);
+
   // if user returns to the route and there's no currentVid data
   if (!currentVid) {
     return (
@@ -41,17 +49,15 @@ export function NowPlaying() {
     else { document.title = "Free TV"; }
   }, [title]);
 
-  // // Responsive playlist height based on screen size
-  // const getPlaylistHeight = () => {
-  //   if (typeof window === 'undefined') return 300;
-  //   const width = window.innerWidth;
-  //   if (width < 576) return 600; // Extra small screens - larger playlist
-  //   if (width < 992) return 450; // Small to medium screens
-  //   return 350; // Large screens
-  // };
+  function handleVideoLoad() {
+    showVidNavBtnsSignal.value = true;
+    if (title) log(`Video ${title} loaded`);
+    // Change background color of vidViewWrapper to black
+    /** @type {HTMLElement|null} */
+    const wrapper = document.querySelector('.vidViewWrapper');
+    if (wrapper) wrapper.style.backgroundColor = '#000';
+  }
 
-  // const playlistHeight = getPlaylistHeight();
-  
   const archiveUrl = embedPlaylist
     ? `https://archive.org/embed/${identifier}?playlist=1`
     : `https://archive.org/embed/${identifier}`;
@@ -61,10 +67,7 @@ export function NowPlaying() {
         <VideoLoader
           src={archiveUrl}
           title={title}
-          onLoad={() => {
-            showVidNavBtnsSignal.value = true;
-            if (title) log(`Video ${title} loaded`);
-          }}
+          onLoad={handleVideoLoad}
           iframeProps={{ id: 'vidviewer' }}
         />
     </div>

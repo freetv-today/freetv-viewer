@@ -1,20 +1,17 @@
 
 export function SpinnerLoadingVideo({ title }) {
   return (
-    <>
-      <div id="vidspin" className="text-center">
-        <h2 className="text-dark mt-5 mb-4 display-5">Loading...</h2>
-        <h3 className="text-success fw-bold mb-2">{title}</h3>
-        <h4 className="mb-2 fw-bold text-danger">Please be patient!</h4>
-        <p className="text-dark mb-3">Large archives take awhile to load.</p>
-        <div
-          className="spinner-border text-dark"
-          role="status"
-          style={{ width: '8rem', height: '8rem' }}
-        >
-          <span className="visually-hidden">Loading Video</span>
-        </div>
+    // bouncing ball effect with shadow for spinner
+    <div className="container">
+      <div className="floatingball">
+          <div id="vidspin" className="text-center">
+              <h2 className="mt-5 mb-3 fw-bold">Loading:</h2>
+              <h4 className="text-success fw-bold mb-2">{title}</h4>
+              <h5 className="mb-2 fst-italic text-danger">Please be patient</h5>
+              <p className="text-secondary opacity-75 mb-2">(Large archives take awhile to load)</p>
+              <img src="/public/assets/watchingtv.jpg" />
+          </div>
       </div>
-    </>
+    </div>
   );
 }

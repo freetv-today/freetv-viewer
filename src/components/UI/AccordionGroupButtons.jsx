@@ -36,7 +36,7 @@ export function AccordionGroupButtons({ groupName, shows, accordionId }) {
             aria-expanded="false" 
             aria-controls={collapseId}
           >
-            {groupName}
+            <span className="accordion-title">{groupName}</span>
           </button>
         </h2>
         <div 

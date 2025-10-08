@@ -1,4 +1,5 @@
 import { capitalizeFirstLetter } from '@/utils';
+import { Link } from '@components/Navigation/Link';
 
 /**
  * HeaderBlock component for page headers with responsive image and heading.
@@ -19,13 +20,15 @@ export function HeaderBlock({ img, heading, desc, alt }) {
           <div><h1 className="pt-1 mb-0">{capitalizeFirstLetter(heading)}</h1></div>
       </div>
       <p className="mt-3 mx-auto">{desc}</p>
-      <img
-        id="largeLogo"
-        src={img}
-        width="100"
-        className="mb-3 mt-2 d-none d-lg-block mx-auto"
-        alt={alt}
-      />
+      <Link href="/" className="m-0">
+        <img
+          id="largeLogo"
+          src={img}
+          width="100"
+          className="mb-3 mt-2 d-none d-lg-block mx-auto"
+          alt={alt}
+        />
+      </Link>
     </>
   );
 }

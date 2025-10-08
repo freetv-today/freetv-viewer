@@ -218,15 +218,23 @@ body {
 }
 
 .sidebar-accordion-button {
-    padding: 8px 12px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 7px 12px !important;
+    padding-right: 3rem !important; /* Reserve space for chevron */
     font-size: 0.875rem;
     background-color: transparent;
-    border: 1px solid #212529 !important; /* Black border to match btn-outline-dark */
-    color: #212529 !important; /* Always black text */
+    border: 1px solid #212529 !important; 
+    color: #212529 !important;
     font-weight: normal;
-    display: block !important; /* Use block instead of flex */
-    text-align: center !important; /* Center the text */
-    position: relative; /* For absolute positioning of chevron */
+    box-sizing: border-box;
+    text-align: center !important;
+}
+.accordion-title {
+    flex: 1;
+    text-align: center;
 }
 
 /* Position the chevron arrow */
@@ -282,7 +290,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #000;
+    background-color: #FFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -293,14 +301,50 @@ body {
 }
 
 /* SpinnerLoadingVideo */
-#vidspin {
-    background-color: white;
-    border-radius: 24px;
-    padding: 10px;
-    width: 90%;
-    height: 80vh;
+@keyframes float {
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+        transform: translatey(0px);
+    }
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+        transform: translatey(-20px);
+    }
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+        transform: translatey(0px);
+    }
 }
 
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.floatingball {
+    width: 500px;
+    height: 500px;
+    box-sizing: border-box;
+    border: 5px black solid;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+    transform: translatey(0px);
+    animation: float 2s ease-in-out infinite;
+}
+
+.floatingball img {
+  width: 80%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* iframe embedded videos are loaded into */
 #vidviewer {
     height: 100%;
     width: 95%;

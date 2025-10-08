@@ -4,7 +4,6 @@ import { useDebugLog } from '@/hooks/useDebugLog';
 import { AdBar } from '@/components/UI/AdBar';
 import { StarterHint } from '@components/UI/StarterHint';
 
-
 export function Home() {
 
 	const log = useDebugLog();
