@@ -94,10 +94,7 @@ export function HelpHowToUse() {
         <li>
           <p className="fs-5 fw-bold py-3">Keyboard Shortcuts:</p>
           <p>While a video is playing, if you right-click, you'll see a menu appear. One of the options in this menu is "Keyboard Shortcuts". If you click this, a menu will open showing you all the options for controlling the video via keyboard commands:</p>
-          <p>
-            <img src="/assets/help/help_show_shortcuts.png" className="img-fluid me-2"/>
-            <img src="/assets/help/help_shortcut_menu.png" className="img-fluid"/>
-          </p>
+          <p><img src="/assets/help/help_show_shortcuts.png" className="img-fluid me-2"/><img src="/assets/help/help_shortcut_menu.png" className="img-fluid"/></p>
         </li>
       </ul>
     </section>
