@@ -14,7 +14,7 @@ export function ImageLargeLogo() {
   
   return (
     <div className="text-center mt-4">
-		<h1 className="display-4 bruno-ace noselect">Free TV</h1>
+		<h1 className="display-4 bruno-ace">Free TV</h1>
 		<p className="pb-4">
 			<a
               href={randomCategory ? `/category/${randomCategory}` : '#'}

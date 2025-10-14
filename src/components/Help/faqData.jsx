@@ -64,15 +64,14 @@ export const faqItems = [
         <p>However, you can look at the list of episodes and click the ones you want to watch in any order. The trick is to learn how to read the names of the items in the playlist. For example, you might see a video track listed like this: </p>
         <p><code>S01E26 - Dash to Delaware</code></p>
         <p>This stands for: <b>Season 1</b> (S01), <b>Episode 26</b> (E26)</p>
-        <p>It might also be written like this:
-            <ol className="my-3" style={{ listStyleType: 'none' }}>
-              <li><code>01x03</code> &ndash; <b>Season 1</b>, <b>Episode 03</b></li>
-              <li><code>1x10</code> &ndash; <b>Season 1</b>, <b>Episode 10</b></li>
-              <li><code>101</code> &ndash; <b>No Season</b>, <b>Episode 101</b></li>
-              <li><code>07.</code> &ndash; <b>No Season</b>, <b>Episode 07</b></li>
-              <li><code>EP01</code> &ndash; <b>No Season</b>, <b>Episode 01</b></li>
-            </ol>
-        </p>
+        <p>It might also be written like this:</p>
+        <ol className="my-3" style={{ listStyleType: 'none' }}>
+          <li><code>01x03</code> &ndash; <b>Season 1</b>, <b>Episode 03</b></li>
+          <li><code>1x10</code> &ndash; <b>Season 1</b>, <b>Episode 10</b></li>
+          <li><code>101</code> &ndash; <b>No Season</b>, <b>Episode 101</b></li>
+          <li><code>07.</code> &ndash; <b>No Season</b>, <b>Episode 07</b></li>
+          <li><code>EP01</code> &ndash; <b>No Season</b>, <b>Episode 01</b></li>
+        </ol>
         <p>Each uploader to the Internet Archive names their own files in whatever method they want. There is no "standard format". But, you can see the basic pattern of how Seasons and Episodes work in the video file names?</p>              
         <p>The most common issue that people encounter is that Season 2 or Season 3 episodes might appear in the playlist before Season 1 episodes. So, if you encounter this problem, scroll down and find the Season 1 episode you want to watch and click to play. Take a look at this sample video playlist below:</p>
         <p>
@@ -101,6 +100,16 @@ export const faqItems = [
         </p>
         <p>Otherwise, if you want to request new features or shows, or tell us about typos, or bugs, or ask questions, you can open a support ticket:</p>
         <p><a href="https://freetv.today/support/index.php?a=add" target="_blank" className="font-monospace fw-bold">https://freetv.today/support/</a></p>
+      </>
+    )
+  },
+  {
+    title: 'Can\'t I just view these shows on Internet Archive?',
+    content: (
+      <>
+        <p>Sure. All of the shows here are available to view directly on the Internet Archive. The reason to use Free TV is that it's a hand-picked list of quality content sorted by category in an easy-to-use interface. The Internet Archive literally has <b>petabytes</b> of data in their system. There is a ton of great content but, the hard part is finding it. You could spend hours sorting through the Internet Archive to find TV shows and movies that you want to watch.</p>
+        <p>To complicate matters, there are sometimes many versions of the same show or movie available on the Internet Archive. Some may only contain a single episide or season. Some may be incomplete. Some may be in a foreign language. Some may be mislabled. Some may be available for download only. This is what makes it difficult to find good content on the Internet Archive. We do all of this hard work for you and provide all the good stuff in an easy-to-use interface. This saves you time and allows you to get right to the best content pre-sorted by topic, category, and show. No searching. No guesswork. Just click to watch your favorite shows and movies!</p>
+        <p>We encourage everyone to <a href="https://archive.org/account/signup" target="_blank">sign up</a> for a free Internet Archive account and <a href="https://archive.org/donate" target="_blank">donate</a> to help their non-profit mission to build a digital library of Internet sites and other cultural artifacts. The Internet Archive serves millions of people each day and is one of the top 300 web sites in the world. Free TV just piggybacks off the great content in the Internet Archive and makes it a little bit easier to find great video content.</p>
       </>
     )
   }        

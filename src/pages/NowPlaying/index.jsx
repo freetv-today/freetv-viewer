@@ -9,7 +9,6 @@ import { logShowEnd } from '@/utils';
 export function NowPlaying() {
 
   const [currentVid] = useLocalStorage('currentVid', null);
-  const [embedPlaylist] = useLocalStorage('embedPlaylist', true);
   const log = useDebugLog();
 
   // Effect to log show end and clear currentVid on unmount
@@ -57,18 +56,14 @@ export function NowPlaying() {
     const wrapper = document.querySelector('.vidViewWrapper');
     if (wrapper) wrapper.style.backgroundColor = '#000';
   }
-
-  const archiveUrl = embedPlaylist
-    ? `https://archive.org/embed/${identifier}?playlist=1`
-    : `https://archive.org/embed/${identifier}`;
-
+  
   return (
     <div className="vidViewWrapper">
         <VideoLoader
-          src={archiveUrl}
+          src={`https://archive.org/details/${identifier}#maincontent`}
           title={title}
           onLoad={handleVideoLoad}
-          iframeProps={{ id: 'vidviewer' }}
+          iframeProps={{ id: 'vidviewer', allow: 'fullscreen' }}
         />
     </div>
   );

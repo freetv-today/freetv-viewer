@@ -9,7 +9,19 @@ import { generateNewCode } from '@/utils';
 
 export function useVisitBeacon(config) {
   useEffect(() => {
-    if (!config?.appdata) return;
+    if (!config?.appdata) {
+      // Analytics disabled - clean up any existing visitData and return
+      try {
+        localStorage.removeItem('visitData');
+        if (typeof window !== 'undefined' && window.sessionStorage) {
+          window.sessionStorage.removeItem('token');
+        }
+      } catch {
+        // Ignore cleanup errors
+      }
+      return;
+    }
+    
     // Initialize or update visitData in localStorage (once per app load)
     let visitData = null;
     try {

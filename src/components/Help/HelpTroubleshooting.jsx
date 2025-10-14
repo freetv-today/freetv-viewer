@@ -3,16 +3,14 @@ export function HelpTroubleshooting() {
     <section id="troubleshooting" className="mb-5">
       <h2 className="fs-3 my-5 fw-bold">Troubleshooting Problems</h2>
       <p>Many of the issues you might encounter while using Free TV are possibly related to issues with the Internet Archive servers or their internet connection. Some typical issues that you might encounter include:</p>
-      <p>
-        <ul>
-          <li>Video playing slowly or skipping</li>
-          <li>Video buffering (constantly loading) and showing a spinner</li>
-          <li>Video freezing</li>
-          <li>Error messages like: "This item is no longer available."</li>
-          <li>Episode Playlist not loading (or appearing in the UI)</li>
-          <li>Video player not loading (seeing an error message instead)</li>
-        </ul>
-      </p>
+      <ul>
+        <li>Video playing slowly or skipping</li>
+        <li>Video buffering (constantly loading) and showing a spinner</li>
+        <li>Video freezing</li>
+        <li>Error messages like: "This item is no longer available."</li>
+        <li>Episode Playlist not loading (or appearing in the UI)</li>
+        <li>Video player not loading (seeing an error message instead)</li>
+      </ul>
       <p>One of the first things to do is to test your own internet connection. Make sure that you can browse other web sites and play videos. One of the easiest tests you can do is to go to <a href="https://youtube.com" target="_blank">YouTube</a> and try to play a test video (just pick any title and try to play it). If the test video plays, then it means that your internet connection is working and you can stream video on your device. If this test fails, then it means that your device is not connected to the internet. Check your WiFi router, make sure your device is not in "Airplane Mode", and make sure that your ISP is not currently having network problems. If you have access to another device that has internet connectivity (e.g. a cellphone), you can visit <a href="https://downdetector.com" target="_blank">Downdetector</a> to see if your ISP is currently experiencing network issues.</p>
       <p>If you are seeing the message: "<em>This item is no longer available</em>" that means that the video you are trying to watch has been removed from the Internet Archive server and is no longer available. You can help us by reporting these errors. On the right side of each Show Title Button, there is a down arrow button (the Additional Actions Menu). Clicking this button will open a drop down menu. One of the options you'll see is "Report a problem". Click this link and a popup window will appear showing you information about the show you're reporting. If you click the "Report Problem" button, it will flag the item in our database and send the admin an alert so that it can be removed from our system. We appreciate your help reporting these broken titles. Please see the image below:</p>
       <p><img src="/assets/help/help_report_problem.png" className="my-3 img-fluid border border-1 border-dark" /></p>

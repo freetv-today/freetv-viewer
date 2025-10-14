@@ -64,35 +64,35 @@ export function AppLoader() {
             try {
 
                 // Fetch config data
-                console.log('[AppLoader] Fetching config file:', configFile);
+                // console.log('Fetching config file:', configFile);
                 const response = await fetch(configFile);
                 if (!response.ok) {
-                    console.error('[AppLoader] Config fetch failed:', response.status, response.statusText);
+                    // console.error('Config fetch failed:', response.status, response.statusText);
                     throw new Error(`Failed to fetch config file: ${response.status} ${response.statusText}`);
                 }
                 
                 try {
                     fetchedConfig = await response.json();
-                    console.log('[AppLoader] Config file loaded successfully');
+                    // console.log('Config file loaded successfully');
                 } catch (jsonError) {
-                    console.error('[AppLoader] Config JSON parse error:', jsonError);
+                    // console.error('Config JSON parse error:', jsonError);
                     throw new Error('Config file contains invalid JSON');
                 }
                 
                 // Fetch app info data
                 let fetchedInfo = null
-                console.log('[AppLoader] Fetching app info file:', infoFile);
+                // console.log('Fetching app info file:', infoFile);
                 const appinfo = await fetch(infoFile);
                 if (!appinfo.ok) {
-                    console.error('[AppLoader] App info fetch failed:', appinfo.status, appinfo.statusText);
+                    // console.error('App info fetch failed:', appinfo.status, appinfo.statusText);
                     throw new Error(`Failed to fetch app info file: ${appinfo.status} ${appinfo.statusText}`);
                 }
                 
                 try {
                     fetchedInfo = await appinfo.json();
-                    console.log('[AppLoader] App info file loaded successfully');
+                    // console.log('App info file loaded successfully');
                 } catch (jsonError) {
-                    console.error('[AppLoader] App info JSON parse error:', jsonError);
+                    // console.error('App info JSON parse error:', jsonError);
                     throw new Error('App info file contains invalid JSON');
                 }
                 
@@ -127,8 +127,8 @@ export function AppLoader() {
                 }
             } catch (error) {
                 // Log the specific error for developers
-                console.error('[AppLoader] Configuration loading failed:', error.message);
-                console.error('[AppLoader] Full error details:', error);
+                console.error('Configuration loading failed:', error.message);
+                console.error('Full error details:', error);
                 
                 // User-friendly message (same as before)
                 let msg = 'Unable to load configuration file. Please try again. If the problem persists, contact: support@freetv.today.';
@@ -136,7 +136,7 @@ export function AppLoader() {
                     type: 'Configuration Error',
                     message: msg,
                 });
-                console.error('[AppLoader] User shown error:', msg);
+                console.error('User shown error:', msg);
                 setLoading(false);
                 return;
             }
@@ -147,7 +147,19 @@ export function AppLoader() {
                 const startTime = Date.now();
                 await enforceMinLoadingTime(startTime, minLoadingTime);
             }
+            
             setLoading(false);
+
+            // Handle anchor scrolling for direct URLs (e.g., /help#version)
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const elementId = window.location.hash.substring(1); // Remove the '#'
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100); // Small delay to ensure the DOM is fully rendered
+            }
         }
         loadConfig();
     }, []);

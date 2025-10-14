@@ -5,6 +5,7 @@ import { ImageSmallLogo } from '@components/UI/ImageSmallLogo';
 import { ToggleDropDownMenu } from '@components/Navigation/ToggleDropDownMenu';
 import { showVidNavBtnsSignal } from '@signals/showVidNavBtns';
 
+// No props needed - ButtonVideoNav uses Signal for state management
 export function NavbarVideoPlayback() {
 
   return (

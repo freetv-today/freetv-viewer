@@ -73,16 +73,6 @@ export async function enforceMinLoadingTime(startTime, minTime = 1200) {
 }
 
 /**
- * Used by ButtonVideoNav.jsx to confirm page reload
- * @returns {boolean} True if user confirms the reload
- */
-export function confirmPlaylistReload() {
-  return window.confirm(
-    'To show or hide the Episode Playlist you\'ll have to reload the page. Do you wish to proceed?'
-  );
-}
-
-/**
  * Show alert and focus text input field
  * Used by SearchQueryComponent.jsx for user feedback
  * @param {string} message - Alert message to display
@@ -155,14 +145,22 @@ export function handleKeyPress(event) {
 
 /**
  * Get app info from local storage
- * @returns {Object|undefined} Parsed app info object or undefined if not found
+ * @returns {Object} App info object with defaults if not found
  */
 export function getAppInfo() {
-  let d = localStorage.getItem('appInfo');
-  if (d) {
-    let info = JSON.parse(d);
-    return info;
+  try {
+    const data = localStorage.getItem('appInfo');
+    if (data) {
+      return JSON.parse(data);
+    }
+  } catch (err) {
+    console.warn('Error parsing appInfo from localStorage:', err);
   }
+  // Return defaults if not found or parsing fails
+  return {
+    name: 'Unknown',
+    version: 'Unknown'
+  };
 }
 
 // --------------------------------------
