@@ -21,6 +21,11 @@ export function HelpHowToUse() {
         <li><p>Click a Show Title Button to watch a video</p></li>
         <li><p>Click the down arrow on each Show Title Button to reveal the Additional Actions Menu</p></li>
       </ol>   
+      <h4 className="fs-5 my-4 fw-bold">Shows With Multiple Seasons</h4>
+      <p>As you are browsing categories you will notice that some Show Title Buttons look different. These buttons indicate that there are multiple seasons available to watch. When you click one of these buttons, a menu will expand showing all the available seasons. Each of these seasons contains the standard "Additional Actions Menu" which appears when you click the down arrow on the button. This will open a drop down menu to perform actions on the specific season number you clicked on (e.g. download files).</p>
+      <p><img src="/assets/help/help_series_vs_actions_menu.png" width="531" title="Multiple Season Show Titles vs. Regular Show Title Buttons" /></p> 
+      <p>To open or close the multiple season menu, just click the Show Title Button again. This will toggle the menu:</p>
+      <p><img src="/assets/help/help_series_vs_actions_menu_expanded.png" width="523" title="Toggling the Multiple Season Show Title Button" /></p> 
       <h4 className="fs-5 my-4 fw-bold">Changing Playlists</h4>   
       <p>When Free TV starts, it loads the default playlist ("Default TV Shows"). Only one playlist can be loaded at a time. To switch to a different playlist, use the Playlist Selector in the upper right corner. When you select a different playlist, the app will load data and display the categories from the newly-selected playlist.</p>   
       <p><img src="/assets/help/help_change_playlist.png" width="232" title="" /></p> 
