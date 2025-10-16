@@ -47,10 +47,10 @@ export const faqItems = [
         <p>Just click the down arrow on the right side of a show title button. This will show the Additional Actions Menu. If you click on "Download files", it will open the Internet Archive site in a new tab or window which displays the available file formats for download.</p>
         <p class="my-4"><img src="/assets/help/help_download_show.png" class="img-fluid" title="Download option in the Actions Menu" /></p>
         <p>
-          While a video is playing, just scroll down on the page containing the video and you'll see a section which says "Download Options". Select the video file formats you want and download the files directly from the Internet Archive.
+          While a video is playing, just scroll down on the page containing the video and you'll see a section which says "Download Options" (see below). Select the video file formats you want and download the files directly from the Internet Archive.
         </p>
         <p>
-          <img src="/assets/help/more-formats.png" class="img-fluid" title="Click this icon to go to the Internet Archive site" />
+          <img src="/assets/help/help_download_files.png" class="img-fluid" title="Download files directly from the Internet Archive" />
         </p>
       </>
     )
