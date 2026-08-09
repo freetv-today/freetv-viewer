@@ -6,7 +6,6 @@
 // Basic Service Worker for FreeTV Viewer PWA
 
 
-const url = 'https://freetv.today';
 const CACHE_NAME = 'freetv-static-v1';
 const THUMB_CACHE = 'freetv-thumbs-v1';
 const STATIC_ASSETS = [
@@ -17,8 +16,8 @@ const STATIC_ASSETS = [
   // Add more static assets as needed
 ];
 
-const PLAYLIST_INDEX_URL = `${url}/playlists/index.json`;
-const CONFIG_URL = `${url}/config.json`;
+const PLAYLIST_INDEX_URL = 'https://freetv.today/playlists/index.json';
+const CONFIG_URL = '/config.json';
 let lastPlaylistUpdated = null;
 let lastConfigUpdated = null;
 

@@ -1,4 +1,3 @@
-import { useConfig } from '@/context/ConfigContext';
 import { useQueueVideo } from '@hooks/useQueueVideo';
 import { useFavoritesList } from '@hooks/useFavoritesList';
 import { triggerToast } from '@/signals/toastSignal';
@@ -19,7 +18,6 @@ import { triggerToast } from '@/signals/toastSignal';
 
 export function ButtonShowTitleNav({ title, category, identifier, desc, start, end, imdb, onShowModal }) {
   
-  const { modules } = useConfig();
   const { queueVideo } = useQueueVideo();
   const { favorites, addToFavorites, removeFromFavorites } = useFavoritesList();
 
@@ -78,9 +76,7 @@ export function ButtonShowTitleNav({ title, category, identifier, desc, start, e
               About this show
             </a>
           </li>
-          {/* ---- These buttons are controlled by config setting 'modules' ----  */}
-          {modules && (
-            <div className="moduleBtns" style={{ display: 'block' }}>
+          <>
               <li>
                 {isFavorite ? (
                   <a
@@ -131,8 +127,7 @@ export function ButtonShowTitleNav({ title, category, identifier, desc, start, e
                   <img src="/assets/external-link.svg" width="15" className="ms-2 pb-1" title="Opens in a new tab or window" alt="External Link" />
                 </a>
               </li>
-            </div>
-          )}
+          </>
         </ul>
       </div>
     </>

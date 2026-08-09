@@ -4,19 +4,15 @@ import { VideoLoader } from '@components/Loaders/VideoLoader';
 import { Link } from '@components/Navigation/Link';
 import { useDebugLog } from '@hooks/useDebugLog';
 import { showVidNavBtnsSignal } from '@signals/showVidNavBtns';
-import { logShowEnd } from '@/utils';
 
 export function NowPlaying() {
 
   const [currentVid] = useLocalStorage('currentVid', null);
   const log = useDebugLog();
 
-  // Effect to log show end and clear currentVid on unmount
+  // Clear currentVid on unmount
   useEffect(() => {
     return () => {
-      if (currentVid && currentVid.imdb) {
-        logShowEnd(currentVid.imdb);
-      }
       localStorage.removeItem('currentVid');
       showVidNavBtnsSignal.value = false;
     };
