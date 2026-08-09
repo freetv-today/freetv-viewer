@@ -44,7 +44,6 @@ export const PlaylistContext = createContext({
 
 export function PlaylistProvider({ children }) {
 
-  const url = 'https://freetv.today';
   const log = useDebugLog();
   const { route, path } = useLocation();
   const hasInitialized = useRef(false);
@@ -61,7 +60,7 @@ export function PlaylistProvider({ children }) {
   useEffect(() => {
     if (hasInitialized.current) return;
     hasInitialized.current = true;
-    fetch(`${url}/playlists/index.json`)
+    fetch('/playlists/index.json')
           .then(res => res.json())
           .then(data => {
             setPlaylists(data.playlists || []);
@@ -89,7 +88,7 @@ export function PlaylistProvider({ children }) {
   // Route change effect: re-check data on navigation (for client-side nav)
   useEffect(() => {
       if (initializing) return;
-      fetch(`${url}/playlists/index.json`)
+      fetch('/playlists/index.json')
         .then(res => res.json())
         .then(data => {
           const saved = currentPlaylist || data.default || (data.playlists[0] && data.playlists[0].filename);
@@ -133,7 +132,7 @@ export function PlaylistProvider({ children }) {
     setLoading(showSpinner);
     const minLoadingTime = 1200;
     const startTime = Date.now();
-    fetch(`${url}/playlists/${filename}`)
+    fetch(`/playlists/${filename}`)
       .then(res => res.json())
       .then(data => {
         setCurrentPlaylist(filename);
@@ -161,7 +160,7 @@ export function PlaylistProvider({ children }) {
 
   // Refresh playlists from index.json
   function refreshPlaylists() {
-    fetch(`${url}/playlists/index.json`)
+    fetch('/playlists/index.json')
       .then(res => res.json())
       .then(data => {
         setPlaylists(data.playlists || []);

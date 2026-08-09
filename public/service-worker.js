@@ -16,7 +16,7 @@ const STATIC_ASSETS = [
   // Add more static assets as needed
 ];
 
-const PLAYLIST_INDEX_URL = 'https://freetv.today/playlists/index.json';
+const PLAYLIST_INDEX_URL = '/playlists/index.json';
 const CONFIG_URL = '/config.json';
 let lastPlaylistUpdated = null;
 let lastConfigUpdated = null;

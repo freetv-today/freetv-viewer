@@ -29,7 +29,7 @@ export function ReportProblemModal({ show, onClose, title, category, identifier,
   useEffect(() => {
     if (imdb) {
       const img = new window.Image();
-      img.src = `${url}/thumbs/${imdb}.jpg`;
+      img.src = `/thumbs/${imdb}.jpg`;
       img.onload = () => setThumbnailSrc(img.src);
       img.onerror = () => setThumbnailSrc('/assets/vintage-tv.png');
     } else {

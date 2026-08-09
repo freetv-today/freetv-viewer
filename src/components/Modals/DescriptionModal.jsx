@@ -17,13 +17,12 @@ import { capitalizeFirstLetter } from '@/utils';
 
 export function DescriptionModal({ show, onClose, title, category, identifier, desc, start, end, imdb }) {
   
-  const url = 'https://freetv.today';
   const [thumbnailSrc, setThumbnailSrc] = useState('/assets/vintage-tv.png');
 
   useEffect(() => {
     if (imdb) {
       const img = new Image();
-      img.src = `${url}/thumbs/${imdb}.jpg`;
+      img.src = `/thumbs/${imdb}.jpg`;
       img.onload = () => setThumbnailSrc(img.src);
       img.onerror = () => setThumbnailSrc('/assets/vintage-tv.png');
     }
