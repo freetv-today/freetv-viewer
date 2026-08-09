@@ -26,3 +26,4 @@ dist-ssr
 
 public/thumbs/
 public/playlists/
+public/config.json
