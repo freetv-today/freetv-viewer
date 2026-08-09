@@ -76,58 +76,57 @@ export function ButtonShowTitleNav({ title, category, identifier, desc, start, e
               About this show
             </a>
           </li>
-          <>
-              <li>
-                {isFavorite ? (
-                  <a
-                    className="dropdown-item moreoptions"
-                    href="#"
-                    title={`Remove ${title} from favorites`}
-                    onClick={e => {
-                      e.preventDefault();
-                      removeFromFavorites(title);
-                      triggerToast('Show was removed from Favorites', 'dark');
-                    }}
-                  >
-                    Remove from favorites
-                  </a>
-                ) : (
-                  <a
-                    className="dropdown-item moreoptions"
-                    href="#"
-                    title={`Add ${title} to favorites`}
-                    onClick={e => {
-                      e.preventDefault();
-                      addToFavorites(title);
-                      triggerToast('Show was added to Favorites', 'dark');
-                    }}
-                  >
-                    Add to favorites
-                  </a>
-                )}
-              </li>
-              <li>
-                <a
-                  className="dropdown-item moreoptions text-danger"
-                  href="#"
-                  title={`Report a problem with ${title}`}
-                  onClick={e => { e.preventDefault(); handleReportProblem(); }}
-                >
-                  Report a problem
-                </a>
-              </li>
-              <li>
-                <a
-                  className="dropdown-item moreoptions"
-                  href={`https://archive.org/download/${identifier}`}
-                  title={`Download files for ${title}`}
-                  target="_blank"
-                >
-                  Download files
-                  <img src="/assets/external-link.svg" width="15" className="ms-2 pb-1" title="Opens in a new tab or window" alt="External Link" />
-                </a>
-              </li>
-          </>
+          <li>
+          {isFavorite ? (
+            <a
+              className="dropdown-item moreoptions"
+              href="#"
+              title={`Remove ${title} from favorites`}
+              onClick={e => {
+                e.preventDefault();
+                removeFromFavorites(title);
+                triggerToast('Show was removed from Favorites', 'dark');
+              }}
+            >
+              Remove from favorites
+            </a>
+          ) : (
+            <a
+              className="dropdown-item moreoptions"
+              href="#"
+              title={`Add ${title} to favorites`}
+              onClick={e => {
+                e.preventDefault();
+                addToFavorites(title);
+                triggerToast('Show was added to Favorites', 'dark');
+              }}
+            >
+              Add to favorites
+            </a>
+          )}
+          </li>
+          <li>
+            <a
+              className="dropdown-item moreoptions text-danger"
+              href="#"
+              title={`Report a problem with ${title}`}
+              onClick={e => { e.preventDefault(); handleReportProblem(); }}
+            >
+              Report a problem
+            </a>
+          </li>
+          <li>
+            <a
+              className="dropdown-item moreoptions"
+              href={`https://archive.org/download/${identifier}`}
+              title={`Download files for ${title}`}
+              target="_blank"
+            >
+              Download files
+              <img src="/assets/external-link.svg" width="15" className="ms-2 pb-1" title="Opens in a new tab or window" alt="External Link" />
+            </a>
+          </li>
+
         </ul>
       </div>
     </>
