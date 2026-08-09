@@ -39,4 +39,4 @@ Free TV Viewer
 
 ## License
 
-This code is released under the [MIT](LICENSE) license.
+This code is released under the [GPL v3](LICENSE) license.

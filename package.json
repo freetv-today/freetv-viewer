@@ -1,4 +1,12 @@
 {
+	"name": "freetv-viewer",
+	"version": "1.0.0-beta",
+	"description": "A viewer to browse and watch free TV shows and movies from the Internet Archive.",
+	"author": "Ken Dawson",
+	"license": "GPL-3.0-only",
+	"homepage": "https://freetv.today",
+	"repository": "https://github.com/freetv-today/freetv-viewer",
+	"bugs": "https://github.com/freetv-today/freetv-viewer/issues",
 	"private": true,
 	"type": "module",
 	"scripts": {
