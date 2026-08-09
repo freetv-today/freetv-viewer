@@ -126,7 +126,6 @@ export function ButtonShowTitleNav({ title, category, identifier, desc, start, e
               <img src="/assets/external-link.svg" width="15" className="ms-2 pb-1" title="Opens in a new tab or window" alt="External Link" />
             </a>
           </li>
-
         </ul>
       </div>
     </>
