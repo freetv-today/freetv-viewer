@@ -7,7 +7,7 @@
 
 
 const CACHE_NAME = 'freetv-static-v1';
-const THUMB_CACHE = 'freetv-thumbs-v1';
+// const THUMB_CACHE = 'freetv-thumbs-v1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -105,22 +105,22 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
   // Thumbnail caching: /thumbs/*.jpg
-  if (url.pathname.startsWith('/thumbs/') && url.pathname.endsWith('.jpg')) {
-    event.respondWith(
-      caches.open(THUMB_CACHE).then(cache =>
-        cache.match(event.request).then(response => {
-          if (response) return response;
-          return fetch(event.request).then(networkRes => {
-            if (networkRes && networkRes.status === 200) {
-              cache.put(event.request, networkRes.clone());
-            }
-            return networkRes;
-          }).catch(() => caches.match('/assets/vintage-tv.png'));
-        })
-      )
-    );
-    return;
-  }
+  // if (url.pathname.startsWith('/thumbs/') && url.pathname.endsWith('.jpg')) {
+  //   event.respondWith(
+  //     caches.open(THUMB_CACHE).then(cache =>
+  //       cache.match(event.request).then(response => {
+  //         if (response) return response;
+  //         return fetch(event.request).then(networkRes => {
+  //           if (networkRes && networkRes.status === 200) {
+  //             cache.put(event.request, networkRes.clone());
+  //           }
+  //           return networkRes;
+  //         }).catch(() => caches.match('/assets/vintage-tv.png'));
+  //       })
+  //     )
+  //   );
+  //   return;
+  // }
 
   // Cache-first for static assets
   event.respondWith(
