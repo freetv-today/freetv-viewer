@@ -8,7 +8,7 @@ export function AdBar() {
 
     const [showAdMsg, setShowAdMsg] = useLocalStorage('showAdMsg', 0);
     const log = useDebugLog();
-    const { showads } = useConfig();
+    const { show_ads } = useConfig();
     const [isMobile, setIsMobile] = useState(window.matchMedia('(max-width: 767.98px)').matches);
 
     // Listen for screen size changes (modern API only)
@@ -26,14 +26,14 @@ export function AdBar() {
 
     // Show ad message once
     useEffect(() => {
-        if (showads && !showAdMsg) {
+        if (show_ads && !showAdMsg) {
             log(`Ads are enabled.`);
             setShowAdMsg(1);
         }
-    }, [showads, showAdMsg]);
+    }, [show_ads, showAdMsg]);
 
     // Use adReloadSignal to force re-render
-    if (!showads) {
+    if (!show_ads) {
         return null;
     }
 
@@ -56,8 +56,6 @@ export function AdBar() {
                         width={adWidth}
                         height={adHeight}
                         style={{ border: 'none', background: '#fafafa', display: 'block' }}
-                        scrolling="no"
-                        frameBorder="0"
                     />
                 </div>
             </div>
