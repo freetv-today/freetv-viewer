@@ -18,8 +18,7 @@ import { capitalizeFirstLetter } from '@/utils';
  */
 
 export function ReportProblemModal({ show, onClose, title, category, identifier, desc, start, end, imdb, playlist }) {
-  
-  const url = 'https://freetv.today';
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
@@ -53,7 +52,7 @@ export function ReportProblemModal({ show, onClose, title, category, identifier,
     setSubmitting(true);
     setError(null);
     try {
-      const response = await fetch(`${url}/api/report-problem.php`, {
+      const response = await fetch('/api/report-problem.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, category, identifier, desc, start, end, imdb, playlist })
