@@ -11,7 +11,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"build": "vite build && npm run validate:dist",
+		"validate:dist": "node scripts/validate-viewer-dist.js",
+		"test:viewer-dist": "node tests/ViewerDistContractTest.js",
 		"preview": "vite preview"
 	},
 	"dependencies": {

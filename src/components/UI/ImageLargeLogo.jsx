@@ -1,6 +1,7 @@
-import freetvLogo from '/assets/freetv.png';
 import { useCategories } from '@/hooks/useCategories';
 import { getRandomCategory } from '@/utils';
+
+const freetvLogo = '/assets/freetv.png';
 
 /**
  * ImageLargeLogo - Large Free TV logo component for main pages

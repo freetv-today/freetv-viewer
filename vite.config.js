@@ -1,11 +1,30 @@
 import { defineConfig, loadEnv } from 'vite';
 import preact from '@preact/preset-vite';
+import { cpSync } from 'node:fs';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
 const DATA_PROXY_TARGET = 'https://freetv.today';
 const REPORT_PROBLEM_PATH = '/api/report-problem.php';
 const PROJECT_ROOT = dirname(fileURLToPath(import.meta.url));
+const PRODUCTION_PUBLIC_ENTRIES = ['assets', 'manifest.webmanifest', 'service-worker.js'];
+
+function viewerProductionPublicFiles() {
+  return {
+    name: 'viewer-production-public-files',
+    apply: 'build',
+    writeBundle(options) {
+      const outputDirectory = resolve(PROJECT_ROOT, options.dir ?? 'dist');
+      for (const entry of PRODUCTION_PUBLIC_ENTRIES) {
+        cpSync(
+          resolve(PROJECT_ROOT, 'public', entry),
+          resolve(outputDirectory, entry),
+          { recursive: true }
+        );
+      }
+    }
+  };
+}
 
 function developmentReportProblemMock() {
   return {
@@ -41,7 +60,7 @@ function developmentReportProblemMock() {
   };
 }
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, PROJECT_ROOT, '');
   const dataMode = env.FREETV_DATA_MODE ?? 'remote';
 
@@ -65,7 +84,10 @@ export default defineConfig(({ mode }) => {
   } : undefined;
 
   return {
-    plugins: [developmentReportProblemMock(), preact()],
+    plugins: [developmentReportProblemMock(), preact(), viewerProductionPublicFiles()],
+    // public/ also holds ignored local data fixtures. Serve it in development,
+    // but copy only the explicit Viewer frontend entries during production builds.
+    publicDir: command === 'build' ? false : 'public',
     resolve: {
       alias: {
         '@': resolve(PROJECT_ROOT, 'src'),
