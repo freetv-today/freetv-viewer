@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const DATA_PROXY_TARGET = 'https://freetv.today';
 const REPORT_PROBLEM_PATH = '/api/report-problem.php';
 const PROJECT_ROOT = dirname(fileURLToPath(import.meta.url));
-const PRODUCTION_PUBLIC_ENTRIES = ['.htaccess', 'assets', 'manifest.webmanifest', 'service-worker.js'];
+const PRODUCTION_PUBLIC_ENTRIES = ['.htaccess', 'assets', 'manifest.json', 'service-worker.js'];
 
 function viewerProductionPublicFiles() {
   return {

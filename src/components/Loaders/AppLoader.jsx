@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'preact/hooks';
-import { triggerToast } from '@/signals/toastSignal';
 import { ConfigProvider } from '@/context/ConfigContext';
 import { PlaylistProvider } from '@/context/PlaylistContext';
 import { App } from '@components/App';
@@ -20,25 +19,6 @@ export function AppLoader() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Listen for service worker update messages
-        if ('serviceWorker' in navigator && navigator.serviceWorker) {
-            navigator.serviceWorker.addEventListener('message', event => {
-                if (event.data && event.data.type === 'DATA_UPDATE_AVAILABLE') {
-                    console.error('[AppLoader] Received DATA_UPDATE_AVAILABLE from service worker', { loading, pathname: window.location.pathname });
-                }
-                if (
-                    event.data &&
-                    event.data.type === 'DATA_UPDATE_AVAILABLE' &&
-                    !loading // Only show toast after initial load
-                ) {
-                    if (window.location.pathname !== '/nowplaying') {
-                        triggerToast('New data is available! The playlist or settings have changed.', 'info');
-                        // Optionally, reload or trigger update logic here
-                        // window.location.reload();
-                    }
-                }
-            });
-        }
         async function loadConfig() {
 
             // Storage check

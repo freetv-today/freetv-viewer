@@ -51,11 +51,9 @@ export default [
         caches: 'readonly',
         clients: 'readonly',
         fetch: 'readonly',
+        URL: 'readonly',
         // Add more service worker globals if needed
       },
-    },
-    env: {
-      serviceworker: true,
     },
   },
 ];
