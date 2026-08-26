@@ -7,10 +7,19 @@ import test from 'node:test';
 // eslint-disable-next-line import/extensions
 import { validateViewerDist } from '../scripts/validate-viewer-dist.js';
 
+const SPA_HTACCESS = `RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+`;
+
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'freetv-viewer-dist-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   fs.mkdirSync(path.join(root, 'assets'));
+  fs.writeFileSync(path.join(root, '.htaccess'), SPA_HTACCESS);
   fs.writeFileSync(path.join(root, 'index.html'), '<!doctype html>');
   fs.writeFileSync(path.join(root, 'assets/viewer.js'), 'export {};');
   fs.writeFileSync(path.join(root, 'assets/viewer.css'), 'body {}');
@@ -24,7 +33,19 @@ function fixture(t) {
 
 test('accepts the Viewer frontend allowlist', (t) => {
   const root = fixture(t);
-  assert.equal(validateViewerDist(root).files, 6);
+  assert.equal(validateViewerDist(root).files, 7);
+});
+
+test('requires the Viewer SPA .htaccess', (t) => {
+  const root = fixture(t);
+  fs.rmSync(path.join(root, '.htaccess'));
+  assert.throws(() => validateViewerDist(root), /.htaccess is missing or is not a file/);
+});
+
+test('rejects a changed Viewer SPA rewrite contract', (t) => {
+  const root = fixture(t);
+  fs.writeFileSync(path.join(root, '.htaccess'), 'RewriteEngine Off\n');
+  assert.throws(() => validateViewerDist(root), /.htaccess does not match the Viewer SPA fallback contract/);
 });
 
 test('rejects local playlist data', (t) => {

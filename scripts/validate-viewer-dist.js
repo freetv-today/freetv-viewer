@@ -5,11 +5,19 @@ import { fileURLToPath } from 'node:url';
 /* global process */
 
 const ALLOWED_ROOT_ENTRIES = new Set([
+  '.htaccess',
   'assets',
   'index.html',
   'manifest.webmanifest',
   'service-worker.js'
 ]);
+const SPA_HTACCESS = `RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+`;
 const ALLOWED_ASSET_EXTENSIONS = new Set([
   '.css',
   '.gif',
@@ -39,6 +47,13 @@ function requireFile(root, relativePath, errors) {
   if (!fs.existsSync(target) || !fs.statSync(target).isFile()) {
     errors.push(`${relativePath} is missing or is not a file`);
   }
+}
+
+function validateSpaHtaccess(root, errors) {
+  const htaccessPath = path.join(root, '.htaccess');
+  if (!fs.existsSync(htaccessPath) || !fs.statSync(htaccessPath).isFile()) return;
+  const contents = fs.readFileSync(htaccessPath, 'utf8').replaceAll('\r\n', '\n');
+  if (contents !== SPA_HTACCESS) errors.push('.htaccess does not match the Viewer SPA fallback contract');
 }
 
 function validateManifestIcons(root, errors) {
@@ -87,6 +102,7 @@ export function validateViewerDist(distRoot) {
     }
   }
 
+  requireFile(resolvedRoot, '.htaccess', errors);
   requireFile(resolvedRoot, 'index.html', errors);
   requireFile(resolvedRoot, 'manifest.webmanifest', errors);
   requireFile(resolvedRoot, 'service-worker.js', errors);
@@ -127,6 +143,7 @@ export function validateViewerDist(distRoot) {
 
   if (!hasJavaScript) errors.push('assets/ does not contain a Viewer JavaScript bundle');
   if (!hasCss) errors.push('assets/ does not contain a Viewer CSS bundle');
+  validateSpaHtaccess(resolvedRoot, errors);
   validateManifestIcons(resolvedRoot, errors);
 
   if (errors.length > 0) {
