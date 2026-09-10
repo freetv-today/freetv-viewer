@@ -17,6 +17,9 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^admin(?:/.*)?$ /admin/index.html [L]
 
+# Never route API requests through the Viewer SPA fallback
+RewriteRule ^api(?:/|$) - [L]
+
 # Viewer SPA routes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -93,7 +96,13 @@ test('requires the Viewer SPA .htaccess', (t) => {
 
 test('rejects a changed Viewer SPA rewrite contract', (t) => {
   const root = fixture(t);
-  fs.writeFileSync(path.join(root, '.htaccess'), 'RewriteEngine Off\n');
+  fs.writeFileSync(
+    path.join(root, '.htaccess'),
+    SPA_HTACCESS.replace(
+      '# Never route API requests through the Viewer SPA fallback\nRewriteRule ^api(?:/|$) - [L]\n\n',
+      '',
+    ),
+  );
   assert.throws(() => validateViewerDist(root), /.htaccess does not match the Viewer SPA fallback contract/);
 });
 
