@@ -9,9 +9,6 @@
 	"bugs": "https://github.com/freetv-today/freetv-viewer/issues",
 	"private": true,
 	"type": "module",
-	"engines": { 
-		"node": ">=22" 
-	},
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build && npm run validate:dist",
@@ -19,6 +16,9 @@
 		"test:viewer-dist": "node tests/ViewerDistContractTest.js",
 		"test:pwa": "node tests/ServiceWorkerContractTest.js",
 		"preview": "vite preview"
+	},
+	"engines": { 
+		"node": ">=22"
 	},
 	"dependencies": {
 		"@eslint/js": "^9.34.0",
