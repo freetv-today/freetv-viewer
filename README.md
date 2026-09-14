@@ -64,6 +64,17 @@ The Vite development server also provides a non-persistent mock response for `/a
 
 To develop with local disposable Viewer data instead, see [Local Data Development](#local-data-development).
 
+## How do I ...  ?
+
+`freetv-viewer` can be developed and run on its own; you do not need the Admin Dashboard, MariaDB, or a complete FreeTV production assembly to work on the Viewer. The table below covers tasks within this repository. For help choosing another FreeTV repository, see the [FreeTV organization overview](https://github.com/freetv-today).<br/>
+
+| I want to... | What do I do? | What happens? |
+| --- | --- | --- |
+| **Run the Viewer with official remote data** | Navigate to `freetv-viewer`, run `npm install`, and then run `npm run dev`. See [Getting Started](#getting-started). | Starts the local Viewer frontend and proxies data requests to the currently published artifacts at `freetv.today`. |
+| **Run the Viewer with local data** | Set `FREETV_DATA_MODE=local`, install disposable Viewer data, and run `npm run dev`. See [Local Data Development](#local-data-development). | Loads configuration, playlists, and thumbnails from the Viewer’s ignored `public/` data paths instead of `freetv.today`. |
+| **Test the Report a Problem interface locally** | Run the Viewer with `npm run dev` and submit a problem report. | Vite returns a simulated success response. Nothing is persisted or sent to the official FreeTV site. |
+| **Build only the Viewer frontend** | Navigate to `freetv-viewer` and run `npm run build`. See [Build the Viewer](#build-the-viewer). | Creates and validates a frontend-only production build in `dist/`. Viewer data, Admin files, and PHP APIs are not included. |
+| **Run the Viewer contract tests** | Run `npm run test:viewer-dist` and `npm run test:pwa`. See [Testing](#testing). | Validates the production-build contract and Progressive Web App files without creating a complete FreeTV assembly. |
 
 ## License
 
