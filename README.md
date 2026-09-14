@@ -128,8 +128,12 @@ The default Tooling configuration expects these repositories to be siblings. If 
 
 5. Open the local URL printed by Vite.
 
+<br/>
+
 > [!NOTE]
 > `dev:install-viewer-data` removes any existing disposable Viewer data from the three paths above and replaces it with the current canonical artifacts from the configured `freetv-data` > repository. Other files under `freetv-viewer/public/` are preserved.
+
+</br>
 
 Rerun the installation command whenever the canonical local dataset changes:
 
