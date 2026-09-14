@@ -17,7 +17,7 @@
 		"test:pwa": "node tests/ServiceWorkerContractTest.js",
 		"preview": "vite preview"
 	},
-	"engines": { 
+	"engines": {
 		"node": ">=22"
 	},
 	"dependencies": {
