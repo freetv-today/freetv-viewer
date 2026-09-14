@@ -76,6 +76,92 @@ To develop with local disposable Viewer data instead, see [Local Data Developmen
 | **Build only the Viewer frontend** | Navigate to `freetv-viewer` and run `npm run build`. See [Build the Viewer](#build-the-viewer). | Creates and validates a frontend-only production build in `dist/`. Viewer data, Admin files, and PHP APIs are not included. |
 | **Run the Viewer contract tests** | Run `npm run test:viewer-dist` and `npm run test:pwa`. See [Testing](#testing). | Validates the production-build contract and Progressive Web App files without creating a complete FreeTV assembly. |
 
+## Development
+
+Standalone Viewer development requires only the Viewer’s npm dependencies and a source of published Viewer data.
+
+The default remote-data workflow is described in [Getting Started](#getting-started). Use local data when testing unpublished dataset changes, working without the official remote artifacts, or coordinating Viewer development with `freetv-data`.
+
+### Local Data Development
+
+Local data mode loads Viewer artifacts from these paths:
+
+```text
+freetv-viewer/public/
+├── config.json
+├── playlists/
+└── thumbs/
+```
+
+These paths contain disposable development data and are ignored by Git. They are not part of the Viewer source repository and must not be committed.
+
+The recommended installation workflow uses [`freetv-tooling`](https://github.com/freetv-today/freetv-tooling). Prepare local copies of:
+
+```text
+freetv-data/
+freetv-tooling/
+freetv-viewer/
+```
+
+The default Tooling configuration expects these repositories to be siblings. If they are stored elsewhere, configure their locations in `freetv-tooling/config/paths.json`.
+
+1. Install the npm dependencies in `freetv-viewer` and `freetv-tooling`.
+
+2. In `freetv-viewer`, create `.env.local` from `.env.local.example`:
+
+   ```dotenv
+   FREETV_DATA_MODE=local
+   ```
+
+3. In a terminal, navigate to `freetv-tooling` and run:
+
+   ```bash
+   npm run status
+   npm run dev:install-viewer-data
+   ```
+
+4. Navigate to `freetv-viewer` and start the Viewer:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open the local URL printed by Vite.
+
+`dev:install-viewer-data` removes any existing disposable Viewer data from the three paths above and replaces it with the current canonical artifacts from the configured `freetv-data` repository. Other files under `freetv-viewer/public/` are preserved.
+
+Rerun the installation command whenever the canonical local dataset changes:
+
+```bash
+npm run dev:install-viewer-data
+```
+
+Do not edit the installed Viewer copies as the source of a dataset. MariaDB is authoritative for working Admin data, and `freetv-data` owns the canonical distributable artifacts.
+
+To remove the disposable local Viewer data, navigate to `freetv-tooling` and run:
+
+```bash
+npm run dev:clean-viewer-data
+```
+
+This removes only:
+
+```text
+freetv-viewer/public/config.json
+freetv-viewer/public/playlists/
+freetv-viewer/public/thumbs/
+```
+
+To return to official remote data, remove `.env.local` or change its value to:
+
+```dotenv
+FREETV_DATA_MODE=remote
+```
+
+Restart Vite after changing the data mode.
+
+`FREETV_DATA_MODE` accepts only `remote` or `local`. If it is omitted, the Viewer defaults to `remote`. Any other value prevents the development server from starting.
+
 ## License
 
 This code is released under the [GPL v3](LICENSE) license.
