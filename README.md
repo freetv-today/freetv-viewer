@@ -76,7 +76,6 @@ To develop with local disposable Viewer data instead, see [Local Data Developmen
 | **Build only the Viewer frontend** | Navigate to `freetv-viewer` and run `npm run build`. See [Build the Viewer](#build-the-viewer). | Creates and validates a frontend-only production build in `dist/`. Viewer data, Admin files, and PHP APIs are not included. |
 | **Run the Viewer contract tests** | Run `npm run test:viewer-dist` and `npm run test:pwa`. See [Testing](#testing). | Validates the production-build contract and Progressive Web App files without creating a complete FreeTV assembly. |
 
-
 ## Architecture
 
 The FreeTV Viewer is a Preact single-page application built with Vite and styled with Bootstrap. It reads published static artifacts and presents them as searchable playlists, categories, show information, and playable Internet Archive content.
@@ -92,6 +91,7 @@ flowchart TD
     DATA -->|"Configuration, playlists, and thumbnails"| VIEWER["FreeTV Viewer"]
     VIEWER -->|"Preferences and viewing state"| STORAGE["Browser local storage"]
     VIEWER -.->|"Problem reports when API is available"| API["FreeTV PHP API"]
+    API -->|"Stores accepted reports"| DB
 ```
 
 MariaDB is authoritative for Admin-managed data. The Viewer consumes:
@@ -136,7 +136,7 @@ The browser must permit local storage. If storage is unavailable, the Viewer dis
 
 ### Backend-Dependent Features
 
-Normal browsing and playback use static Viewer artifacts and do not require PHP or MariaDB.
+Normal browsing uses static Viewer artifacts, while playback retrieves media from the Internet Archive. Neither requires the FreeTV PHP API or MariaDB.
 
 Report a Problem is an optional backend-dependent feature. In production, the Viewer submits reports to:
 
@@ -163,6 +163,48 @@ The service worker caches the Viewer application shell and static frontend asset
 ```
 
 Viewer data, thumbnails, API responses, and Admin resources therefore continue to use the network. The Progressive Web App installation does not make the published FreeTV dataset or Internet Archive videos available offline.
+
+## Project Structure
+
+The following tree highlights the files and directories most relevant to developing, building, and deploying the Viewer. It does not list every component or static asset.
+
+```text
+freetv-viewer/
+├── public/
+│   ├── assets/                Viewer images, icons, fonts, help content, and static assets
+│   ├── config.json            Disposable local Viewer configuration; ignored by Git
+│   ├── playlists/             Disposable local playlist data; ignored by Git
+│   ├── thumbs/                Disposable local thumbnails; ignored by Git
+│   ├── .htaccess              Viewer and Admin single-page application routing rules
+│   ├── manifest.json          Progressive Web App manifest
+│   └── service-worker.js      Viewer application-shell cache behavior
+├── scripts/
+│   └── validate-viewer-dist.js
+│                              Production Viewer build validator
+├── src/
+│   ├── components/            Layout, navigation, modal, loader, help, and UI components
+│   ├── context/               Published configuration and playlist state
+│   ├── hooks/                 Viewer data, favorites, search, thumbnail, and playback behavior
+│   ├── pages/                 Viewer route pages
+│   ├── signals/               Shared reactive UI state
+│   ├── index.jsx              Viewer application entry point
+│   ├── style.css              Viewer-specific styling
+│   └── utils.js               Shared Viewer utilities
+├── tests/                     Viewer build and Progressive Web App contract tests
+├── dist/                      Generated frontend-only production build; ignored by Git
+├── .env.local.example         Local-data development configuration example
+├── index.html                 Vite HTML entry point
+├── jsconfig.json              JavaScript checking and module aliases
+├── package.json               Viewer commands and dependencies
+├── package-lock.json          Locked npm dependencies
+├── vite.config.js             Development data modes and production build configuration
+├── LICENSE                    GNU GPL version 3 license
+└── README.md                  Viewer operating documentation
+```
+
+The ignored `public/config.json`, `public/playlists/`, and `public/thumbs/` paths exist only when local development data has been installed. They are not copied into the frontend-only production build.
+
+The generated `dist/` directory contains the Viewer application shell and frontend assets. It deliberately excludes Viewer data, Admin files, PHP APIs, and private runtime configuration.
 
 ## Development
 
