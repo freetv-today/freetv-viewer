@@ -39,6 +39,37 @@ Frontend dependencies, including Preact, Preact Signals, Preact ISO, Vite, and B
 
 PHP and MariaDB are not required for normal standalone Viewer development. Report a Problem requires a compatible API endpoint in production; the Vite development server provides a non-persistent mock response for local interface testing.
 
+## Getting Started
+
+The Viewer can run independently using the official Viewer data published at `freetv.today`. PHP, MariaDB, the Admin Dashboard, and the other FreeTV repositories are not required for this development mode.
+
+1. Clone or download `freetv-viewer`.
+2. In a terminal, navigate to the `freetv-viewer` directory and run:
+
+   ```bash
+   npm install
+   ```
+
+3. From the same directory, start the Vite development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open the local URL printed by Vite in your browser.
+
+By default, the development server proxies requests for `/config.json`, `/playlists/`, and `/thumbs/` to `https://freetv.today`. The Viewer application itself runs locally while using the currently published official data.
+
+The Vite development server also provides a non-persistent mock response for `/api/report-problem.php`. This allows the Report a Problem interface to be tested without running the FreeTV PHP backend. Mock submissions are not saved or sent to the official FreeTV site.
+
+To develop with local disposable Viewer data instead, see [Local Data Development](#local-data-development).
+
+This is the correct cold-start path for Viewer development:
+
+```text
+Clone → npm install → npm run dev → official remote data
+```
+
 ## License
 
 This code is released under the [GPL v3](LICENSE) license.
