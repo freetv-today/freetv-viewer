@@ -297,6 +297,45 @@ Restart Vite after changing the data mode.
 
 `FREETV_DATA_MODE` accepts only `remote` or `local`. If it is omitted, the Viewer defaults to `remote`. Any other value prevents the development server from starting.
 
+### Build the Viewer
+
+In a terminal, navigate to `freetv-viewer` and run:
+
+```bash
+npm run build
+```
+
+This creates a frontend-only production build in `dist/` and automatically runs the production build validator.
+
+The generated build contains the Viewer application shell and static frontend assets. It does not include:
+
+* Viewer configuration, playlists, or thumbnails
+* The FreeTV Admin Dashboard
+* PHP APIs or Composer dependencies
+* Private runtime configuration
+
+Local data installed under `public/` is deliberately excluded from the production build.
+
+Use [`freetv-tooling`](https://github.com/freetv-today/freetv-tooling) to create a complete FreeTV production assembly containing the Viewer, published data, Admin Dashboard, PHP APIs, and required dependencies.
+
+### Testing
+
+Run the Viewer production-build contract tests with:
+
+```bash
+npm run test:viewer-dist
+```
+
+Run the Progressive Web App contract tests with:
+
+```bash
+npm run test:pwa
+```
+
+The production-build tests verify which files and directories may appear in the frontend-only `dist/` directory. The Progressive Web App tests verify the manifest, service worker, cache behavior, and related application-shell requirements.
+
+Running `npm run build` also validates the generated `dist/` directory automatically.
+
 ## License
 
 This code is released under the [GPL v3](LICENSE) license.
