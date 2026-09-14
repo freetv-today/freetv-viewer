@@ -64,11 +64,6 @@ The Vite development server also provides a non-persistent mock response for `/a
 
 To develop with local disposable Viewer data instead, see [Local Data Development](#local-data-development).
 
-This is the correct cold-start path for Viewer development:
-
-```text
-Clone → npm install → npm run dev → official remote data
-```
 
 ## License
 
