@@ -35,9 +35,7 @@ The Viewer stores preferences such as the selected playlist, favorites, recently
 * npm
 * A modern web browser
 
-The Viewer frontend uses Preact, Preact Signals, Preact ISO, and Vite. These dependencies are installed through npm.
-
-Bootstrap is currently loaded from jsDelivr in `index.html`. An Internet connection is therefore required to load Bootstrap during standalone development unless those resources are already cached by the browser.
+Frontend dependencies, including Preact, Preact Signals, Preact ISO, Vite, and Bootstrap, are installed through npm.
 
 PHP and MariaDB are not required for normal standalone Viewer development. Report a Problem requires a compatible API endpoint in production; the Vite development server provides a non-persistent mock response for local interface testing.
 
