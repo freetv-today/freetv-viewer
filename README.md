@@ -76,6 +76,94 @@ To develop with local disposable Viewer data instead, see [Local Data Developmen
 | **Build only the Viewer frontend** | Navigate to `freetv-viewer` and run `npm run build`. See [Build the Viewer](#build-the-viewer). | Creates and validates a frontend-only production build in `dist/`. Viewer data, Admin files, and PHP APIs are not included. |
 | **Run the Viewer contract tests** | Run `npm run test:viewer-dist` and `npm run test:pwa`. See [Testing](#testing). | Validates the production-build contract and Progressive Web App files without creating a complete FreeTV assembly. |
 
+
+## Architecture
+
+The FreeTV Viewer is a Preact single-page application built with Vite and styled with Bootstrap. It reads published static artifacts and presents them as searchable playlists, categories, show information, and playable Internet Archive content.
+
+The Viewer does not connect to MariaDB. Content changes originate in the FreeTV Admin Dashboard and become available to the Viewer only after the Admin publication process generates updated static artifacts.
+
+### Data Flow
+
+```mermaid
+flowchart TD
+    ADMIN["FreeTV Admin Dashboard"] -->|"Reads and writes"| DB[("MariaDB")]
+    DB -->|"Publish"| DATA["Static Viewer artifacts"]
+    DATA -->|"Configuration, playlists, and thumbnails"| VIEWER["FreeTV Viewer"]
+    VIEWER -->|"Preferences and viewing state"| STORAGE["Browser local storage"]
+    VIEWER -.->|"Problem reports when API is available"| API["FreeTV PHP API"]
+```
+
+MariaDB is authoritative for Admin-managed data. The Viewer consumes:
+
+```text
+/config.json
+/playlists/index.json
+/playlists/*.json
+/thumbs/*
+```
+
+Video content is hosted by the Internet Archive rather than by the Viewer repository or the FreeTV Data repository.
+
+### Data Modes
+
+The Viewer supports two Vite development data modes:
+
+| Mode     | Data source                                             | Intended use                                                              |
+| -------- | ------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `remote` | Published artifacts proxied from `https://freetv.today` | Standalone Viewer development using the current official data.            |
+| `local`  | Disposable artifacts under `freetv-viewer/public/`      | Testing local dataset changes or coordinated Viewer and Data development. |
+
+`remote` is the default when `FREETV_DATA_MODE` is omitted.
+
+These modes apply only to the Vite development server. A production Viewer build does not contain a development data proxy. In a deployed application, Viewer artifacts must be available from the same public origin and paths expected by the Viewer.
+
+### Browser-Local State
+
+The Viewer uses browser local storage for Viewer-specific state, including:
+
+* the selected playlist;
+* cached configuration and playlist data;
+* favorites;
+* recently watched shows; and
+* saved playback position.
+
+This state belongs to the individual browser profile. It is not stored in MariaDB, synchronized between devices, or associated with a Viewer account.
+
+Published timestamps allow the Viewer to detect when cached configuration or playlist data no longer matches the current static artifacts. When newer data is available, the Viewer refreshes its cached copy.
+
+The browser must permit local storage. If storage is unavailable, the Viewer displays a storage error rather than starting with incomplete state.
+
+### Backend-Dependent Features
+
+Normal browsing and playback use static Viewer artifacts and do not require PHP or MariaDB.
+
+Report a Problem is an optional backend-dependent feature. In production, the Viewer submits reports to:
+
+```text
+/api/report-problem.php
+```
+
+A deployment without a compatible endpoint can still display and play Viewer content, but problem reports cannot be persisted.
+
+During Vite development, the Viewer intercepts that path and returns a simulated success response. The mock allows the interface to be tested without a PHP backend and never records or forwards the submission.
+
+### Progressive Web App
+
+The Viewer includes a web application manifest and service worker so supported browsers can install it as a Progressive Web App.
+
+The service worker caches the Viewer application shell and static frontend assets. It deliberately bypasses its cache for:
+
+```text
+/config.json
+/playlists/
+/thumbs/
+/api/
+/admin/
+```
+
+Viewer data, thumbnails, API responses, and Admin resources therefore continue to use the network. The Progressive Web App installation does not make the published FreeTV dataset or Internet Archive videos available offline.
+
 ## Development
 
 Standalone Viewer development requires only the Viewer’s npm dependencies and a source of published Viewer data.
