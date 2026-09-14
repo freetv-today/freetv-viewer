@@ -9,7 +9,7 @@ export function Favorites() {
 	const log = useDebugLog();
 	
 	useEffect(() => {
-		document.title = "Free TV: Favorites";
+		document.title = "FreeTV: Favorites";
 		log('Rendered Favorites page (pages/Favorites/index.jsx)');
 	}, []);
 

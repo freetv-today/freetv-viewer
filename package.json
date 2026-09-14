@@ -9,6 +9,9 @@
 	"bugs": "https://github.com/freetv-today/freetv-viewer/issues",
 	"private": true,
 	"type": "module",
+	"engines": { 
+		"node": ">=22" 
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build && npm run validate:dist",

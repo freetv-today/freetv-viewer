@@ -40,8 +40,8 @@ export function NowPlaying() {
   const { identifier, title } = currentVid;
 
   useEffect(() => {
-    if (title) { document.title = `Free TV: ${title}`; } 
-    else { document.title = "Free TV"; }
+    if (title) { document.title = `FreeTV: ${title}`; } 
+    else { document.title = "FreeTV"; }
   }, [title]);
 
   function handleVideoLoad() {

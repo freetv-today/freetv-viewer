@@ -9,7 +9,7 @@ export function NotFound() {
     const log = useDebugLog();
 
     useEffect(() => {
-        document.title = "Free TV: Not Found";
+        document.title = "FreeTV: Not Found";
         log(`The requested route (${url}) does not exist`,'error');
         log('Rendered 404 page (pages/_404.jsx)');
     }, [url]);

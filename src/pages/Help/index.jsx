@@ -19,7 +19,7 @@ export function Help() {
     const log = useDebugLog();
 
     useEffect(() => {
-        document.title = "Free TV: Help";
+        document.title = "FreeTV: Help";
         log('Rendered Help page (pages/Help/index.jsx)');
     }, []);
 

@@ -9,7 +9,7 @@ export function Home() {
 	const log = useDebugLog();
 
 	useEffect(() => {
-		document.title = "Free TV: Home";
+		document.title = "FreeTV: Home";
 		log('Rendered Home page (pages/Home/index.jsx)');
 	}, []);
 
