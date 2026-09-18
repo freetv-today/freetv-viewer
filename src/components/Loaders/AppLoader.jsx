@@ -1,46 +1,24 @@
 import { useState, useEffect } from 'preact/hooks';
-import { triggerToast } from '@/signals/toastSignal';
 import { ConfigProvider } from '@/context/ConfigContext';
 import { PlaylistProvider } from '@/context/PlaylistContext';
-import { VisitDataProvider } from '@/context/VisitDataContext';
 import { App } from '@components/App';
 import { SpinnerLoadingAppData } from '@components/Loaders/SpinnerLoadingAppData';
 import { ErrorPage } from '@pages/ErrorPage';
-import { OfflinePage } from '@pages/OfflinePage';
 import { shouldUpdateData, enforceMinLoadingTime, formatDateTime } from '@/utils';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { DEBUG_MODE } from '@/debug';
 
 // Loads config and show data from JSON then loads App and shows default page
 export function AppLoader() {
 
-    const url = 'https://freetv.today';
-    const infoFile = `${url}/assets/app.nfo`;
-    const configFile = `${url}/config.json`;
+    const infoFile = '/assets/app.nfo';
+    const configFile = '/config.json';
     const minLoadingTime = 1200;  // show spinner for 1.2 seconds (minimum)
     const [config, setConfig] = useLocalStorage('configData', null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Listen for service worker update messages
-        if ('serviceWorker' in navigator && navigator.serviceWorker) {
-            navigator.serviceWorker.addEventListener('message', event => {
-                if (event.data && event.data.type === 'DATA_UPDATE_AVAILABLE') {
-                    console.error('[AppLoader] Received DATA_UPDATE_AVAILABLE from service worker', { loading, pathname: window.location.pathname });
-                }
-                if (
-                    event.data &&
-                    event.data.type === 'DATA_UPDATE_AVAILABLE' &&
-                    !loading // Only show toast after initial load
-                ) {
-                    if (window.location.pathname !== '/nowplaying') {
-                        triggerToast('New data is available! The playlist or settings have changed.', 'info');
-                        // Optionally, reload or trigger update logic here
-                        // window.location.reload();
-                    }
-                }
-            });
-        }
         async function loadConfig() {
 
             // Storage check
@@ -104,9 +82,8 @@ export function AppLoader() {
                     configData = fetchedConfig;
                     setConfig(fetchedConfig);
 
-                    // DEV NOTE: we're using console.log here instead of hooks/useDebugLog.jsx because
-                    // the hook depends on config data which hasn't been saved to local storage yet
-                    if (configData.debugmode) {
+                    // DEV NOTE: use the local flag directly because hooks cannot be called here.
+                    if (DEBUG_MODE) {
                         // if debug mode is true, start logging
                         if (fetchedInfo) {
                             console.log(`Welcome to ${fetchedInfo.name} (version ${fetchedInfo.version})`);
@@ -141,7 +118,7 @@ export function AppLoader() {
                 return;
             }
             if (needsUpdate) {
-                if (configData.debugmode) {
+                if (DEBUG_MODE) {
                     console.log('Loading configuration data...');
                 }
                 const startTime = Date.now();
@@ -166,15 +143,12 @@ export function AppLoader() {
 
     if (loading) return <SpinnerLoadingAppData />;
     if (error) return <ErrorPage type={error.type} message={error.message} />;
-    if (config && config.offline) return <OfflinePage />;
 
     return (
         <ConfigProvider config={config}>
-            <VisitDataProvider>
-                <PlaylistProvider>
-                    <App />
-                </PlaylistProvider>
-            </VisitDataProvider>
+            <PlaylistProvider>
+                <App />
+            </PlaylistProvider>
         </ConfigProvider>
     );
 }

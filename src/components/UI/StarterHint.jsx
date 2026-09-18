@@ -1,6 +1,7 @@
 import { useEffect } from 'preact/hooks';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import fingerPoint from '/assets/finger-point.jpg';
+
+const fingerPoint = '/assets/finger-point.jpg';
 
 export function StarterHint() {
   

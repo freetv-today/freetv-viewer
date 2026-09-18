@@ -34,7 +34,7 @@ export function Search() {
   });
 
   useEffect(() => {
-    document.title = "Free TV: Search";
+    document.title = "FreeTV: Search";
     log('Rendered Search page (pages/Search/index.jsx)');
   }, []);
 

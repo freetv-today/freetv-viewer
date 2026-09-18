@@ -25,7 +25,7 @@ export function Category() {
   }
 
   useEffect(() => {
-    document.title = `Free TV: ${capitalizeFirstLetter(category)}`;
+    document.title = `FreeTV: ${capitalizeFirstLetter(category)}`;
     log('Rendered Category page (pages/Category/index.jsx)');
   }, [category]);
 
@@ -40,7 +40,7 @@ export function Category() {
             img="/assets/freetv.png"
             heading={category}
             desc="Click on a show title button to watch some Free TV."
-            alt="Free TV"
+            alt="FreeTV"
           />
           <AdBar />
         </section>

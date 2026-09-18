@@ -8,7 +8,7 @@ export function Recent() {
   
   const log = useDebugLog();
   useEffect(() => {
-    document.title = "Free TV: Recent Shows";
+    document.title = "FreeTV: Recent Shows";
     log('Rendered Recent page (pages/Recent/index.jsx)');
   }, []);
 

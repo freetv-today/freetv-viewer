@@ -1,4 +1,4 @@
-import watchingTV from '/assets/watchingtv.jpg';
+const watchingTV = '/assets/watchingtv.jpg';
 
 export function SpinnerLoadingVideo({ title }) {
   return (

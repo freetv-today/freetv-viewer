@@ -211,11 +211,6 @@ body {
     background-color: rgba(13, 110, 253, 0.1);
 }
 
-/* modules */
-.moduleBtns {
-    display: none;
-}
-
 /* Sidebar Accordion Styling */
 .sidebar-accordion {
     width: 98%;
