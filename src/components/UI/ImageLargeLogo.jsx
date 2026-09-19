@@ -4,7 +4,7 @@ import { getRandomCategory } from '@/utils';
 const freetvLogo = '/assets/freetv.png';
 
 /**
- * ImageLargeLogo - Large Free TV logo component for main pages
+ * ImageLargeLogo - Large FreeTV logo component for main pages
  * @returns {import('preact').JSX.Element}
  */
 export function ImageLargeLogo() {
@@ -15,7 +15,7 @@ export function ImageLargeLogo() {
   
   return (
     <div className="text-center mt-4">
-		<h1 className="display-4 bruno-ace">Free TV</h1>
+		<h1 className="display-4 bruno-ace">FreeTV</h1>
 		<p className="pb-4">
 			<a
               href={randomCategory ? `/category/${randomCategory}` : '#'}
