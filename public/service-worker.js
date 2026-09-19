@@ -1,7 +1,7 @@
 /** @type {ServiceWorkerGlobalScope} */
 // @ts-nocheck
 /* eslint-env serviceworker */
-const CACHE_NAME = 'freetv-static-v2';
+const CACHE_NAME = 'freetv-static-v3';
 const CACHE_PREFIX = 'freetv-';
 const STATIC_ASSETS = [
   '/',
