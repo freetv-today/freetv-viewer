@@ -405,6 +405,7 @@ body {
 }
 
 .largeAd, .smallAd {
+  box-sizing: content-box;
   border: 2px solid #e0e0e0;
   background: #fafafa;
 }
