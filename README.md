@@ -66,7 +66,9 @@ To develop with local disposable Viewer data instead, see [Local Data Developmen
 
 ## How do I ...  ?
 
-`freetv-viewer` can be developed and run on its own; you do not need the Admin Dashboard, MariaDB, or a complete FreeTV production assembly to work on the Viewer. The table below covers tasks within this repository. For help choosing another FreeTV repository, see the [FreeTV organization overview](https://github.com/freetv-today).<br/>
+If you are an end-user and just want to watch FreeTV, go to the website: https://freetv.today
+
+If you are a developer: `freetv-viewer` can be developed and run on its own locally; you do not need the Admin Dashboard, MariaDB, or a complete FreeTV production assembly to work on the Viewer. The table below covers tasks within this repository. For help choosing another FreeTV repository, see the [FreeTV organization overview](https://github.com/freetv-today).<br/>
 
 | I want to... | What do I do? | What happens? |
 | --- | --- | --- |
