@@ -39,8 +39,8 @@ export function AdBar() {
 
     // Select ad file and dimensions
     const adFile = isMobile ? '/assets/ads/small-ad.html' : '/assets/ads/large-ad.html';
-    const adWidth = isMobile ? 468 : 728;
-    const adHeight = isMobile ? 60 : 90;
+    const adWidth = isMobile ? 500 : 800;
+    const adHeight = isMobile ? 90 : 105;
     const adClass = isMobile ? 'smallAd' : 'largeAd';
 
     return (
