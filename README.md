@@ -6,6 +6,10 @@ The Viewer consumes published static configuration, playlist JSON, and thumbnail
 
 Watch FreeTV online at: [https://freetv.today](https://freetv.today).
 
+<div style="text-align: center; margin-top: 30px;">
+<a href="public/assets/freetv-screenshot.jpg" target="_blank" title="Screenshot of FreeTV Admin Dashboard"><img src="public/assets/freetv-screenshot.jpg" width="600"></a>
+</div>
+
 ## Features
 
 * Easy-to-use graphical interface for browsing and watching FreeTV content
