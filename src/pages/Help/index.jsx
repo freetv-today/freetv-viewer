@@ -26,7 +26,7 @@ export function Help() {
     return (
         <div id="top" className="mt-5">
             <div className="container">
-                <h1 className="display-5 fw-bold mt-4 text-center">Free TV Help</h1>
+                <h1 className="display-5 fw-bold my-4 text-center">Free TV Help</h1>
                 <AdBar/>
                 <HelpAnnouncement />
                 <HelpAbout />

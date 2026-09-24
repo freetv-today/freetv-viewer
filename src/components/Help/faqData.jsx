@@ -98,7 +98,7 @@ export const faqItems = [
           Email: info@archive.org<br/>
         </p>
         <p>Otherwise, if you want to request new features or shows, or tell us about typos, or bugs, or ask questions, you can open a support ticket:</p>
-        <p><a href="https://freetv.today/support/index.php?a=add" target="_blank" className="font-monospace fw-bold">https://freetv.today/support/</a></p>
+        <p><a href="https://support.freetv.today/index.php?a=add" target="_blank" className="font-monospace fw-bold">https://support.freetv.today/</a></p>
       </>
     )
   },
