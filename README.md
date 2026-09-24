@@ -1,8 +1,8 @@
 # FreeTV Viewer
 
-<img src="public/assets/freetv.png" align="left" width="100" style="margin: 10px;"> FreeTV Viewer is a browser-based interface for exploring and watching FreeTV’s hand-picked collection of shows and movies hosted by the Internet Archive.
+FreeTV Viewer is a browser-based interface for exploring and watching FreeTV’s hand-picked collection of shows and movies hosted by the Internet Archive.
 
-The Viewer consumes published static configuration, playlist JSON, and thumbnail artifacts. It does not connect directly to MariaDB or require the FreeTV Admin Dashboard for normal viewing. Watch FreeTV online at: [https://freetv.today](https://freetv.today).
+The Viewer consumes published static configuration, playlist JSON, and thumbnail artifacts from the Admin Dashboard. But, it does not connect directly to MariaDB or require the FreeTV Admin Dashboard to be installed for normal viewing. You can watch FreeTV online at: [https://freetv.today](https://freetv.today).
 
 <div style="text-align: center; margin-top: 30px;">
 <a href="public/assets/freetv-screenshot.jpg" target="_blank" title="Screenshot of FreeTV Admin Dashboard"><img src="public/assets/freetv-screenshot.jpg" width="600"></a>
