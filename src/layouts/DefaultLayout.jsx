@@ -1,13 +1,12 @@
 import { Header } from '../components/Header';
+import { CategoryNav } from '../components/CategoryNav';
 import { Footer } from '../components/Footer';
 
 export default function DefaultLayout({ children }) {
 	return (
 		<>
 			<Header />
-			<nav className="border-bottom bg-light" aria-label="Categories">
-				<div className="container-fluid py-2">Categories</div>
-			</nav>
+			<CategoryNav />
 			<main>{children}</main>
 			<Footer />
 		</>

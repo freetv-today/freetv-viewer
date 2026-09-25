@@ -3,16 +3,24 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 import { render } from 'preact';
 import { LocationProvider, ErrorBoundary, Router, lazy } from 'preact-iso';
 import DefaultLayout from './layouts/DefaultLayout';
-import { Home } from './pages/Home';
 import MinimalLayout from './layouts/MinimalLayout';
+import { Home } from './pages/Home';
+import { Shows } from './pages/Shows';
+import { NotFound } from './pages/_404';
 import './style.css';
-
-const NotFound = lazy(() => import('./pages/_404'));
 
 function HomePage() {
 	return (
 		<DefaultLayout>
 			<Home />
+		</DefaultLayout>
+	);
+}
+
+function ShowsPage() {
+	return (
+		<DefaultLayout>
+			<Shows />
 		</DefaultLayout>
 	);
 }
@@ -31,6 +39,7 @@ export function App() {
 			<ErrorBoundary>
 				<Router>
 					<HomePage path="/" />
+					<ShowsPage path="/shows" />
 					<NotFoundPage default />
 				</Router>
 			</ErrorBoundary>

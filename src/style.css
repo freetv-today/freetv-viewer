@@ -1,7 +1,7 @@
 body {
 	background-color: white;
 	color: black;
-	padding-top: 75px; /* compensate for fixed navbar height */
+	padding-top: 67px; /* compensate for fixed navbar height */
 }
 
 /* caret spacing on default playlist selector dropdown */

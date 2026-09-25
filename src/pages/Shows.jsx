@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'preact/hooks';
 
-export function Home() {
+export function Shows() {
 	const [shows, setShows] = useState(null);
 	const [error, setError] = useState('');
 
