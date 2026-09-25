@@ -1,79 +1,42 @@
 import { render } from 'preact';
 import { LocationProvider, ErrorBoundary, Router, lazy } from 'preact-iso';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import DefaultLayout from './layouts/DefaultLayout';
-import MinimalLayout from './layouts/MinimalLayout';
+import { AppProvider } from './state/AppProvider';
+// Navigation
+import { Header } from './components/Header';
+import { CategoryNav } from './components/CategoryNav';
+import { Footer } from './components/Footer';
+// Pages
 import { Home } from './pages/Home';
 import { Shows } from './pages/Shows';
 import { History } from './pages/History';
 import { Favorites } from './pages/Favorites';
 import { About } from './pages/About';
 import { NotFound } from './pages/_404';
+// Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+// Custom styles
 import './style.css';
-
-function HomePage() {
-	return (
-		<DefaultLayout>
-			<Home />
-		</DefaultLayout>
-	);
-}
-
-function HistoryPage() {
-	return (
-		<MinimalLayout>
-			<History />
-		</MinimalLayout>
-	);
-}
-
-function FavoritesPage() {
-	return (
-		<MinimalLayout>
-			<Favorites />
-		</MinimalLayout>
-	);
-}
-
-function AboutPage() {
-	return (
-		<MinimalLayout>
-			<About />
-		</MinimalLayout>
-	);
-}
-
-// A temporary page to demonstrate fetching catalog data
-function ShowsPage() {
-	return (
-		<DefaultLayout>
-			<Shows />
-		</DefaultLayout>
-	);
-}
-
-function NotFoundPage() {
-	return (
-		<MinimalLayout>
-			<NotFound />
-		</MinimalLayout>
-	);
-}
 
 export function App() {
 	return (
 		<LocationProvider>
 			<ErrorBoundary>
-				<Router>
-					<HomePage path="/" />
-					<HistoryPage path="/history" />
-					<FavoritesPage path="/favorites" />
-					<AboutPage path="/about" />
-					<ShowsPage path="/shows" /> {/* <== Temporary page */}
-					<NotFoundPage default /> {/* <== 404 page */}
-				</Router>
+				{/* <AppProvider> */}
+					<Header />
+					<CategoryNav />
+					<main>
+						<Router>
+							<Home path="/" />
+							<History path="/history" />
+							<Favorites path="/favorites" />
+							<About path="/about" />
+							<Shows path="/shows" /> {/* <== Temporary page */}
+							<NotFound default /> {/* <== 404 page */}
+						</Router>
+					</main>
+				{/* </AppProvider> */}
 			</ErrorBoundary>
 		</LocationProvider>
 	);
