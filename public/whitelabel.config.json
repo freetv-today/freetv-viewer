@@ -1,0 +1,26 @@
+{
+	"appName": "FreeTV",
+	"appTitle": "FreeTV: Watch TV for free!",
+	"smallLogo": "/freetv-small.png",
+	"showNavLabels": true,
+	"navbar": [
+		{
+			"label": "History",
+			"title": "Recently watched shows",
+			"icon": "bi-stopwatch-fill",
+			"url": "/history"
+		},
+		{
+			"label": "Favorites",
+			"title": "Your favorite shows",
+			"icon": "bi-heart-fill",
+			"url": "/favorites"
+		},
+		{
+			"label": "About",
+			"title": "About FreeTV",
+			"icon": "bi-question-circle-fill",
+			"url": "/about"
+		}
+	]
+}

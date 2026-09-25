@@ -8,6 +8,7 @@
 	},
 	"dependencies": {
 		"bootstrap": "^5.3.8",
+		"bootstrap-icons": "^1.13.1",
 		"preact": "^10.26.9",
 		"preact-iso": "^2.12.2"
 	},

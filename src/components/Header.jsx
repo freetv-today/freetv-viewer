@@ -1,22 +1,63 @@
-import smallLogo from '../assets/freetv-small.png';
+import { useEffect, useState } from 'preact/hooks';
+import { NavbarButton } from './NavbarButton';
 
 export function Header() {
+	const [config, setConfig] = useState({
+		appName: 'FreeTV',
+		appTitle: 'FreeTV',
+		smallLogo: '/freetv-small.png',
+		navbar: [],
+		showNavLabels: true,
+	});
+	const logoSrc = config.smallLogo
+		? (/^(?:https?:)?\/\//.test(config.smallLogo) || config.smallLogo.startsWith('data:')
+			? config.smallLogo
+			: `${import.meta.env.BASE_URL}${config.smallLogo.replace(/^\/+/, '')}`)
+		: undefined;
+
+	useEffect(() => {
+		let cancelled = false;
+
+		fetch(`${import.meta.env.BASE_URL}whitelabel.config.json`)
+			.then((response) => {
+				if (!response.ok) throw new Error(`Could not load viewer config (${response.status})`);
+				return response.json();
+			})
+			.then((loadedConfig) => {
+				if (!cancelled) setConfig(loadedConfig);
+			})
+			.catch((error) => console.error(error));
+
+		return () => { cancelled = true; };
+	}, []);
+
+	useEffect(() => {
+		document.title = config.appTitle || config.appName || 'FreeTV';
+	}, [config.appTitle, config.appName]);
+
 	return (
 		<header>
 			<nav className="navbar fixed-top navbar-dark bg-dark" aria-label="Main navigation">
 				<div className="container-fluid" style={{ minHeight: '50px' }}>
 
 					{/* Branding */}
-					<a className="navbar-brand" href="/" title="FreeTV">
-						<img src={smallLogo} height="30" alt="FreeTV" className="d-inline-block me-2 pb-1"/>
-						<span className="pt-5 text-secondary">FreeTV</span>
+					<a className="navbar-brand" href="/" title={config.appName}>
+						<img src={logoSrc} height="30" alt={config.appName} className="d-inline-block me-2 pb-1"/>
+						<span className="pt-5 text-secondary">{config.appName}</span>
 					</a>
 
-					{/* Nav Buttons */}
+					{/* Navbar Buttons */}
 					<div className="me-auto">
-						<button class="btn btn-outline-secondary me-2" type="button">History</button>
-						<button class="btn btn-outline-secondary me-2" type="button">Favorites</button>
-						<button class="btn btn-outline-secondary me-2" type="button">About</button>
+						{config.navbar?.map((item) => (
+							<NavbarButton
+								key={item.url}
+								url={item.url}
+								label={item.label}
+								title={item.title}
+								icon={item.icon}
+								showNavLabel={config.showNavLabels}
+							/>
+						))}
 					</div>
 
 					{/* Search Form */}

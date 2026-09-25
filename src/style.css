@@ -7,4 +7,9 @@ body {
 /* caret spacing on default playlist selector dropdown */
 .playlist-selector.dropdown-toggle::after {
   margin-left: 0.75em;
-}   
+}
+
+.navbar-button svg {
+	display: block;
+	flex: 0 0 auto;
+}
