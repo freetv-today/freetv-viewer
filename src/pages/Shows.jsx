@@ -22,8 +22,8 @@ export function Home() {
 	}, []);
 
 	return (
-		<section className="container-fluid py-4">
-			<h1 className="mb-4">FreeTV Shows</h1>
+		<section className="container-fluid p-4">
+			<h2 className="mb-4 text-secondary">FreeTV Shows</h2>
 
 			{error && <p className="alert alert-danger" role="alert">{error}</p>}
 			{shows === null && !error && <p role="status">Loading shows…</p>}

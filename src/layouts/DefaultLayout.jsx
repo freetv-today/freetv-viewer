@@ -1,4 +1,5 @@
 import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 
 export default function DefaultLayout({ children }) {
 	return (
@@ -8,6 +9,7 @@ export default function DefaultLayout({ children }) {
 				<div className="container-fluid py-2">Categories</div>
 			</nav>
 			<main>{children}</main>
+			<Footer />
 		</>
 	);
 }
