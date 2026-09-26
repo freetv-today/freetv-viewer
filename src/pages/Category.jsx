@@ -2,6 +2,7 @@ import { useMemo } from 'preact/hooks';
 import { ShowTitleList } from '../components/ShowTitleList';
 import { capitalizeFirstLetter } from '../components/CategoryLabel';
 import { useAppContext } from '../state/AppProvider';
+import { CategoryNav } from '../components/CategoryNav';
 
 export function Category({ name }) {
 	const { categories, catalog, isInitializing, isCatalogLoading, initializationError, catalogError } = useAppContext();
@@ -16,6 +17,8 @@ export function Category({ name }) {
 	}, [catalog, category]);
 
 	return (
+	<>
+		<CategoryNav />
 		<section className="category-view">
 			<aside className="category-view__sidebar" aria-label={`${capitalizeFirstLetter(category)} shows`}>
 				<ShowTitleList shows={shows} />
@@ -37,5 +40,6 @@ export function Category({ name }) {
 				</div>
 			</div>
 		</section>
+	</>
 	);
 }

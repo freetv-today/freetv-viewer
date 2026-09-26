@@ -1,13 +1,27 @@
+import { useEffect, useState } from 'preact/hooks';
+import { useLocation } from 'preact-iso';
 import { NavbarButton } from './NavbarButton';
 import { useAppContext } from '../state/AppProvider';
 
 export function Header() {
 	const { site, playlists, currentPlaylist, isInitializing, selectPlaylist } = useAppContext();
+	const { query, route } = useLocation();
+	const [searchText, setSearchText] = useState(query.q || '');
 	const appName = site?.appName || 'FreeTV';
 	const smallLogo = site?.smallLogo || '/freetv-small.png';
 	const logoSrc = /^(?:https?:)?\/\//.test(smallLogo) || smallLogo.startsWith('data:')
 		? smallLogo
 		: `${import.meta.env.BASE_URL}${smallLogo.replace(/^\/+/, '')}`;
+
+	useEffect(() => {
+		setSearchText(query.q || '');
+	}, [query.q]);
+
+	function handleSearch(event) {
+		event.preventDefault();
+		const trimmed = searchText.trim();
+		route(trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : '/search');
+	}
 
 	return (
 		<header>
@@ -35,8 +49,16 @@ export function Header() {
 					</div>
 
 					{/* Search Form */}
-					<form className="d-flex me-auto" role="search">
-						<input id="query" className="form-control form-control-sm me-1" type="search" placeholder="Search" aria-label="Search"/>
+					<form className="d-flex me-auto" role="search" onSubmit={handleSearch}>
+						<input
+							id="query"
+							className="form-control form-control-sm me-1"
+							type="search"
+							placeholder="Search"
+							aria-label="Search shows"
+							value={searchText}
+							onInput={(event) => setSearchText(event.currentTarget.value)}
+						/>
 						<button className="btn btn-sm btn-outline-secondary" type="submit">Go</button>
 					</form>
 

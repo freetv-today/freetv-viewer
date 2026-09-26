@@ -26,6 +26,7 @@ body {
 	flex: 0 0 300px;
 	box-sizing: border-box;
 	padding: 0.25rem;
+	padding-top: 2.0rem;
 }
 
 .category-view__content {
