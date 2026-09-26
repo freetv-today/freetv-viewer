@@ -7,7 +7,7 @@ function sortKey(title = '') {
 	return title.replace(/^The\s+/i, '');
 }
 
-export function ShowTitleList({ shows, onFavoritesChange, preserveOrder = false, groupShows = true }) {
+export function ShowTitleList({ shows, onFavoritesChange, onShowInfo, preserveOrder = false, groupShows = true }) {
 	const grouped = new Map();
 	const items = [];
 
@@ -37,9 +37,9 @@ export function ShowTitleList({ shows, onFavoritesChange, preserveOrder = false,
 	return (
 		<div className="show-title-list">
 			{items.map((item) => item.type === 'group' ? (
-				<ShowTitleGroup key={`group-${item.name}`} name={item.name} shows={item.shows} onFavoritesChange={onFavoritesChange} />
+				<ShowTitleGroup key={`group-${item.name}`} name={item.name} shows={item.shows} onFavoritesChange={onFavoritesChange} onShowInfo={onShowInfo} />
 			) : (
-				<ShowTitleButton key={item.show.identifier} show={item.show} onFavoritesChange={onFavoritesChange} />
+				<ShowTitleButton key={item.show.identifier} show={item.show} onFavoritesChange={onFavoritesChange} onShowInfo={onShowInfo} />
 			))}
 		</div>
 	);

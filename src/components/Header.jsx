@@ -2,6 +2,7 @@ import { useEffect, useState } from 'preact/hooks';
 import { useLocation } from 'preact-iso';
 import { NavbarButton } from './NavbarButton';
 import { useAppContext } from '../state/AppProvider';
+import { getSearchValidationError } from '../data/search';
 
 export function Header() {
 	const { site, playlists, currentPlaylist, isInitializing, selectPlaylist } = useAppContext();
@@ -20,7 +21,13 @@ export function Header() {
 	function handleSearch(event) {
 		event.preventDefault();
 		const trimmed = searchText.trim();
-		route(trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : '/search');
+		const validationError = getSearchValidationError(trimmed);
+		if (validationError) {
+			window.alert(validationError);
+			document.getElementById('query')?.focus();
+			return;
+		}
+		route(`/search?q=${encodeURIComponent(trimmed)}`);
 	}
 
 	return (
@@ -31,7 +38,7 @@ export function Header() {
 					{/* Branding */}
 					<a className="navbar-brand" href="/" title={appName}>
 						<img src={logoSrc} height="30" alt={appName} className="d-inline-block me-2 pb-1"/>
-						<span className="pt-5 text-secondary">{appName}</span>
+						<span className="pt-5 text-secondary noselect">{appName}</span>
 					</a>
 
 					{/* Navbar Buttons */}
