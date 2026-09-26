@@ -1,17 +1,9 @@
-let catalogPromise;
+import { fetchPublicJson } from './fetchJson';
 
-const dataSource = '/freetv.json';
+export function getCatalog(filename) {
+	if (!filename) {
+		return Promise.reject(new Error('No playlist catalog was selected.'));
+	}
 
-export function getCatalog() {
-    if (!catalogPromise) {
-        catalogPromise = fetch(dataSource)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to load catalog');
-                }
-                return response.json();
-            });
-    }
-
-    return catalogPromise;
+	return fetchPublicJson(`playlists/${encodeURIComponent(filename)}`);
 }

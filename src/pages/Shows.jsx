@@ -1,23 +1,14 @@
-import { getCatalog } from '../data/catalog';
-import { useEffect, useState } from 'preact/hooks';
+import { useAppContext } from '../state/AppProvider';
 
 export function Shows() {
-    const [shows, setShows] = useState(null);
-    const [error, setError] = useState('');
-
-    useEffect(() => {
-        getCatalog()
-            .then(data => {
-                setShows(data.shows);
-            })
-            .catch(error => {
-                setError(error.message);
-            });
-    }, []);
+    const { site, currentPlaylist, catalog, isInitializing, isCatalogLoading, initializationError, catalogError } = useAppContext();
+    const error = initializationError || catalogError;
+    const isLoading = isInitializing || isCatalogLoading;
+    const shows = catalog?.shows;
 
     return (
         <section className="container-fluid p-4">
-            <h2 className="mb-4 text-secondary">FreeTV Shows</h2>
+            <h2 className="mb-4 text-secondary">{currentPlaylist?.dbtitle || `${site?.appName || 'FreeTV'} Shows`}</h2>
 
             {error && (
                 <p className="alert alert-danger" role="alert">
@@ -25,11 +16,11 @@ export function Shows() {
                 </p>
             )}
 
-            {shows === null && !error && (
+            {isLoading && !error && (
                 <p role="status">Loading shows…</p>
             )}
 
-            {shows && (
+            {!isLoading && !error && shows && (
                 <div className="table-responsive">
                     <table className="table table-striped table-hover align-middle text-start">
                         <thead>

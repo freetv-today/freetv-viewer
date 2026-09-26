@@ -1,15 +1,23 @@
 body {
 	background-color: white;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 14px;
 	color: black;
 	padding-top: 67px; /* compensate for fixed navbar height */
 }
 
-/* caret spacing on default playlist selector dropdown */
+/* Header.jsx: playlist selector dropdown width */
+.playlist-selector {
+	width: 170px;
+}
+
+/* Header.jsx: caret spacing on playlist selector dropdown */
 .playlist-selector.dropdown-toggle::after {
   margin-left: 0.75em;
 }
 
-.navbar-button svg {
-	display: block;
-	flex: 0 0 auto;
+/* Category:jsx: button column */
+.btncolumn {
+	width: 200px;
+	border: 1px dashed red;
 }

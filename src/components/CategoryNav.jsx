@@ -1,33 +1,10 @@
-import { getCatalog } from '../data/catalog';
-import { useEffect, useState } from 'preact/hooks';
 import { CategoryLink } from './CategoryLink';
+import { useAppContext } from '../state/AppProvider';
 
 export function CategoryNav() {
-    const [categories, setCategories] = useState(null);
-    const [error, setError] = useState('');
-
-    useEffect(() => {
-        getCatalog()
-            .then((data) => {
-                if (!Array.isArray(data.shows)) {
-                    throw new Error('The catalog does not contain a show list.');
-                }
-
-                const uniqueCategories = [...new Set(
-                    data.shows
-                        .map((show) => show.category)
-                        .filter((category) => (
-                            typeof category === 'string' &&
-                            category.trim() !== ''
-                        ))
-                )];
-
-                setCategories(
-                    uniqueCategories.sort((a, b) => a.localeCompare(b))
-                );
-            })
-            .catch(() => setError('Could not load categories.'));
-    }, []);
+    const { categories, isInitializing, isCatalogLoading, initializationError, catalogError } = useAppContext();
+    const error = initializationError || catalogError;
+    const isLoading = isInitializing || isCatalogLoading;
 
     return (
         <nav className="navbar border-bottom border-body" aria-label="Categories">
@@ -38,13 +15,13 @@ export function CategoryNav() {
                     </span>
                 )}
 
-                {categories === null && !error && (
+                {isLoading && !error && (
                     <span role="status" className="visually-hidden">
                         Loading categories…
                     </span>
                 )}
 
-                {categories?.map((category) => (
+                {!error && categories.map((category) => (
                     <CategoryLink
                         key={category}
                         category={category}
