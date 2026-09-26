@@ -30,7 +30,7 @@ export function App() {
 					<main>
 						<Router>
 							<Home path="/" />
-							<Category path="/category" />
+							<Category path="/category/:name" />
 							<History path="/history" />
 							<Favorites path="/favorites" />
 							<About path="/about" />

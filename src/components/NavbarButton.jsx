@@ -23,7 +23,7 @@ export function NavbarButton({ url, label, title, icon, showNavLabel = false }) 
 	return (
 		<a
 			href={url}
-			class={`btn ${isActive ? 'active' : 'btn-outline-secondary'} fw-bold me-2 navbar-button d-inline-flex align-items-center justify-content-center gap-1`}
+			class={`btn btn-outline-secondary${isActive ? ' active' : ''} fw-bold me-2 navbar-button d-inline-flex align-items-center justify-content-center gap-1`}
 			aria-label={label}
 			aria-current={isActive ? 'page' : undefined}
 			title={title || label}

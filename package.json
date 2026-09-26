@@ -1,4 +1,11 @@
 {
+	"name": "freetv-viewer4-dev",
+	"version": "4.0.0-beta",
+	"description": "A new FreeTV viewer rewritten from scratch to improve upon the previous versions.",
+	"author": "Ken Dawson",
+	"license": "GPL-3.0-only",
+	"homepage": "https://freetv.today",
+	"repository": "https://github.com/freetv-today/freetv-viewer4-dev",
 	"private": true,
 	"type": "module",
 	"scripts": {

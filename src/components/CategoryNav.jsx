@@ -1,10 +1,21 @@
 import { CategoryLink } from './CategoryLink';
 import { useAppContext } from '../state/AppProvider';
+import { useLocation } from 'preact-iso';
 
 export function CategoryNav() {
     const { categories, isInitializing, isCatalogLoading, initializationError, catalogError } = useAppContext();
+    const { path } = useLocation();
     const error = initializationError || catalogError;
     const isLoading = isInitializing || isCatalogLoading;
+    const categoryMatch = path.match(/^\/category\/([^/]+)\/?$/i);
+    let activeCategory = '';
+    if (categoryMatch) {
+        try {
+            activeCategory = decodeURIComponent(categoryMatch[1]).toLowerCase();
+        } catch {
+            // Treat malformed URL encoding as no selected category.
+        }
+    }
 
     return (
         <nav className="navbar border-bottom border-body" aria-label="Categories">
@@ -25,6 +36,7 @@ export function CategoryNav() {
                     <CategoryLink
                         key={category}
                         category={category}
+                        isActive={category.toLowerCase() === activeCategory}
                     />
                 ))}
             </div>

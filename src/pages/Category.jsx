@@ -1,31 +1,45 @@
-import { ShowTitleButton } from "../components/ShowTitleButton";
+import { useMemo } from 'preact/hooks';
+import { ShowTitleButton } from '../components/ShowTitleButton';
+import { capitalizeFirstLetter } from '../components/CategoryLabel';
+import { useAppContext } from '../state/AppProvider';
 
-export function Category() {
+export function Category({ name }) {
+	const { categories, catalog, isInitializing, isCatalogLoading, initializationError, catalogError } = useAppContext();
+	const error = initializationError || catalogError;
+	const isLoading = isInitializing || isCatalogLoading;
+	const category = name || '';
+	const categoryExists = categories.some((item) => item.toLowerCase() === category.toLowerCase());
+	const shows = useMemo(() => {
+		if (!category || !Array.isArray(catalog?.shows)) return [];
+
+		return catalog.shows
+			.filter((show) => show.category?.toLowerCase() === category.toLowerCase())
+			.sort((a, b) => a.title.replace(/^The\s+/i, '').localeCompare(b.title.replace(/^The\s+/i, '')));
+	}, [catalog, category]);
+
 	return (
-        <div className="container-fluid">
-             <div className="d-flex">
-                <div className="btncolumn">
-                    <ShowTitleButton title="The Beverly Hillbillies" />
-                    <ShowTitleButton title="Monk" />
-                    <ShowTitleButton title="Star Trek: The Next Generation" />
-                    <ShowTitleButton title="The A-Team" />
-                    <ShowTitleButton title="Inspector Gadget" />
-                    <ShowTitleButton title="Benson" />
-                    <ShowTitleButton title="M*A*S*H" />
-                    <ShowTitleButton title="The Addams Family" />
-                    <ShowTitleButton title="Dragnet" />
-                    <ShowTitleButton title="Seinfeld" />
-                    <ShowTitleButton title="The Love Boat" />
-                    <ShowTitleButton title="Gilligan's Island" />
-                    <ShowTitleButton title="Leave It To Beaver" />
-                </div>
-                <div className="flex-grow-1 border border-1 border-primary">
-                    <h1 className="text-center text-secondary fw-bold mt-4">[ Category Heading ]</h1>
-                    <div className="text-center">
-                        <img src="/freetv.png" width="250" alt="FreeTV Logo" title="FreeTV" style={{ marginTop: '10vh' }}/>
-                    </div>
-                </div>
-             </div>
-        </div>
+		<section className="category-view">
+			<aside className="category-view__sidebar" aria-label={`${capitalizeFirstLetter(category)} shows`}>
+				{shows.map((show) => (
+					<ShowTitleButton key={show.identifier} show={show} />
+				))}
+				{!isLoading && !error && categoryExists && shows.length === 0 && (
+					<p className="text-secondary">No shows are available in this category.</p>
+				)}
+			</aside>
+			<div className="category-view__content">
+				<h1 className="text-center text-secondary fw-bold mt-4">
+					{category ? capitalizeFirstLetter(category) : 'Category'}
+				</h1>
+				{error && <p className="alert alert-danger" role="alert">{error}</p>}
+				{isLoading && !error && <p className="text-center" role="status">Loading shows…</p>}
+				{!isLoading && !error && category && !categoryExists && (
+					<p className="alert alert-warning">This category is not available in the selected playlist.</p>
+				)}
+				<div className="text-center">
+					<img src="/freetv.png" width="250" alt="FreeTV Logo" title="FreeTV" className="category-view__logo" />
+				</div>
+			</div>
+		</section>
 	);
 }
