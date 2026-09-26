@@ -1,10 +1,22 @@
+import { useLocation } from 'preact-iso';
+import { useAppContext } from '../state/AppProvider';
+
 export function ShowTitleButton({ show, title = show?.title || 'Show Title' }) {
+	const { queueVideo } = useAppContext();
+	const { route } = useLocation();
+
+	function handleWatch() {
+		if (queueVideo(show)) route('/nowplaying');
+	}
+
 	return (
 		<div className="btn-group dropend show-title-button">
 			<button
 				type="button"
 				className="btn btn-sm btn-outline-dark show-title-button__title"
 				title={title}
+				aria-label={`Watch ${title}`}
+				onClick={handleWatch}
 			>
 				{title}
 			</button>

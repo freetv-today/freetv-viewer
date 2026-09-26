@@ -1,0 +1,268 @@
+.ftv-player {
+	position: fixed;
+	inset: 0;
+	z-index: 2000;
+	display: flex;
+	flex-direction: column;
+	background: #0d0d0d;
+	color: #e8e8e8;
+	font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.ftv-player-topbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	min-height: 3.25rem;
+	padding: 0 1rem;
+	background: #171717;
+	border-bottom: 1px solid #292929;
+}
+
+.ftv-player-topbar strong {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ftv-back {
+	flex: 0 0 auto;
+	border: 0;
+	background: transparent;
+	color: #ddd;
+	font: inherit;
+	cursor: pointer;
+}
+
+.ftv-back:hover { color: white; }
+.ftv-identifier { color: #999; font-size: 0.8rem; white-space: nowrap; }
+
+.ftv-message {
+	margin: auto;
+	padding: 2rem;
+	color: #ddd;
+	text-align: center;
+}
+
+.ftv-error { color: #ff9999; }
+
+.ftv-layout {
+	display: flex;
+	flex: 1;
+	gap: 0.65rem;
+	min-height: 0;
+	padding: 0.65rem;
+}
+
+.ftv-main {
+	display: flex;
+	flex: 1;
+	min-width: 0;
+	min-height: 0;
+	background: black;
+	border-radius: 0.5rem;
+	overflow: hidden;
+}
+
+.ftv-stage {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+	background: black;
+	cursor: pointer;
+}
+
+.ftv-stage video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background: black;
+	object-fit: contain;
+}
+
+.ftv-title-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	padding: 1.25rem 1.5rem 2.5rem;
+	background: linear-gradient(to bottom, rgb(0 0 0 / 78%), transparent);
+	pointer-events: none;
+}
+
+.ftv-title-overlay strong { font-size: 1.1rem; }
+.ftv-title-overlay span { color: #ccc; font-size: 0.82rem; }
+
+.ftv-media-status,
+.ftv-media-error {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 0.65rem 1rem;
+	border-radius: 0.3rem;
+	background: rgb(0 0 0 / 72%);
+	color: #eee;
+	text-align: center;
+}
+
+.ftv-media-error { color: #ffaaaa; }
+
+.ftv-bigplay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 4rem;
+	height: 4rem;
+	transform: translate(-50%, -50%);
+	border: 0;
+	border-radius: 50%;
+	background: rgb(20 20 20 / 76%);
+	color: white;
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+
+.ftv-bigplay:hover { background: rgb(60 60 60 / 90%); }
+
+.ftv-controls {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 2.25rem 1rem 0.65rem;
+	background: linear-gradient(to top, rgb(0 0 0 / 90%), transparent);
+	color: white;
+	user-select: none;
+}
+
+.ftv-seek {
+	display: block;
+	width: 100%;
+	height: 0.3rem;
+	margin: 0 0 0.6rem;
+	appearance: none;
+	border-radius: 1rem;
+	background: linear-gradient(to right, #f44 var(--ftv-progress), rgb(255 255 255 / 35%) var(--ftv-progress));
+	cursor: pointer;
+}
+
+.ftv-seek::-webkit-slider-thumb {
+	width: 0.75rem;
+	height: 0.75rem;
+	appearance: none;
+	border: 0;
+	border-radius: 50%;
+	background: #f44;
+}
+
+.ftv-seek::-moz-range-thumb {
+	width: 0.75rem;
+	height: 0.75rem;
+	border: 0;
+	border-radius: 50%;
+	background: #f44;
+}
+
+.ftv-buttons {
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+}
+
+.ftv-control {
+	min-width: 2.25rem;
+	padding: 0.4rem;
+	border: 0;
+	border-radius: 0.25rem;
+	background: transparent;
+	color: white;
+	cursor: pointer;
+}
+
+.ftv-control:hover:not(:disabled) { background: rgb(255 255 255 / 15%); }
+.ftv-control:disabled { opacity: 0.4; cursor: default; }
+.ftv-time { margin: 0 0.5rem; font-size: 0.8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ftv-controls-spacer { flex: 1; }
+.ftv-volume { width: clamp(3rem, 8vw, 6rem); }
+.ftv-rate-label select { padding: 0.25rem; border: 1px solid #555; border-radius: 0.25rem; background: #171717; color: white; }
+
+.ftv-sidebar {
+	display: flex;
+	flex: 0 0 clamp(16rem, 22vw, 21rem);
+	flex-direction: column;
+	min-height: 0;
+	border-radius: 0.5rem;
+	background: #171717;
+	overflow: hidden;
+}
+
+.ftv-playlist-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	padding: 0.85rem 1rem;
+	border-bottom: 1px solid #333;
+}
+
+.ftv-playlist-header strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ftv-playlist-header span { flex: 0 0 auto; color: #aaa; font-size: 0.8rem; }
+
+.ftv-playlist {
+	flex: 1;
+	min-height: 0;
+	margin: 0;
+	padding: 0.25rem 0;
+	list-style: none;
+	overflow-y: auto;
+}
+
+.ftv-episode {
+	display: flex;
+	align-items: baseline;
+	gap: 0.65rem;
+	width: 100%;
+	padding: 0.65rem 0.85rem;
+	border: 0;
+	border-left: 3px solid transparent;
+	background: transparent;
+	color: #e8e8e8;
+	text-align: left;
+	cursor: pointer;
+}
+
+.ftv-episode:hover { background: rgb(255 255 255 / 7%); }
+.ftv-episode.active { border-left-color: #f44; background: rgb(255 68 68 / 14%); }
+.ftv-episode-number { flex: 0 0 1.5rem; color: #aaa; text-align: right; font-variant-numeric: tabular-nums; }
+.ftv-episode.active .ftv-episode-number { color: #f66; }
+.ftv-episode-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ftv-episode-duration { flex: 0 0 auto; color: #aaa; font-size: 0.8rem; }
+
+.ftv-player-empty { align-items: center; justify-content: center; padding: 2rem; text-align: center; }
+.ftv-player-empty p { color: #ccc; }
+
+@media (max-width: 900px) {
+	.ftv-layout { flex-direction: column; }
+	.ftv-main { flex: 0 0 56vh; }
+	.ftv-sidebar { flex: 1 1 auto; min-height: 8rem; }
+}
+
+@media (max-width: 600px) {
+	.ftv-player-topbar { gap: 0.5rem; padding: 0 0.65rem; }
+	.ftv-identifier { display: none; }
+	.ftv-layout { gap: 0.4rem; padding: 0.4rem; }
+	.ftv-main { flex-basis: 48vh; }
+	.ftv-title-overlay { padding: 0.9rem 0.8rem 2rem; }
+	.ftv-title-overlay span { display: none; }
+	.ftv-controls { padding: 1.75rem 0.5rem 0.45rem; }
+	.ftv-volume { display: none; }
+	.ftv-time { margin: 0 0.2rem; font-size: 0.72rem; }
+	.ftv-control { min-width: 1.9rem; padding: 0.3rem; }
+}

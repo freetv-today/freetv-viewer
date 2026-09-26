@@ -1,5 +1,5 @@
 import { useMemo } from 'preact/hooks';
-import { ShowTitleButton } from '../components/ShowTitleButton';
+import { ShowTitleList } from '../components/ShowTitleList';
 import { capitalizeFirstLetter } from '../components/CategoryLabel';
 import { useAppContext } from '../state/AppProvider';
 
@@ -12,17 +12,13 @@ export function Category({ name }) {
 	const shows = useMemo(() => {
 		if (!category || !Array.isArray(catalog?.shows)) return [];
 
-		return catalog.shows
-			.filter((show) => show.category?.toLowerCase() === category.toLowerCase())
-			.sort((a, b) => a.title.replace(/^The\s+/i, '').localeCompare(b.title.replace(/^The\s+/i, '')));
+		return catalog.shows.filter((show) => show.category?.toLowerCase() === category.toLowerCase());
 	}, [catalog, category]);
 
 	return (
 		<section className="category-view">
 			<aside className="category-view__sidebar" aria-label={`${capitalizeFirstLetter(category)} shows`}>
-				{shows.map((show) => (
-					<ShowTitleButton key={show.identifier} show={show} />
-				))}
+				<ShowTitleList shows={shows} />
 				{!isLoading && !error && categoryExists && shows.length === 0 && (
 					<p className="text-secondary">No shows are available in this category.</p>
 				)}

@@ -12,6 +12,7 @@ import { Shows } from './pages/Shows';
 import { History } from './pages/History';
 import { Favorites } from './pages/Favorites';
 import { About } from './pages/About';
+import { NowPlaying } from './pages/NowPlaying';
 import { NotFound } from './pages/_404';
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,6 +35,7 @@ export function App() {
 							<History path="/history" />
 							<Favorites path="/favorites" />
 							<About path="/about" />
+							<NowPlaying path="/nowplaying" />
 							<Shows path="/shows" /> {/* <== Temporary page */}
 							<NotFound default /> {/* <== 404 page */}
 						</Router>
