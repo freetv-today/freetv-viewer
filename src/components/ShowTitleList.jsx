@@ -7,13 +7,13 @@ function sortKey(title = '') {
 	return title.replace(/^The\s+/i, '');
 }
 
-export function ShowTitleList({ shows }) {
+export function ShowTitleList({ shows, onFavoritesChange, preserveOrder = false, groupShows = true }) {
 	const grouped = new Map();
 	const items = [];
 
 	for (const show of shows) {
 		const groupName = typeof show.group === 'string' ? show.group.trim() : '';
-		if (!groupName) {
+		if (!groupShows || !groupName) {
 			items.push({ type: 'show', show, sortName: sortKey(show.title) });
 			continue;
 		}
@@ -32,14 +32,14 @@ export function ShowTitleList({ shows }) {
 		}
 	}
 
-	items.sort((a, b) => collator.compare(a.sortName, b.sortName));
+	if (!preserveOrder) items.sort((a, b) => collator.compare(a.sortName, b.sortName));
 
 	return (
 		<div className="show-title-list">
 			{items.map((item) => item.type === 'group' ? (
-				<ShowTitleGroup key={`group-${item.name}`} name={item.name} shows={item.shows} />
+				<ShowTitleGroup key={`group-${item.name}`} name={item.name} shows={item.shows} onFavoritesChange={onFavoritesChange} />
 			) : (
-				<ShowTitleButton key={item.show.identifier} show={item.show} />
+				<ShowTitleButton key={item.show.identifier} show={item.show} onFavoritesChange={onFavoritesChange} />
 			))}
 		</div>
 	);

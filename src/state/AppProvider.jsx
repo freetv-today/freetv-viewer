@@ -4,6 +4,7 @@ import { useLocation } from 'preact-iso';
 import { getCatalog } from '../data/catalog';
 import { getPlaylists } from '../data/playlists';
 import { getSite } from '../data/site';
+import { addRecentShow } from '../data/userLists';
 
 const AppContext = createContext(null);
 const PLAYLIST_STORAGE_KEY = 'freetv.currentPlaylist';
@@ -129,6 +130,7 @@ export function AppProvider({ children }) {
 
 	function queueVideo(show) {
 		if (!show?.identifier || !show?.title) return false;
+		addRecentShow(show);
 
 		const queuedVideo = {
 			identifier: show.identifier,

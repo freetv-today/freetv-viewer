@@ -1,12 +1,21 @@
 import { useLocation } from 'preact-iso';
+import { useState } from 'preact/hooks';
 import { useAppContext } from '../state/AppProvider';
+import { isFavoriteShow, toggleFavoriteShow } from '../data/userLists';
 
-export function ShowTitleButton({ show, title = show?.title || 'Show Title' }) {
+export function ShowTitleButton({ show, title = show?.title || 'Show Title', onFavoritesChange }) {
 	const { queueVideo } = useAppContext();
 	const { route } = useLocation();
+	const [isFavorite, setIsFavorite] = useState(() => isFavoriteShow(show));
 
 	function handleWatch() {
 		if (queueVideo(show)) route('/nowplaying');
+	}
+
+	function handleToggleFavorite() {
+		const result = toggleFavoriteShow(show);
+		setIsFavorite(result.isFavorite);
+		onFavoritesChange?.(result.shows);
 	}
 
 	return (
@@ -31,7 +40,9 @@ export function ShowTitleButton({ show, title = show?.title || 'Show Title' }) {
 			</button>
 			<ul className="dropdown-menu">
 				<li><button className="dropdown-item" type="button">About this show</button></li>
-				<li><button className="dropdown-item" type="button">Add to Favorites</button></li>
+				<li><button className="dropdown-item" type="button" onClick={handleToggleFavorite}>
+					{isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+				</button></li>
 				<li><button className="dropdown-item link-danger" type="button">Report a problem</button></li>
 				<li><button className="dropdown-item" type="button">Download files</button></li>
 			</ul>
