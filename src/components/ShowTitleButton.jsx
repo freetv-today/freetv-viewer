@@ -4,6 +4,10 @@ import { useAppContext } from '../state/AppProvider';
 import { capitalizeFirstLetter } from './CategoryLabel';
 import { isFavoriteShow, toggleFavoriteShow } from '../data/userLists';
 
+const REPORT_PROBLEM_URL = import.meta.env.DEV
+	? '/api/report-problem.php'
+	: 'https://freetv.today/api/report-problem.php';
+
 export function ShowTitleButton({ show, title = show?.title || 'Show Title', onFavoritesChange, onShowInfo }) {
 	const { queueVideo, currentPlaylist } = useAppContext();
 	const { route } = useLocation();
@@ -18,7 +22,7 @@ export function ShowTitleButton({ show, title = show?.title || 'Show Title', onF
 		setIsFavorite(result.isFavorite);
 		onFavoritesChange?.(result.shows);
 		if (result.isFavorite) {
-			setTimeout(() => window.alert('Show has been added to your Favorites'), 500);
+			setTimeout(() => window.alert(`${title} has been added to your Favorites`), 500);
 		}
 	}
 
@@ -36,7 +40,7 @@ export function ShowTitleButton({ show, title = show?.title || 'Show Title', onF
 		if (!window.confirm(confirmation)) return;
 
 		try {
-			const response = await fetch('/api/report-problem.php', {
+			const response = await fetch(REPORT_PROBLEM_URL, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
