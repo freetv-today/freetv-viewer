@@ -7,7 +7,7 @@ export function CategoryNav() {
     const { path } = useLocation();
     const error = initializationError || catalogError;
     const isLoading = isInitializing || isCatalogLoading;
-    const categoryMatch = path.match(/^\/category\/([^/]+)\/?$/i);
+    const categoryMatch = path.match(new RegExp(`^${import.meta.env.BASE_URL.replace(/\/$/, '')}/category/([^/]+)/?$`, 'i'));
     let activeCategory = '';
     if (categoryMatch) {
         try {

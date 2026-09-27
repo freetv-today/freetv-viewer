@@ -3,6 +3,7 @@ import { useLocation } from 'preact-iso';
 import { NavbarButton } from './NavbarButton';
 import { useAppContext } from '../state/AppProvider';
 import { getSearchValidationError } from '../data/search';
+import { appPath } from '../data/paths';
 
 export function Header() {
 	const { site, playlists, currentPlaylist, isInitializing, selectPlaylist } = useAppContext();
@@ -27,7 +28,7 @@ export function Header() {
 			document.getElementById('query')?.focus();
 			return;
 		}
-		route(`/search?q=${encodeURIComponent(trimmed)}`);
+		route(appPath(`/search?q=${encodeURIComponent(trimmed)}`));
 	}
 
 	return (
@@ -36,7 +37,7 @@ export function Header() {
 				<div className="container-fluid" style={{ minHeight: '50px' }}>
 
 					{/* Branding */}
-					<a className="navbar-brand" href="/" title={appName}>
+					<a className="navbar-brand" href={appPath()} title={appName}>
 						<img src={logoSrc} height="30" alt={appName} className="d-inline-block me-2 pb-1"/>
 						<span className="pt-5 text-secondary noselect">{appName}</span>
 					</a>
@@ -46,7 +47,7 @@ export function Header() {
 						{site?.navbar?.map((item) => (
 							<NavbarButton
 								key={item.url}
-								url={item.url}
+								url={appPath(item.url)}
 								label={item.label}
 								title={item.title}
 								icon={item.icon}

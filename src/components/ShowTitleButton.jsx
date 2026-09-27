@@ -3,6 +3,7 @@ import { useState } from 'preact/hooks';
 import { useAppContext } from '../state/AppProvider';
 import { capitalizeFirstLetter } from './CategoryLabel';
 import { isFavoriteShow, toggleFavoriteShow } from '../data/userLists';
+import { appPath } from '../data/paths';
 
 const REPORT_PROBLEM_URL = import.meta.env.DEV
 	? '/api/report-problem.php'
@@ -14,7 +15,7 @@ export function ShowTitleButton({ show, title = show?.title || 'Show Title', onF
 	const [isFavorite, setIsFavorite] = useState(() => isFavoriteShow(show));
 
 	function handleWatch() {
-		if (queueVideo(show)) route('/nowplaying');
+		if (queueVideo(show)) route(appPath('/nowplaying'));
 	}
 
 	function handleToggleFavorite() {

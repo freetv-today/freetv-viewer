@@ -4,6 +4,7 @@ import { isFavoriteShow, toggleFavoriteShow } from '../../data/userLists';
 import { EpisodeList } from './EpisodeList';
 import { PlayerControls } from './PlayerControls';
 import './player.css';
+import { appPath } from '../../data/paths';
 
 function releaseMedia(player) {
 	player.pause();
@@ -148,7 +149,7 @@ export function ArchivePlayer({ video, onBack }) {
 		<section className="ftv-player" aria-label={`Now playing ${video.title}`}>
 			<div className="ftv-player-topbar">
 				<button type="button" className="ftv-back" onClick={onBack} title="FreeTV">
-					<img src="/freetv-small.png" height="30" alt="FreeTV" className="d-inline-block me-2 pb-1"/>
+					<img src={appPath('freetv-small.png')} height="30" alt="FreeTV" className="d-inline-block me-2 pb-1"/>
 					<span className="noselect">FreeTV</span>
 				</button>
 				<span className="ms-auto">

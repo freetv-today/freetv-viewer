@@ -3,6 +3,7 @@ import { useLocation } from 'preact-iso';
 import { capitalizeFirstLetter } from '../components/CategoryLabel';
 import { searchShows } from '../data/search';
 import { useAppContext } from '../state/AppProvider';
+import { appPath } from '../data/paths';
 
 const titleCollator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 
@@ -31,7 +32,7 @@ export function SearchResults() {
 	}, [catalog, searchQuery]);
 
 	function playShow(show) {
-		if (queueVideo(show)) route('/nowplaying');
+		if (queueVideo(show)) route(appPath('/nowplaying'));
 	}
 
 	return (

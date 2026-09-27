@@ -1,4 +1,5 @@
 import { capitalizeFirstLetter } from './CategoryLabel';
+import { appPath, sharedPath } from '../data/paths';
 
 function ExternalLink({ href, children, title }) {
 	return (
@@ -14,7 +15,7 @@ export function ShowInfo({ show, onClose }) {
 	const airedYears = show.start && show.end && show.start !== show.end
 		? `${show.start}–${show.end}`
 		: show.start || show.end || 'Unknown';
-	const thumbnail = show.imdb ? `/thumbs/${show.imdb}.jpg` : '/freetv.png';
+	const thumbnail = show.imdb ? sharedPath(`../thumbs/${show.imdb}.jpg`) : appPath('freetv.png');
 
 	return (
 		<article className="show-info" aria-labelledby="show-info-title">
@@ -27,7 +28,7 @@ export function ShowInfo({ show, onClose }) {
 					className="show-info__thumbnail"
 					src={thumbnail}
 					alt={`${show.title} thumbnail`}
-					onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = '/freetv.png'; }}
+					onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = appPath('freetv.png'); }}
 				/>
 				<div className="show-info__details">
 					<p><strong>Category:</strong> {capitalizeFirstLetter(show.category || '') || 'Unknown'}</p>

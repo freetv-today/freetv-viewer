@@ -1,4 +1,5 @@
 import { CategoryNav } from '../components/CategoryNav';
+import { appPath } from '../data/paths';
 
 export function Home() {
 	
@@ -6,8 +7,8 @@ export function Home() {
 		<>
 			<CategoryNav />
 			<section className="container text-center">
-				<img src="/freetv.png" width="250" alt="FreeTV Logo" title="FreeTV" style={{ marginTop: '10vh' }}/>
-				<p className="my-4">View a <a href="/shows">list of FreeTV shows</a></p>
+				<img src={appPath('freetv.png')} width="250" alt="FreeTV Logo" title="FreeTV" style={{ marginTop: '10vh' }}/>
+				<p className="my-4">View a list of <a href={appPath('/shows')}>all shows</a> on the currently selected playlist</p>
 			</section>
 		</>
 	);

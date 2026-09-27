@@ -14,6 +14,7 @@ import { About } from './pages/About';
 import { SearchResults } from './pages/SearchResults';
 import { NowPlaying } from './pages/NowPlaying';
 import { NotFound } from './pages/_404';
+import { appPath } from './data/paths';
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
@@ -22,6 +23,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import './style.css';
 
 export function App() {
+
 	return (
 		<LocationProvider>
 			<ErrorBoundary>
@@ -29,15 +31,15 @@ export function App() {
 					<Header />
 					<main>
 						<Router>
-							<Home path="/" />
-							<Category path="/category/:name" />
-							<History path="/history" />
-							<SearchResults path="/search" />
-							<Favorites path="/favorites" />
-							<About path="/about" />
-							<NowPlaying path="/nowplaying" />
-							<Shows path="/shows" /> {/* <== Temporary page */}
-							<NotFound default /> {/* <== 404 page */}
+							<Home path={appPath()} />
+							<Category path={appPath('/category/:name')} />
+							<History path={appPath('/history')} />
+							<SearchResults path={appPath('/search')} />
+							<Favorites path={appPath('/favorites')} />
+							<About path={appPath('/about')} />
+							<NowPlaying path={appPath('/nowplaying')} />
+							<Shows path={appPath('/shows')} />
+							<NotFound default />
 						</Router>
 					</main>
 					<Footer />

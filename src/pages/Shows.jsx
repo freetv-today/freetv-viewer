@@ -34,9 +34,9 @@ export function Shows() {
                         <tbody>
                             {shows.map((show) => (
                                 <tr key={show.identifier}>
-                                    <th scope="row">{show.title}</th>
+                                    <th scope="row" style={{ minWidth: '200px' }}>{show.title}</th>
                                     <td className="text-capitalize">{show.category}</td>
-                                    <td>
+                                    <td style={{ minWidth: '100px' }}>
                                         {show.start}
                                         {show.end && show.end !== show.start
                                             ? `–${show.end}`

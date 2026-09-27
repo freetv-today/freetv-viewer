@@ -4,6 +4,7 @@ import { ShowInfo } from '../components/ShowInfo';
 import { capitalizeFirstLetter } from '../components/CategoryLabel';
 import { useAppContext } from '../state/AppProvider';
 import { CategoryNav } from '../components/CategoryNav';
+import { appPath } from '../data/paths';
 
 export function Category({ name }) {
 	const { categories, catalog, isInitializing, isCatalogLoading, initializationError, catalogError } = useAppContext();
@@ -52,7 +53,7 @@ export function Category({ name }) {
 							<p className="alert alert-warning">This category is not available in the selected playlist.</p>
 						)}
 						<div className="text-center">
-							<img src="/freetv.png" width="250" alt="FreeTV Logo" title="FreeTV" className="category-view__logo" />
+							<img src={appPath('freetv.png')} width="250" alt="FreeTV Logo" title="FreeTV" className="category-view__logo" />
 						</div>
 					</>
 				)}
