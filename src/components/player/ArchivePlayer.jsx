@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import { fetchArchivePlaylist } from '../../data/archiveMedia';
+import { isFavoriteShow, toggleFavoriteShow } from '../../data/userLists';
 import { EpisodeList } from './EpisodeList';
 import { PlayerControls } from './PlayerControls';
 import './player.css';
@@ -19,6 +20,8 @@ export function ArchivePlayer({ video, onBack }) {
 	const [error, setError] = useState('');
 	const [mediaError, setMediaError] = useState('');
 	const [playing, setPlaying] = useState(false);
+	const [isFullscreen, setIsFullscreen] = useState(false);
+	const [isFavorite, setIsFavorite] = useState(() => isFavoriteShow(video));
 	const [muted, setMuted] = useState(false);
 	const [volume, setVolume] = useState(0.9);
 	const [rate, setRate] = useState(1);
@@ -60,6 +63,16 @@ export function ArchivePlayer({ video, onBack }) {
 		if (videoRef.current) releaseMedia(videoRef.current);
 	}, []);
 
+	useEffect(() => {
+		function handleFullscreenChange() {
+			setIsFullscreen(Boolean(stageRef.current && document.fullscreenElement === stageRef.current));
+		}
+
+		document.addEventListener('fullscreenchange', handleFullscreenChange);
+		handleFullscreenChange();
+		return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+	}, []);
+
 	function togglePlay() {
 		const player = videoRef.current;
 		if (!player || mediaError) return;
@@ -70,6 +83,14 @@ export function ArchivePlayer({ video, onBack }) {
 	function selectEpisode(index) {
 		setEpisodeIndex(index);
 		setPlaying(false);
+	}
+
+	function handleToggleFavorite() {
+		const result = toggleFavoriteShow(video);
+		setIsFavorite(result.isFavorite);
+		if (result.isFavorite) {
+			setTimeout(() => window.alert(`${video.title} has been added to your Favorites`), 500);
+		}
 	}
 
 	function changeVolume(nextVolume) {
@@ -126,9 +147,23 @@ export function ArchivePlayer({ video, onBack }) {
 	return (
 		<section className="ftv-player" aria-label={`Now playing ${video.title}`}>
 			<div className="ftv-player-topbar">
-				<button type="button" className="ftv-back" onClick={onBack}>‹ <span>FreeTV Home</span></button>
-				<strong title={video.title}>{video.title}</strong>
-				<span className="ftv-identifier">Internet Archive: {video.identifier}</span>
+				<button type="button" className="ftv-back" onClick={onBack} title="FreeTV"> 
+					<img src="/freetv-small.png" height="30" alt="FreeTV" className="d-inline-block me-2 pb-1"/>
+					<span className="noselect">FreeTV</span>
+				</button>
+				{/* <strong title={video.title}>{video.title}</strong> */}
+				<span className="ms-auto">
+					<button
+						type="button"
+						className={`btn btn-outline-danger rounded-circle${isFavorite ? ' active' : ''}`}
+						aria-label={isFavorite ? `Remove ${video.title} from Favorites` : `Add ${video.title} to Favorites`}
+						aria-pressed={isFavorite}
+						title={isFavorite ? `Remove ${video.title} from Favorites` : `Add ${video.title} to Favorites`}
+						onClick={handleToggleFavorite}
+					>
+						<i className={`bi ${isFavorite ? 'bi-heart-fill' : 'bi-heart'}`} aria-hidden="true"></i>
+					</button>
+				</span>
 			</div>
 
 			{loading && <div className="ftv-message" role="status">Loading video information from Internet Archive…</div>}
@@ -164,7 +199,7 @@ export function ArchivePlayer({ video, onBack }) {
 								<button type="button" className="ftv-bigplay" onClick={(event) => { event.stopPropagation(); togglePlay(); }} aria-label="Play">▶</button>
 							)}
 							<PlayerControls
-								playing={playing} muted={muted} volume={volume} rate={rate} time={time}
+								playing={playing} muted={muted} volume={volume} rate={rate} time={time} isFullscreen={isFullscreen}
 								hasPrevious={episodeIndex > 0} hasNext={episodeIndex < playlist.episodes.length - 1}
 								onTogglePlay={togglePlay}
 								onSeek={(seconds) => { if (videoRef.current) videoRef.current.currentTime = seconds; }}
