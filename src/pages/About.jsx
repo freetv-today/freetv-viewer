@@ -30,7 +30,7 @@ export function About() {
 				FreeTV is licensed under the <a href="https://opensource.org/license/GPL-3.0" rel="noopener noreferrer" target="_blank">GNU General Public License version 3</a>.
 			</p>
 			<p className="mb-5">
-				GPL v3 Requirements:
+				About the GPLv3 License:
 				<ol>
 					<li>Anyone can copy, modify and distribute this software.</li>
 					<li>You have to include the license and copyright notice with each and every distribution.</li>
