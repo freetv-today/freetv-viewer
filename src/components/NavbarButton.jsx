@@ -30,7 +30,7 @@ export function NavbarButton({ url, label, title, icon, showNavLabel = false }) 
 		>
 			{icon && <i ref={iconRef} class={`bi ${icon} d-none`} aria-hidden="true" />}
 			{icon && <i class={`bi ${hasValidIcon === false ? 'bi-circle-fill' : icon}`} aria-hidden="true" />}
-			{displayLabel && <span>{label}</span>}
+			{displayLabel && <span className="noselect">{label}</span>}
 		</a>
 	);
 }
