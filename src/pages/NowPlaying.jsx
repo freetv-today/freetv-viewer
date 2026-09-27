@@ -11,14 +11,10 @@ export function NowPlaying() {
 			<section className="ftv-player ftv-player-empty">
 				<h1>No show is queued</h1>
 				<p>Choose a show from a category to start playback.</p>
-				<button type="button" className="btn btn-outline-light" onClick={() => route('/')}>Back to FreeTV</button>
+				<button type="button" className="btn btn-outline-light" onClick={() => route('/')}>FreeTV Home</button>
 			</section>
 		);
 	}
 
-	const categoryUrl = currentVideo.category
-		? `/category/${encodeURIComponent(currentVideo.category)}`
-		: '/';
-
-	return <ArchivePlayer video={currentVideo} onBack={() => route(categoryUrl)} />;
+	return <ArchivePlayer video={currentVideo} onBack={() => route('/')} />;
 }

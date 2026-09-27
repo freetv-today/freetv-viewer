@@ -126,7 +126,7 @@ export function ArchivePlayer({ video, onBack }) {
 	return (
 		<section className="ftv-player" aria-label={`Now playing ${video.title}`}>
 			<div className="ftv-player-topbar">
-				<button type="button" className="ftv-back" onClick={onBack}>‹ <span>Back to shows</span></button>
+				<button type="button" className="ftv-back" onClick={onBack}>‹ <span>FreeTV Home</span></button>
 				<strong title={video.title}>{video.title}</strong>
 				<span className="ftv-identifier">Internet Archive: {video.identifier}</span>
 			</div>
