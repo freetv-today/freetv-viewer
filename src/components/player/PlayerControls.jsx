@@ -22,18 +22,18 @@ export function PlayerControls({
 			/>
 			<div className="ftv-buttons">
 				<button type="button" className="ftv-control" onClick={onTogglePlay} aria-label={playing ? 'Pause' : 'Play'} title={playing ? 'Pause' : 'Play'}>
-					{playing ? <i class="bi bi-pause-btn-fill fs-2"></i> : <i class="bi bi-play-btn-fill fs-2"></i>}
+					{playing ? <i className="bi bi-pause-btn-fill fs-2"></i> : <i className="bi bi-play-btn-fill fs-2"></i>}
 				</button>
 				<button type="button" className="ftv-control" onClick={onPrevious} disabled={!hasPrevious} aria-label="Previous episode" title="Previous episode">
-					<i class="bi bi-rewind-btn-fill fs-2"></i>
+					<i className="bi bi-rewind-btn-fill fs-2"></i>
 				</button>
 				<button type="button" className="ftv-control" onClick={onNext} disabled={!hasNext} aria-label="Next episode" title="Next episode">
-					<i class="bi bi-fast-forward-btn-fill fs-2"></i>
+					<i className="bi bi-fast-forward-btn-fill fs-2"></i>
 				</button>
 				<span className="ftv-time">{formatDuration(time.current)} / {formatDuration(time.duration)}</span>
 				<span className="ftv-controls-spacer" />
 				<button type="button" className="ftv-control" onClick={onToggleMute} aria-label={muted ? 'Unmute' : 'Mute'} title={muted ? 'Unmute' : 'Mute'}>
-					{muted || volume === 0 ? <i class="bi bi-volume-mute-fill fs-2"></i> : <i class="bi bi-volume-up-fill fs-2"></i>}
+					{muted || volume === 0 ? <i className="bi bi-volume-mute-fill fs-2"></i> : <i className="bi bi-volume-up-fill fs-2"></i>}
 				</button>
 				<input
 					className="ftv-volume"
@@ -55,7 +55,7 @@ export function PlayerControls({
 					</select>
 				</label>
 				<button type="button" className="ftv-control" onClick={onFullscreen} aria-label={isFullscreen ? 'Exit fullscreen mode' : 'Enter fullscreen mode'} title={isFullscreen ? 'Exit fullscreen mode' : 'Enter fullscreen mode'}>
-					<i class={`bi ${isFullscreen ? 'bi-fullscreen-exit' : 'bi-fullscreen'} fs-3`}></i>
+					<i className={`bi ${isFullscreen ? 'bi-fullscreen-exit' : 'bi-fullscreen'} fs-3`}></i>
 				</button>
 			</div>
 		</div>

@@ -5,5 +5,5 @@ export function getCatalog(filename) {
 		return Promise.reject(new Error('No playlist catalog was selected.'));
 	}
 
-	return fetchPublicJson(`playlists/${encodeURIComponent(filename)}`);
+	return fetchPublicJson(`/playlists/${encodeURIComponent(filename)}`);
 }

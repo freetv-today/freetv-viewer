@@ -147,11 +147,10 @@ export function ArchivePlayer({ video, onBack }) {
 	return (
 		<section className="ftv-player" aria-label={`Now playing ${video.title}`}>
 			<div className="ftv-player-topbar">
-				<button type="button" className="ftv-back" onClick={onBack} title="FreeTV"> 
+				<button type="button" className="ftv-back" onClick={onBack} title="FreeTV">
 					<img src="/freetv-small.png" height="30" alt="FreeTV" className="d-inline-block me-2 pb-1"/>
 					<span className="noselect">FreeTV</span>
 				</button>
-				{/* <strong title={video.title}>{video.title}</strong> */}
 				<span className="ms-auto">
 					<button
 						type="button"
@@ -162,6 +161,9 @@ export function ArchivePlayer({ video, onBack }) {
 						onClick={handleToggleFavorite}
 					>
 						<i className={`bi ${isFavorite ? 'bi-heart-fill' : 'bi-heart'}`} aria-hidden="true"></i>
+					</button>
+					<button type="button" className="btn ms-1" onClick={onBack} title="Exit Player" aria-label="Exit Player">
+						<i class="bi bi-x-square text-danger fs-3"></i>
 					</button>
 				</span>
 			</div>
