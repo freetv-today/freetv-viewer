@@ -1,7 +1,7 @@
 import { useLocation } from 'preact-iso';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 
-export function NavbarButton({ url, label, title, icon, showNavLabel = false }) {
+export function NavbarButton({ url, label, title, icon, showNavLabel = false, onClick }) {
 
 	const [hasValidIcon, setHasValidIcon] = useState(null);
 	const iconRef = useRef(null);
@@ -23,6 +23,7 @@ export function NavbarButton({ url, label, title, icon, showNavLabel = false }) 
 	return (
 		<a
 			href={url}
+			onClick={onClick}
 			class={`btn btn-outline-secondary${isActive ? ' active' : ''} fw-bold me-2 navbar-button d-inline-flex align-items-center justify-content-center gap-1`}
 			aria-label={label}
 			aria-current={isActive ? 'page' : undefined}
@@ -30,7 +31,7 @@ export function NavbarButton({ url, label, title, icon, showNavLabel = false }) 
 		>
 			{icon && <i ref={iconRef} class={`bi ${icon} d-none`} aria-hidden="true" />}
 			{icon && <i class={`bi ${hasValidIcon === false ? 'bi-circle-fill' : icon}`} aria-hidden="true" />}
-			{displayLabel && <span className="noselect">{label}</span>}
+			{displayLabel && <span className="noselect navbar-button__label">{label}</span>}
 		</a>
 	);
 }

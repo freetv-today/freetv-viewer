@@ -18,7 +18,7 @@ export function ShowInfo({ show, onClose }) {
 	const thumbnail = show.imdb ? sharedPath(`../thumbs/${show.imdb}.jpg`) : appPath('freetv.png');
 
 	return (
-		<article className="show-info" aria-labelledby="show-info-title">
+		<article id="showinfo" className="show-info" aria-labelledby="show-info-title">
 			<div className="show-info__header">
 				<h2 id="show-info-title" className="h3 mb-0">{show.title}</h2>
 				<button type="button" className="btn-close" aria-label="Close show information" onClick={onClose} />

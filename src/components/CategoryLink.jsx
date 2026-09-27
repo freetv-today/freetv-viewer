@@ -5,7 +5,7 @@ export function CategoryLink({ category, isActive = false }) {
   return (
     <a
       href={appPath(`/category/${encodeURIComponent(category)}`)}
-      class={`btn btn-outline-secondary me-1${isActive ? ' active' : ''}`}
+      class={`btn btn-outline-secondary${isActive ? ' active' : ''}`}
       aria-current={isActive ? 'page' : undefined}
     >
       {capitalizeFirstLetter(category)}

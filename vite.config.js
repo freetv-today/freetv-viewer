@@ -36,6 +36,9 @@ function developmentReportProblemMock() {
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
 	base: command === 'serve' ? '/' : '/v4/',
+	server: {
+		host: '0.0.0.0'
+	},
 	plugins: [developmentReportProblemMock(), preact()],
 	define: {
 		'import.meta.env.VITE_APP_VERSION': JSON.stringify(pkg.version)

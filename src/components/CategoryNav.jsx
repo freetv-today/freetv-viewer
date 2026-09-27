@@ -18,8 +18,8 @@ export function CategoryNav() {
     }
 
     return (
-        <nav className="navbar border-bottom border-body" aria-label="Categories">
-            <div className="container-fluid justify-content-center flex-wrap gap-1">
+        <nav className="navbar category-nav border-bottom border-body" aria-label="Categories">
+            <div className="container-fluid category-nav__items">
                 {error && (
                     <span className="text-danger" role="alert">
                         {error}
