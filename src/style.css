@@ -22,7 +22,8 @@ body {
 
 .header__container {
 	position: relative;
-	min-height: 50px;
+	min-height: 30px;
+	max-height: 50px;
 }
 
 .header__menu {
@@ -48,7 +49,7 @@ body {
 }
 
 .category-nav {
-	padding: 0.35rem 0;
+	padding: 0 0 0.35rem;
 }
 
 .navbar.category-nav > .container-fluid.category-nav__items {
@@ -60,6 +61,7 @@ body {
 	gap: 0.25rem;
 	overflow-x: auto;
 	overflow-y: hidden;
+	padding-bottom: 0.5rem;
 	white-space: nowrap;
 }
 
@@ -224,7 +226,7 @@ body {
 	.header__menu.show,
 	.header__menu.collapsing {
 		position: absolute;
-		top: 100%;
+		top: calc(100% + 3px);
 		left: 0;
 		right: 0;
 		z-index: 1020;
@@ -259,9 +261,21 @@ body {
 		width: 1%;
 	}
 
-	.header__playlist,
-	.header__playlist .playlist-selector {
+	.header__playlist {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 		width: 100%;
+	}
+
+	.header__playlist-label {
+		flex: 0 0 auto;
+		white-space: nowrap;
+	}
+
+	.header__playlist .playlist-selector {
+		flex: 0 0 170px;
+		width: 170px;
 	}
 
 	.header__playlist .dropdown-menu {
@@ -271,6 +285,7 @@ body {
 
 	.category-nav__items {
 		justify-content: flex-start;
+		padding-bottom: 0.75rem;
 	}
 
 	.category-nav__items .btn {

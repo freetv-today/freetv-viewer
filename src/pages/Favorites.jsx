@@ -16,6 +16,13 @@ export function Favorites() {
 		}
 	}
 
+	function handleCloseShowInfo() {
+		setSelectedShow(null);
+		if (window.matchMedia('(max-width: 767.98px)').matches) {
+			requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+		}
+	}
+
 	return (
 		<section className="category-view">
 			<aside className="category-view__sidebar" aria-label="Favorite shows">
@@ -24,7 +31,7 @@ export function Favorites() {
 			</aside>
 			<div className="category-view__content" ref={infoRef}>
 				{selectedShow ? (
-					<ShowInfo show={selectedShow} onClose={() => setSelectedShow(null)} />
+					<ShowInfo show={selectedShow} onClose={handleCloseShowInfo} />
 				) : (
 					<>
 						<h1 className="text-center text-secondary fw-bold mt-4">Favorites</h1>

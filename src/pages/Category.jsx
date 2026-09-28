@@ -29,6 +29,13 @@ export function Category({ name }) {
 		}
 	}
 
+	function handleCloseShowInfo() {
+		setSelectedShow(null);
+		if (window.matchMedia('(max-width: 767.98px)').matches) {
+			requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+		}
+	}
+
 	return (
 	<>
 		<CategoryNav />
@@ -41,7 +48,7 @@ export function Category({ name }) {
 			</aside>
 			<div className="category-view__content" ref={infoRef}>
 				{selectedShow ? (
-					<ShowInfo show={selectedShow} onClose={() => setSelectedShow(null)} />
+					<ShowInfo show={selectedShow} onClose={handleCloseShowInfo} />
 				) : (
 					<>
 						<h1 className="text-center text-secondary fw-bold mt-4">
