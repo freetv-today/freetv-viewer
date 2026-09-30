@@ -34,8 +34,8 @@ function developmentReportProblemMock() {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => ({
-	base: command === 'serve' ? '/' : '/v4/',
+export default defineConfig({
+	base: '/',
 	server: {
 		host: '0.0.0.0'
 	},
@@ -43,4 +43,4 @@ export default defineConfig(({ command }) => ({
 	define: {
 		'import.meta.env.VITE_APP_VERSION': JSON.stringify(pkg.version)
 	}
-}));
+});

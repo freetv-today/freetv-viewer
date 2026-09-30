@@ -131,5 +131,6 @@ dist
 
 # Project specific stuff
 
+public/config.json
 public/playlists
 public/thumbs
