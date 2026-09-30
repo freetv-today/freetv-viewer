@@ -1,11 +1,16 @@
 import { useState } from 'preact/hooks';
 import { ShowTitleButton } from './ShowTitleButton';
+import { isShowDisabled } from '../data/showStatus';
 
 const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 
 export function ShowTitleGroup({ name, shows, onFavoritesChange, onShowInfo }) {
 	const [isExpanded, setIsExpanded] = useState(false);
-	const sortedShows = [...shows].sort((a, b) => collator.compare(a.title, b.title));
+	const sortedShows = shows
+		.filter((show) => !isShowDisabled(show))
+		.sort((a, b) => collator.compare(a.title, b.title));
+
+	if (sortedShows.length === 0) return null;
 
 	return (
 		<div className={`show-title-group${isExpanded ? ' is-expanded' : ''}`}>

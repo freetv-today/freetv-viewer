@@ -1,5 +1,6 @@
 import { ShowTitleButton } from './ShowTitleButton';
 import { ShowTitleGroup } from './ShowTitleGroup';
+import { isShowDisabled } from '../data/showStatus';
 
 const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
 
@@ -10,8 +11,9 @@ function sortKey(title = '') {
 export function ShowTitleList({ shows, onFavoritesChange, onShowInfo, preserveOrder = false, groupShows = true }) {
 	const grouped = new Map();
 	const items = [];
+	const visibleShows = shows.filter((show) => !isShowDisabled(show));
 
-	for (const show of shows) {
+	for (const show of visibleShows) {
 		const groupName = typeof show.group === 'string' ? show.group.trim() : '';
 		if (!groupShows || !groupName) {
 			items.push({ type: 'show', show, sortName: sortKey(show.title) });
