@@ -111,7 +111,7 @@ Build the Viewer frontend with:
 npm run build
 ```
 
-The frontend build is written to `dist/`. It contains the Viewer application, branding assets and settings, SPA routing rules, and the temporary migration worker. It does not include published playlists, thumbnails, the Admin Dashboard, or the PHP API.
+The frontend build is written to `dist/`. It contains the Viewer application, branding assets and settings, the Apache `.htaccess` SPA routing rules, and the temporary migration worker. This lets the Viewer be deployed as a standalone app. Tooling validates and includes the same routing file in the complete production assembly. The frontend build does not include published playlists, thumbnails, the Admin Dashboard, or the PHP API.
 
 To build and verify the complete FreeTV production package, run `npm run build:all` from `freetv-tooling`. Tooling combines the Viewer and Admin frontend builds, PHP runtime, and current published data. It creates local files only; deployment is a separate operation.
 
