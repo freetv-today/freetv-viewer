@@ -5,6 +5,7 @@ import { getCatalog } from '../data/catalog';
 import { getPlaylists } from '../data/playlists';
 import { getSite } from '../data/site';
 import { addRecentShow } from '../data/userLists';
+import { appPath } from '../data/paths';
 
 const AppContext = createContext(null);
 const PLAYLIST_STORAGE_KEY = 'freetv.currentPlaylist';
@@ -22,7 +23,7 @@ function readCurrentVideo() {
 }
 
 export function AppProvider({ children }) {
-	const { path } = useLocation();
+	const { path, route } = useLocation();
 	const [site, setSite] = useState(null);
 	const [playlists, setPlaylists] = useState([]);
 	const [currentPlaylist, setCurrentPlaylist] = useState(null);
@@ -126,6 +127,7 @@ export function AppProvider({ children }) {
 		}
 
 		setCurrentPlaylist(selectedPlaylist);
+		route(appPath());
 	}
 
 	function queueVideo(show) {

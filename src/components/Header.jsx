@@ -43,12 +43,12 @@ export function Header() {
 	return (
 		<header>
 			<nav className="navbar fixed-top navbar-dark bg-dark" aria-label="Main navigation">
-				<div className="container-fluid header__container">
+				<div className="container-fluid header__container align-items-center">
 
 					{/* Branding */}
-					<a className="navbar-brand mb-0" href={appPath()} title={appName} onClick={closeMobileMenu}>
-						<img src={logoSrc} height="30" alt={appName} className="d-inline-block me-2 pb-1"/>
-						<span className="pt-5 text-secondary noselect">{appName}</span>
+					<a className="navbar-brand mb-0 d-flex align-items-center" href={appPath()} title={appName} onClick={closeMobileMenu}>
+						<img src={logoSrc} height="30" alt={appName} className="d-inline-block me-2"/>
+						<span className="text-secondary noselect">{appName}</span>
 					</a>
 
 					{/* Toggle Menu (Hamburger) */}
@@ -65,7 +65,7 @@ export function Header() {
 						<span className="navbar-toggler-icon" />
 					</button>
 
-					<div id="primary-navigation" className="collapse header__menu d-md-flex pb-4">
+					<div id="primary-navigation" className="collapse header__menu d-md-flex">
 
 						{/* Navbar Buttons */}
 						<div className="header__nav-links order-2 order-md-1">
