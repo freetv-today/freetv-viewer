@@ -21,6 +21,7 @@ export function ArchivePlayer({ video, onBack }) {
 	const [error, setError] = useState('');
 	const [mediaError, setMediaError] = useState('');
 	const [playing, setPlaying] = useState(false);
+	const [controlsVisible, setControlsVisible] = useState(true);
 	const [isFullscreen, setIsFullscreen] = useState(false);
 	const [isFavorite, setIsFavorite] = useState(() => isFavoriteShow(video));
 	const [muted, setMuted] = useState(false);
@@ -30,6 +31,30 @@ export function ArchivePlayer({ video, onBack }) {
 	const videoRef = useRef(null);
 	const stageRef = useRef(null);
 	const episode = playlist?.episodes[episodeIndex];
+	const controlsTimerRef = useRef(null);
+	const lastStageTapRef = useRef(0);
+
+	function handleStageTouch(event) {
+		showControls();
+		if (event.target.closest?.('.ftv-controls')) return;
+		const now = Date.now();
+		if (now - lastStageTapRef.current < 350) {
+			lastStageTapRef.current = 0;
+			toggleFullscreen();
+		} else lastStageTapRef.current = now;
+	}
+
+	const showControls = useCallback(() => {
+		setControlsVisible(true);
+		clearTimeout(controlsTimerRef.current);
+		if (playing) {
+			controlsTimerRef.current = setTimeout(() => {
+				const focusedElement = document.activeElement;
+				const keyboardFocused = stageRef.current?.contains(focusedElement) && focusedElement.matches(':focus-visible');
+				if (!keyboardFocused) setControlsVisible(false);
+			}, 3000);
+		}
+	}, [playing]);
 	const setVideoElement = useCallback((element) => {
 		if (!element && videoRef.current) releaseMedia(videoRef.current);
 		videoRef.current = element;
@@ -62,7 +87,17 @@ export function ArchivePlayer({ video, onBack }) {
 
 	useEffect(() => () => {
 		if (videoRef.current) releaseMedia(videoRef.current);
+		clearTimeout(controlsTimerRef.current);
 	}, []);
+
+	useEffect(() => {
+		if (playing) showControls();
+		else {
+			clearTimeout(controlsTimerRef.current);
+			setControlsVisible(true);
+		}
+		return () => clearTimeout(controlsTimerRef.current);
+	}, [playing, showControls]);
 
 	useEffect(() => {
 		function handleFullscreenChange() {
@@ -73,6 +108,20 @@ export function ArchivePlayer({ video, onBack }) {
 		handleFullscreenChange();
 		return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
 	}, []);
+
+	useEffect(() => {
+		function handlePlayerKeyDown(event) {
+			if (event.code !== 'Space' || event.repeat || event.altKey || event.ctrlKey || event.metaKey) return;
+			const target = event.target;
+			if (target instanceof HTMLElement && (target.isContentEditable || target.matches('input, select, textarea, button, [role="slider"]'))) return;
+			event.preventDefault();
+			showControls();
+			togglePlay();
+		}
+
+		document.addEventListener('keydown', handlePlayerKeyDown);
+		return () => document.removeEventListener('keydown', handlePlayerKeyDown);
+	}, [showControls]);
 
 	function togglePlay() {
 		const player = videoRef.current;
@@ -175,7 +224,7 @@ export function ArchivePlayer({ video, onBack }) {
 			{playlist && (
 				<div className="ftv-layout">
 					<div className="ftv-main">
-						<div className="ftv-stage" ref={stageRef} onClick={togglePlay}>
+						<div className={`ftv-stage${controlsVisible ? '' : ' ftv-controls-hidden'}`} ref={stageRef} onClick={(event) => { if (event.detail === 1) togglePlay(); }} onDblClick={(event) => { if (event.target.closest?.('.ftv-controls')) return; event.preventDefault(); togglePlay(); toggleFullscreen(); }} onPointerMove={showControls} onTouchStart={handleStageTouch} onFocusIn={showControls}>
 							<video
 								ref={setVideoElement}
 								key={episode?.url}
@@ -202,6 +251,7 @@ export function ArchivePlayer({ video, onBack }) {
 								<button type="button" className="ftv-bigplay" onClick={(event) => { event.stopPropagation(); togglePlay(); }} aria-label="Play">▶</button>
 							)}
 							<PlayerControls
+								controlsVisible={controlsVisible}
 								playing={playing} muted={muted} volume={volume} rate={rate} time={time} isFullscreen={isFullscreen}
 								hasPrevious={episodeIndex > 0} hasNext={episodeIndex < playlist.episodes.length - 1}
 								onTogglePlay={togglePlay}

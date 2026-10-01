@@ -1,13 +1,13 @@
 import { formatDuration } from '../../data/archiveMedia';
 
 export function PlayerControls({
-	playing, muted, volume, rate, time, hasPrevious, hasNext,
+	controlsVisible, playing, muted, volume, rate, time, hasPrevious, hasNext,
 	isFullscreen, onTogglePlay, onSeek, onToggleMute, onVolume, onRate, onFullscreen, onPrevious, onNext,
 }) {
 	const progress = time.duration ? (time.current / time.duration) * 100 : 0;
 
 	return (
-		<div className="ftv-controls" onClick={(event) => event.stopPropagation()}>
+		<div className={`ftv-controls${controlsVisible ? '' : ' is-hidden'}`} onClick={(event) => event.stopPropagation()}>
 			<input
 				className="ftv-seek"
 				type="range"
