@@ -241,7 +241,7 @@ export function ArchivePlayer({ video, onBack }) {
 							>
 								<source src={episode?.url} type={episode?.type} />
 							</video>
-							<div className="ftv-title-overlay" aria-live="polite">
+							<div className={`ftv-title-overlay${controlsVisible ? '' : ' is-hidden'}`} aria-live="polite">
 								<strong>{episode?.title || video.title}</strong>
 								<span>{video.title} · Video {episodeIndex + 1} of {playlist.episodes.length}</span>
 							</div>

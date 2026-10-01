@@ -93,6 +93,12 @@
 	padding: 1.25rem 1.5rem 2.5rem;
 	background: linear-gradient(to bottom, rgb(0 0 0 / 78%), transparent);
 	pointer-events: none;
+	transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.ftv-title-overlay.is-hidden {
+	opacity: 0;
+	visibility: hidden;
 }
 
 .ftv-title-overlay strong { font-size: 1.1rem; }
@@ -149,7 +155,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.ftv-controls { transition: none; }
+	.ftv-controls,
+	.ftv-title-overlay { transition: none; }
 }
 
 .ftv-seek {
