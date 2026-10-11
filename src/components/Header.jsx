@@ -32,6 +32,14 @@ export function Header() {
 		closeMobileMenu();
 	}
 
+	function handleSearchInput(event) {
+		const value = event.currentTarget.value;
+		setSearchText(value);
+		if (!value && query.q) {
+			route(appPath('/search'));
+		}
+	}
+
 	function closeMobileMenu() {
 		if (!window.matchMedia('(max-width: 767.98px)').matches) return;
 		const menu = document.getElementById('primary-navigation');
@@ -91,7 +99,7 @@ export function Header() {
 								placeholder="Search"
 								aria-label="Search shows"
 								value={searchText}
-								onInput={(event) => setSearchText(event.currentTarget.value)}
+								onInput={handleSearchInput}
 							/>
 							<button className="btn btn-sm btn-outline-secondary" type="submit">Go</button>
 						</form>

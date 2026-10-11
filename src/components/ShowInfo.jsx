@@ -38,7 +38,7 @@ export function ShowInfo({ show, onClose }) {
 					</div>
 					<p><strong>Originally aired:</strong> {airedYears}</p>
 					<ul className="show-info__links">
-						{show.imdb && (
+						{show.imdb && show.imdb !== 'tt000000' && (
 							<li><ExternalLink href={`https://www.imdb.com/title/${encodeURIComponent(show.imdb)}/`} title="View this show on IMDb">IMDb page</ExternalLink></li>
 						)}
 						<li><ExternalLink href={`https://archive.org/details/${encodeURIComponent(show.identifier)}`} title="View this show on the Internet Archive">Internet Archive</ExternalLink></li>
