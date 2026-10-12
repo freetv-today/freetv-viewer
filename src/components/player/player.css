@@ -220,6 +220,31 @@
 	overflow: hidden;
 }
 
+.ftv-sidebar-divider {
+	display: flex;
+	flex: 0 0 0.75rem;
+	align-items: center;
+	justify-content: center;
+	margin: 0 -0.45rem;
+	border-radius: 0.25rem;
+	color: #777;
+	cursor: col-resize;
+	touch-action: none;
+	user-select: none;
+}
+
+.ftv-sidebar-divider::before {
+	content: "";
+	width: 0.2rem;
+	height: 2rem;
+	border-right: 2px dotted currentColor;
+	border-left: 2px dotted currentColor;
+}
+
+.ftv-sidebar-divider:hover,
+.ftv-sidebar-divider:focus-visible { color: #ddd; background: rgb(255 255 255 / 8%); outline: none; }
+.ftv-sidebar-divider:active { color: #f66; }
+
 .ftv-playlist-header {
 	display: flex;
 	align-items: center;
@@ -269,6 +294,7 @@
 	.ftv-layout { flex-direction: column; }
 	.ftv-main { flex: 0 0 56vh; }
 	.ftv-sidebar { flex: 1 1 auto; min-height: 8rem; }
+	.ftv-sidebar-divider { display: none; }
 }
 
 @media (max-width: 600px) {

@@ -1,6 +1,6 @@
-export function EpisodeList({ title, episodes, current, onSelect }) {
+export function EpisodeList({ title, episodes, current, onSelect, style }) {
 	return (
-		<aside className="ftv-sidebar" aria-label="Episodes">
+		<aside className="ftv-sidebar" aria-label="Episodes" style={style}>
 			<div className="ftv-playlist-header">
 				<strong title={title}>{title}</strong>
 				<span>{episodes.length} {episodes.length === 1 ? 'video' : 'videos'}</span>
@@ -15,7 +15,7 @@ export function EpisodeList({ title, episodes, current, onSelect }) {
 							onClick={() => onSelect(index)}
 						>
 							<span className="ftv-episode-number">{index + 1}</span>
-							<span className="ftv-episode-title">{episode.title}</span>
+							<span className="ftv-episode-title" title={episode.title}>{episode.title}</span>
 							{episode.duration && <span className="ftv-episode-duration">{episode.duration}</span>}
 						</button>
 					</li>

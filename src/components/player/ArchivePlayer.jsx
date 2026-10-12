@@ -33,6 +33,34 @@ export function ArchivePlayer({ video, onBack }) {
 	const episode = playlist?.episodes[episodeIndex];
 	const controlsTimerRef = useRef(null);
 	const lastStageTapRef = useRef(0);
+	const layoutRef = useRef(null);
+	const draggingDividerRef = useRef(false);
+	const [sidebarWidth, setSidebarWidth] = useState(null);
+
+	function resizeSidebar(clientX) {
+		const layout = layoutRef.current;
+		if (!layout) return;
+		const bounds = layout.getBoundingClientRect();
+		const minWidth = 240;
+		const maxWidth = Math.min(bounds.width * 0.45, 640);
+		setSidebarWidth(Math.max(minWidth, Math.min(maxWidth, bounds.right - clientX)));
+	}
+
+	function handleDividerPointerDown(event) {
+		if (event.button !== 0) return;
+		event.preventDefault();
+		draggingDividerRef.current = true;
+		event.currentTarget.setPointerCapture(event.pointerId);
+	}
+
+	function handleDividerPointerMove(event) {
+		if (draggingDividerRef.current) resizeSidebar(event.clientX);
+	}
+
+	function handleDividerPointerUp(event) {
+		draggingDividerRef.current = false;
+		if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+	}
 
 	function handleStageTouch(event) {
 		showControls();
@@ -222,7 +250,7 @@ export function ArchivePlayer({ video, onBack }) {
 			{error && <div className="ftv-message ftv-error" role="alert">{error}</div>}
 
 			{playlist && (
-				<div className="ftv-layout">
+				<div className="ftv-layout" ref={layoutRef}>
 					<div className="ftv-main">
 						<div className={`ftv-stage${controlsVisible ? '' : ' ftv-controls-hidden'}`} ref={stageRef} onClick={(event) => { if (event.detail === 1) togglePlay(); }} onDblClick={(event) => { if (event.target.closest?.('.ftv-controls')) return; event.preventDefault(); togglePlay(); toggleFullscreen(); }} onPointerMove={showControls} onTouchStart={handleStageTouch} onFocusIn={showControls}>
 							<video
@@ -263,7 +291,25 @@ export function ArchivePlayer({ video, onBack }) {
 							/>
 						</div>
 					</div>
-					<EpisodeList title={video.title} episodes={playlist.episodes} current={episodeIndex} onSelect={selectEpisode} />
+					<div
+						className="ftv-sidebar-divider"
+						role="separator"
+						aria-label="Resize episode sidebar"
+						aria-orientation="vertical"
+						tabIndex={0}
+						title="Drag to resize; double-click to reset"
+						onPointerDown={handleDividerPointerDown}
+						onPointerMove={handleDividerPointerMove}
+						onPointerUp={handleDividerPointerUp}
+						onPointerCancel={handleDividerPointerUp}
+						onDblClick={() => setSidebarWidth(null)}
+						onKeyDown={(event) => {
+							if (event.key === 'ArrowLeft') { event.preventDefault(); setSidebarWidth((width) => Math.max(240, (width || 320) - 24)); }
+							if (event.key === 'ArrowRight') { event.preventDefault(); setSidebarWidth((width) => Math.min(640, (width || 320) + 24)); }
+							if (event.key === 'Home') { event.preventDefault(); setSidebarWidth(null); }
+						}}
+					/>
+					<EpisodeList title={video.title} episodes={playlist.episodes} current={episodeIndex} onSelect={selectEpisode} style={sidebarWidth ? { flexBasis: `${sidebarWidth}px` } : undefined} />
 				</div>
 			)}
 
