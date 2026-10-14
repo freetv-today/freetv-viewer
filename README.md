@@ -141,7 +141,7 @@ Tooling installs disposable `config.json`, `playlists/`, and `thumbs/` data unde
 
 ## Related Repositories
 
-- [`freetv-server`](https://github.com/freetv-today/freetv-server) contains the Admin Dashboard, PHP API, and publication system.
+- [`freetv-admin`](https://github.com/freetv-today/freetv-admin) contains the Admin Dashboard, PHP API, and publication system.
 - [`freetv-data`](https://github.com/freetv-today/freetv-data) contains published datasets, playlists, thumbnails, and First Run packages.
 - [`freetv-tooling`](https://github.com/freetv-today/freetv-tooling) coordinates development, data workflows, builds, and production assembly.
 
